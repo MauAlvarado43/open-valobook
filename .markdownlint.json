@@ -1,0 +1,15 @@
+module.exports = {
+  extends: ['next/core-web-vitals'],
+  overrides: [
+    {
+      files: ['*.md'],
+      parser: 'eslint-plugin-markdownlint/parser',
+      extends: ['plugin:markdownlint/recommended'],
+      rules: {
+        'markdownlint/md013': 'off',
+        'markdownlint/md033': 'off',
+        'markdownlint/md041': 'off',
+      },
+    },
+  ],
+};
