@@ -1,12 +1,15 @@
 'use client';
 
 import { Stage, Layer, Image as KonvaImage, Rect } from 'react-konva';
-import { useRef, useState, useEffect } from 'react';
+import { memo, useRef, useState, useEffect } from 'react';
 import { useEditorStore } from '@/lib/store/editorStore';
 import useImage from 'use-image';
 import { DrawingElementRenderer } from './DrawingElementRenderer';
+import { AgentIcon } from './AgentIcon';
+import { AbilityIcon } from './AbilityIcon';
 import { ElementPropertiesPanel } from './ElementPropertiesPanel';
-import type { DrawingElement } from '@/types/strategy';
+import { getAbilityDefinition } from '@/lib/constants/abilityDefinitions';
+import type { DrawingElement, AgentPlacement, AbilityPlacement } from '@/types/strategy';
 import type Konva from 'konva';
 
 interface StrategyCanvasProps {
@@ -14,34 +17,44 @@ interface StrategyCanvasProps {
   height?: number;
 }
 
-function MapImage({ src, rotation }: { src: string; rotation: number }) {
+const MapImage = memo(function MapImage({ src, rotation }: { src: string; rotation: number }) {
   const [image] = useImage(src);
-  
+
   return (
-    <KonvaImage 
-      image={image} 
-      width={1024} 
+    <KonvaImage
+      image={image}
+      width={1024}
       height={768}
       rotation={rotation}
       offsetX={rotation !== 0 ? 1024 / 2 : 0}
       offsetY={rotation !== 0 ? 768 / 2 : 0}
       x={rotation !== 0 ? 1024 / 2 : 0}
       y={rotation !== 0 ? 768 / 2 : 0}
+      name="map-image"
+      listening={false}
+      perfectDrawEnabled={false}
     />
   );
-}
+});
 
 export function StrategyCanvas({ width = 1024, height = 768 }: StrategyCanvasProps) {
   const stageRef = useRef<Konva.Stage>(null);
-  const { 
-    selectedMap, 
-    canvasData, 
-    tool, 
+  const {
+    selectedMap,
+    canvasData,
+    tool,
     selectedElementId,
     selectedElementIds,
+    selectedAgentId,
+    selectedAbilityIcon,
+    selectedAbilityName,
+    selectedAbilitySubType,
+    selectedAbilityColor,
+    selectedAbilityIsGlobal,
     currentColor,
     strategySide,
     setTool,
+    setSelectedAbilityIcon,
     selectElement,
     toggleElementSelection,
     clearSelection,
@@ -49,17 +62,27 @@ export function StrategyCanvas({ width = 1024, height = 768 }: StrategyCanvasPro
     addElement,
     removeElement,
     undo,
-    redo 
+    redo
   } = useEditorStore();
-  
+
   const [isDrawing, setIsDrawing] = useState(false);
   const [currentShape, setCurrentShape] = useState<DrawingElement | null>(null);
   const [scale, setScale] = useState(1);
   const [selectionBox, setSelectionBox] = useState<{ x: number; y: number; width: number; height: number } | null>(null);
   const [isSelecting, setIsSelecting] = useState(false);
-  
+
+  // Helper function to calculate path distance
+  const calculatePathDistance = (points: number[]): number => {
+    let total = 0;
+    for (let i = 0; i < points.length - 2; i += 2) {
+      const dx = points[i + 2] - points[i];
+      const dy = points[i + 3] - points[i + 1];
+      total += Math.sqrt(dx * dx + dy * dy);
+    }
+    return total;
+  };
+
   // Maps that need rotation to be displayed correctly
-  // These rotations correct the base image orientation from the API
   const mapRotations: Record<string, number> = {
     'abyss': 90,
     'ascent': 90,
@@ -74,12 +97,11 @@ export function StrategyCanvas({ width = 1024, height = 768 }: StrategyCanvasPro
     'split': 90,
     'sunset': 0,
   };
-  
+
   const mapImageSrc = selectedMap
     ? `/assets/maps/${selectedMap}.png`
     : null;
-    
-  // Base rotation + 180 degrees if defense side
+
   const baseRotation = selectedMap ? (mapRotations[selectedMap] || 0) : 0;
   const mapRotation = baseRotation + (strategySide === 'defense' ? 180 : 0);
 
@@ -94,7 +116,6 @@ export function StrategyCanvas({ width = 1024, height = 768 }: StrategyCanvasPro
         undo();
       } else if (e.key === 'Delete') {
         e.preventDefault();
-        // Delete all selected elements
         if (selectedElementIds.length > 0) {
           selectedElementIds.forEach(id => removeElement(id));
         } else if (selectedElementId) {
@@ -108,22 +129,32 @@ export function StrategyCanvas({ width = 1024, height = 768 }: StrategyCanvasPro
   }, [undo, redo, selectedElementId, selectedElementIds, removeElement]);
 
   const handleMouseDown = (e: Konva.KonvaEventObject<MouseEvent>) => {
-    // Only left click
     if (e.evt.button !== 0) return;
-    
+
     const stage = e.target.getStage();
     if (!stage) return;
-    
-    const clickedOnStage = e.target === stage;
-    const elementId = e.target.id();
-    
-    // Prevent stage dragging if not in select mode and didn't click on stage
-    if (tool !== 'select' && !clickedOnStage) {
+
+    // Background is now either the stage itself OR anything not listening (since map-image is not listening)
+    const isBackground = e.target === stage || e.target.name() === 'map-image';
+    const isHandle = e.target.name() === 'edit-handle';
+
+    let elementId = '';
+    if (!isBackground && !isHandle) {
+      let curr: Konva.Node | null = e.target;
+      while (curr && curr !== stage) {
+        if (curr.id()) {
+          elementId = curr.id();
+          break;
+        }
+        curr = curr.parent;
+      }
+    }
+
+    if (tool !== 'select') {
       stage.stopDrag();
     }
-    
-    // Shift+Click on stage: start selection box
-    if (e.evt.shiftKey && clickedOnStage) {
+
+    if (e.evt.shiftKey && isBackground) {
       stage.stopDrag();
       const pos = stage.getPointerPosition();
       if (pos) {
@@ -136,42 +167,154 @@ export function StrategyCanvas({ width = 1024, height = 768 }: StrategyCanvasPro
       }
       return;
     }
-    
-    // Ctrl+Click: switch to select mode and select element
-    if (e.evt.ctrlKey && !clickedOnStage && elementId) {
+
+    if (e.evt.ctrlKey && !isBackground && elementId) {
       stage.stopDrag();
       setTool('select');
       selectElement(elementId);
       return;
     }
-    
-    // Shift+Click on element: multi-select
-    if (e.evt.shiftKey && !clickedOnStage && elementId) {
+
+    if (e.evt.shiftKey && !isBackground && elementId) {
       stage.stopDrag();
       toggleElementSelection(elementId);
       return;
     }
-    
-    // Click on stage (background): clear selection
-    if (clickedOnStage) {
+
+    if (tool === 'select' && elementId && !isHandle) {
+      // Special case: if clicking on a guided-path ability without a path, start drawing
+      const element = canvasData.elements.find(el => el.id === elementId);
+      if (element && element.type === 'ability') {
+        const abilityEl = element as AbilityPlacement;
+        if (abilityEl.subType === 'guided-path' && (!abilityEl.guidedPoints || abilityEl.guidedPoints.length < 4)) {
+          // Start drawing the guided path
+          setIsDrawing(true);
+          setCurrentShape({
+            ...abilityEl,
+            guidedPoints: [0, 0]
+          } as any);
+          return;
+        }
+      }
+      selectElement(elementId);
+    } else if (isBackground) {
       clearSelection();
-      // Continue to drawing logic below if not in select mode
     }
-    
-    // Regular select mode
+
     if (tool === 'select') return;
-    
+
     const pos = stage.getPointerPosition();
     if (!pos) return;
-    
-    // Adjust position for scale
+
     const adjustedPos = {
       x: (pos.x - stage.x()) / scale,
       y: (pos.y - stage.y()) / scale,
     };
-    
+
+    if (tool === 'agent' && selectedAgentId) {
+      const newId = `agent-${Date.now()}`;
+      const newAgent: AgentPlacement = {
+        id: newId,
+        type: 'agent',
+        agentId: selectedAgentId,
+        side: strategySide,
+        x: adjustedPos.x,
+        y: adjustedPos.y,
+      };
+      addElement(newAgent);
+      setTool('select');
+      selectElement(newId);
+      return;
+    }
+
+
+    if (tool === 'ability' && selectedAbilityIcon) {
+      // Handle guided-path abilities (pen-style: click and drag to draw)
+      if (selectedAbilitySubType === 'guided-path') {
+        setIsDrawing(true);
+        const newAbility: any = {
+          id: `ability-${Date.now()}`,
+          type: 'ability',
+          abilityIcon: selectedAbilityIcon,
+          subType: selectedAbilitySubType,
+          side: strategySide,
+          color: selectedAbilityColor || undefined,
+          x: adjustedPos.x,
+          y: adjustedPos.y,
+          rotation: 0,
+          scaleX: 1,
+          scaleY: 1,
+          guidedPoints: [0, 0], // Start at origin, will add points as user drags
+        };
+
+        setCurrentShape(newAbility);
+        return;
+      }
+
+      // Regular ability placement (non-guided-path)
+      const newId = `ability-${Date.now()}`;
+      const newAbility: AbilityPlacement = {
+        id: newId,
+        type: 'ability',
+        abilityIcon: selectedAbilityIcon,
+        subType: selectedAbilitySubType,
+        side: strategySide,
+        color: selectedAbilityColor || undefined,
+        isGlobal: selectedAbilityIsGlobal,
+        x: adjustedPos.x,
+        y: adjustedPos.y,
+        rotation: 0,
+        scaleX: 1,
+        scaleY: 1,
+      };
+
+      if (selectedAbilitySubType === 'wall' || selectedAbilitySubType === 'path' || selectedAbilitySubType === 'curved-wall') {
+        const def = getAbilityDefinition(selectedAbilityName || selectedAbilityIcon || '');
+        const isPath = selectedAbilitySubType === 'path';
+        const isCurvedWall = selectedAbilitySubType === 'curved-wall';
+
+        const length = isPath
+          ? (def?.defaultHeight || 400)
+          : (def?.defaultWidth || 300);
+
+        const thickness = isPath
+          ? (def?.defaultWidth || 80)
+          : 12;
+
+        // For curved walls, create intermediate points
+        if (isCurvedWall) {
+          // Get number of intermediate points from definition (default: 3)
+          const numIntermediatePoints = def?.intermediatePoints || 3;
+          const totalPoints = numIntermediatePoints + 2; // +2 for start and end
+          const step = length / (totalPoints - 1);
+
+          const points: number[] = [];
+          for (let i = 0; i < totalPoints; i++) {
+            points.push(step * i, 0);
+          }
+          newAbility.points = points;
+          // Store tension value from definition (default: 0.3 for smooth curves)
+          newAbility.tension = def?.tension !== undefined ? def.tension : 0.3;
+        } else {
+          newAbility.points = [0, 0, length, 0];
+        }
+        newAbility.width = thickness;
+      } else if (selectedAbilitySubType === 'smoke') {
+        const def = getAbilityDefinition(selectedAbilityName || selectedAbilityIcon || '');
+        newAbility.radius = def?.defaultRadius || 60;
+      } else if (selectedAbilitySubType === 'area') {
+        const def = getAbilityDefinition(selectedAbilityName || selectedAbilityIcon || '');
+        newAbility.radius = def?.defaultRadius || 80;
+      }
+
+      addElement(newAbility);
+      setTool('select');
+      setSelectedAbilityIcon(null);
+      selectElement(newId);
+      return;
+    }
+
     setIsDrawing(true);
-    
     const newShape: DrawingElement = {
       id: `element-${Date.now()}`,
       type: tool === 'pen' ? 'freehand' : (tool as DrawingElement['type']),
@@ -194,24 +337,20 @@ export function StrategyCanvas({ width = 1024, height = 768 }: StrategyCanvasPro
       newShape.text = 'Text';
       newShape.fontSize = 16;
     }
-
     setCurrentShape(newShape);
   };
 
   const handleMouseMove = (e: Konva.KonvaEventObject<MouseEvent>) => {
     const stage = e.target.getStage();
     if (!stage) return;
-    
     const pos = stage.getPointerPosition();
     if (!pos) return;
-    
-    // Adjust position for scale
+
     const adjustedPos = {
       x: (pos.x - stage.x()) / scale,
       y: (pos.y - stage.y()) / scale,
     };
-    
-    // Update selection box
+
     if (isSelecting && selectionBox) {
       setSelectionBox({
         x: selectionBox.x,
@@ -221,13 +360,26 @@ export function StrategyCanvas({ width = 1024, height = 768 }: StrategyCanvasPro
       });
       return;
     }
-    
+
     if (!isDrawing || !currentShape) return;
-    
     const dx = adjustedPos.x - currentShape.x;
     const dy = adjustedPos.y - currentShape.y;
 
-    if (tool === 'pen') {
+    // Handle guided-path (like pen but with distance limit)
+    if ((currentShape as any).subType === 'guided-path') {
+      const abilityShape = currentShape as any;
+      const def = getAbilityDefinition(selectedAbilityName || selectedAbilityIcon || '');
+      const maxDist = def?.maxDistance || 300;
+
+      const lastPoints = abilityShape.guidedPoints || [0, 0];
+      const newPoints = [...lastPoints, dx, dy];
+
+      // Check distance limit
+      const totalDistance = calculatePathDistance(newPoints);
+      if (totalDistance <= maxDist) {
+        setCurrentShape({ ...abilityShape, guidedPoints: newPoints });
+      }
+    } else if (tool === 'pen') {
       const lastPoint = currentShape.points || [0, 0];
       setCurrentShape({ ...currentShape, points: [...lastPoint, dx, dy] });
     } else if (tool === 'line' || tool === 'arrow') {
@@ -241,7 +393,6 @@ export function StrategyCanvas({ width = 1024, height = 768 }: StrategyCanvasPro
   };
 
   const handleMouseUp = () => {
-    // Complete selection box
     if (isSelecting && selectionBox) {
       const box = {
         x1: Math.min(selectionBox.x, selectionBox.x + selectionBox.width),
@@ -249,27 +400,29 @@ export function StrategyCanvas({ width = 1024, height = 768 }: StrategyCanvasPro
         x2: Math.max(selectionBox.x, selectionBox.x + selectionBox.width),
         y2: Math.max(selectionBox.y, selectionBox.y + selectionBox.height),
       };
-      
-      // Find all elements within selection box
       canvasData.elements.forEach((element) => {
-        if (element.type !== 'agent' && element.type !== 'ability') {
-          const elem = element as DrawingElement;
-          if (elem.x >= box.x1 && elem.x <= box.x2 && elem.y >= box.y1 && elem.y <= box.y2) {
-            toggleElementSelection(elem.id);
-          }
+        if (element.x >= box.x1 && element.x <= box.x2 && element.y >= box.y1 && element.y <= box.y2) {
+          toggleElementSelection(element.id);
         }
       });
-      
       setIsSelecting(false);
       setSelectionBox(null);
       return;
     }
-    
+
     if (!isDrawing || !currentShape) return;
-    
+
+    // Add the element and clean up
     addElement(currentShape);
     setIsDrawing(false);
     setCurrentShape(null);
+
+    // For guided-path, also switch to select mode and deselect ability
+    if ((currentShape as any).subType === 'guided-path') {
+      setTool('select');
+      setSelectedAbilityIcon(null);
+      selectElement(currentShape.id);
+    }
   };
 
   const handleElementDragEnd = (id: string) => (e: Konva.KonvaEventObject<DragEvent>) => {
@@ -278,19 +431,25 @@ export function StrategyCanvas({ width = 1024, height = 768 }: StrategyCanvasPro
       y: e.target.y(),
     });
   };
-  
+
   const handleWheel = (e: Konva.KonvaEventObject<WheelEvent>) => {
     e.evt.preventDefault();
-    
     const scaleBy = 1.05;
     const newScale = e.evt.deltaY < 0 ? scale * scaleBy : scale / scaleBy;
-    
-    // Limit zoom range
     const limitedScale = Math.max(0.5, Math.min(3, newScale));
-    
     setScale(limitedScale);
   };
-  
+
+  // Determine cursor style based on tool
+  const getCursorStyle = () => {
+    if (tool === 'ability' && selectedAbilityIcon) return 'crosshair';
+    if (tool === 'agent' && selectedAgentId) return 'crosshair';
+    if (tool === 'pen') return 'crosshair';
+    if (tool === 'text') return 'text';
+    if (tool === 'select') return 'default';
+    return 'crosshair';
+  };
+
   return (
     <div className="relative border border-gray-300 rounded-lg overflow-hidden bg-gray-900">
       <Stage
@@ -305,15 +464,38 @@ export function StrategyCanvas({ width = 1024, height = 768 }: StrategyCanvasPro
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
         onWheel={handleWheel}
+        style={{ cursor: getCursorStyle() }}
       >
         <Layer>
           {mapImageSrc && <MapImage src={mapImageSrc} rotation={mapRotation} />}
-          
+
           {canvasData.elements.map((element) => {
-            if (element.type === 'agent' || element.type === 'ability') {
-              return null;
+            if (element.type === 'agent') {
+              return (
+                <AgentIcon
+                  key={element.id}
+                  element={element as AgentPlacement}
+                  isSelected={element.id === selectedElementId || selectedElementIds.includes(element.id)}
+                  isDraggable={tool === 'select' || selectedElementIds.includes(element.id) || element.id === selectedElementId}
+                  onSelect={() => selectElement(element.id)}
+                  onDragEnd={handleElementDragEnd(element.id)}
+                />
+              );
             }
-            
+
+            if (element.type === 'ability') {
+              return (
+                <AbilityIcon
+                  key={element.id}
+                  element={element as AbilityPlacement}
+                  isSelected={element.id === selectedElementId || selectedElementIds.includes(element.id)}
+                  isDraggable={tool === 'select' || selectedElementIds.includes(element.id) || element.id === selectedElementId}
+                  onSelect={() => selectElement(element.id)}
+                  onDragEnd={handleElementDragEnd(element.id)}
+                />
+              );
+            }
+
             return (
               <DrawingElementRenderer
                 key={element.id}
@@ -327,17 +509,17 @@ export function StrategyCanvas({ width = 1024, height = 768 }: StrategyCanvasPro
               />
             );
           })}
-          
+
           {currentShape && (
             <DrawingElementRenderer
               element={currentShape}
               isSelected={false}
               isDraggable={false}
-              onSelect={() => {}}
-              onDragEnd={() => {}}
+              onSelect={() => { }}
+              onDragEnd={() => { }}
             />
           )}
-          
+
           {selectionBox && (
             <Rect
               x={selectionBox.x}
@@ -348,29 +530,30 @@ export function StrategyCanvas({ width = 1024, height = 768 }: StrategyCanvasPro
               strokeWidth={2 / scale}
               dash={[10 / scale, 5 / scale]}
               fill="rgba(66, 153, 225, 0.1)"
+              perfectDrawEnabled={false}
+              listening={false}
             />
           )}
         </Layer>
       </Stage>
-      
+
       {!selectedMap && (
         <div className="absolute inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
           <p className="text-white text-lg">Select a map to begin</p>
         </div>
       )}
-      
+
       {selectedMap && (
         <>
-          <div className={`absolute top-4 right-4 px-4 py-2 rounded-md font-bold text-white shadow-lg ${
-            strategySide === 'attack' ? 'bg-red-600' : 'bg-blue-600'
-          }`}>
+          <div className={`absolute top-4 right-4 px-4 py-2 rounded-md font-bold text-white shadow-lg ${strategySide === 'attack' ? 'bg-red-600' : 'bg-blue-600'
+            }`}>
             {strategySide === 'attack' ? '⚔️ ATTACK' : '🛡️ DEFENSE'}
           </div>
-          
+
           <div className="absolute bottom-4 right-4 px-3 py-1 rounded-md bg-gray-800 bg-opacity-90 text-white text-sm">
             Zoom: {Math.round(scale * 100)}%
           </div>
-          
+
           <ElementPropertiesPanel />
         </>
       )}

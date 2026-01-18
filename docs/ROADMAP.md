@@ -37,12 +37,14 @@ OpenValoBook is an open-source desktop application for creating and visualizing 
 - Side indicator (attack/defense)
 - Customizable colors
 
-### Phase 2: Abilities and Utilities
+### Phase 2: Abilities and Utilities ✅ MOSTLY COMPLETE
 
 **Ability Library**
-- Ability icons per agent (100+ downloaded)
-- Visual indicators (smoke, wall, molly, flash, etc.)
-- Customizable effect areas
+- ✅ Ability icons per agent (100+ downloaded)
+- ✅ Visual indicators (smoke, wall, molly, flash, etc.)
+- ✅ Customizable effect areas with editable handles
+- ✅ Curved-wall system with configurable tension and intermediate points
+- ✅ Guided-path system for free-form trajectories
 - Utility duration and timing
 
 **Advanced Layer System**
@@ -120,19 +122,15 @@ OpenValoBook/
 │   │   ├── layout.tsx
 │   │   └── page.tsx
 │   ├── components/
-│   │   ├── Editor/
-│   │   │   ├── Canvas.tsx
-│   │   │   ├── Toolbar.tsx
-│   │   │   ├── LayerPanel.tsx
-│   │   │   └── PropertiesPanel.tsx
-│   │   ├── Maps/
-│   │   │   └── MapSelector.tsx
-│   │   ├── Agents/
-│   │   │   ├── AgentSelector.tsx
-│   │   │   └── AgentIcon.tsx
-│   │   ├── Abilities/
-│   │   │   └── AbilitySelector.tsx
-│   │   └── shared/
+│   │   ├── StrategyCanvas.tsx
+│   │   ├── Toolbar.tsx
+│   │   ├── MapSelector.tsx
+│   │   ├── AgentSelector.tsx
+│   │   ├── AgentIcon.tsx
+│   │   ├── AbilityIcon.tsx
+│   │   ├── DrawingElementRenderer.tsx
+│   │   ├── ElementPropertiesPanel.tsx
+│   │   └── KonvaWarningSuppress.tsx
 │   ├── lib/
 │   │   ├── services/          # API clients
 │   │   ├── hooks/             # Custom React hooks
@@ -189,19 +187,30 @@ OpenValoBook/
 - [x] Asset download system (28 agents, 23 maps, 100+ abilities)
 - [x] Electron desktop app configuration
 - [x] Development scripts (bin/ folder with .bat and .sh)
-- [ ] Place agent icons
-- [ ] Place ability icons
-- [ ] Save strategy to localStorage
-- [ ] Export as PNG image
+- [x] Place agent icons
+- [x] Place ability icons
+
+### Milestone 1.5: Advanced Ability System 🚧 WIP
+
+- [x] Agent icon placement with side indicators
+- [x] Agent selector UI with all 28 agents
+- [x] Ability icon placement system
+- [x] Ability selector (filtered by agent)
+- [x] Visual effect indicators (smoke, wall, area, path)
+- [x] Curved-wall system with configurable intermediate points
+- [x] Tension control (straight vs curved lines)
+- [x] Ability-specific configurations (Deadlock Annihilation, Harbor High Tide)
+- [x] Editable handles for all ability shapes
+- [x] Guided-path system for free-form trajectories
 
 ### Milestone 2: Agent & Ability System
 
-- [ ] Agent icon placement on canvas
-- [ ] Agent selector UI
-- [ ] Ability icon placement
-- [ ] Ability selector (filtered by agent)
-- [ ] Visual effect indicators (smoke radius, wall placement, etc.)
-- [ ] Ability templates library
+- [x] Agent icon placement on canvas
+- [x] Agent selector UI
+- [x] Ability icon placement
+- [x] Ability selector (filtered by agent)
+- [x] Visual effect indicators (smoke radius, wall placement, etc.)
+- [ ] Duration and timing indicators
 
 ### Milestone 3: File Management
 

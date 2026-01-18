@@ -1,11 +1,11 @@
 import { create } from 'zustand';
-import type { 
-  CanvasData, 
-  MapName, 
-  StrategySide, 
-  AgentPlacement, 
-  AbilityPlacement, 
-  DrawingElement 
+import type {
+  CanvasData,
+  MapName,
+  StrategySide,
+  AgentPlacement,
+  AbilityPlacement,
+  DrawingElement
 } from '@/types/strategy';
 
 export interface EditorState {
@@ -13,21 +13,30 @@ export interface EditorState {
   selectedMap: MapName | null;
   strategySide: StrategySide;
   canvasData: CanvasData;
-  
+
   // Editor mode
   tool: 'select' | 'agent' | 'ability' | 'line' | 'arrow' | 'circle' | 'rectangle' | 'text' | 'pen';
   selectedElementId: string | null;
   selectedElementIds: string[];
+  selectedAgentId: string | null;
+  selectedAbilityIcon: string | null;
+  selectedAbilityName: string | null;
+  selectedAbilitySubType: 'default' | 'smoke' | 'wall' | 'curved-wall' | 'rect' | 'area' | 'path' | 'icon' | 'guided-path';
+  selectedAbilityColor: string | null;
+  selectedAbilityIsGlobal: boolean;
   currentColor: string;
-  
+
   // History
   history: CanvasData[];
   historyIndex: number;
-  
+
   // Actions
   setSelectedMap: (map: MapName) => void;
   setStrategySide: (side: StrategySide) => void;
   setTool: (tool: EditorState['tool']) => void;
+  setSelectedAgentId: (id: string | null) => void;
+  setSelectedAbilityIcon: (icon: string | null, name?: string | null, subType?: 'default' | 'smoke' | 'wall' | 'curved-wall' | 'rect' | 'area' | 'path' | 'icon' | 'guided-path', color?: string | null, isGlobal?: boolean) => void;
+  setSelectedAbilitySubType: (subType: 'default' | 'smoke' | 'wall' | 'curved-wall' | 'rect' | 'area' | 'path' | 'icon' | 'guided-path') => void;
   setCurrentColor: (color: string) => void;
   addElement: (element: AgentPlacement | AbilityPlacement | DrawingElement) => void;
   updateElement: (id: string, updates: Partial<AgentPlacement | AbilityPlacement | DrawingElement>) => void;
@@ -64,27 +73,46 @@ export const useEditorStore = create<EditorState>((set) => ({
   tool: 'select',
   selectedElementId: null,
   selectedElementIds: [],
+  selectedAgentId: null,
+  selectedAbilityIcon: null,
+  selectedAbilityName: null,
+  selectedAbilitySubType: 'default',
+  selectedAbilityColor: null,
+  selectedAbilityIsGlobal: false,
   currentColor: '#FF4655',
   history: [initialCanvasData],
   historyIndex: 0,
-  
+
   // Actions
   setSelectedMap: (map) =>
     set((state) => ({
       selectedMap: map,
       canvasData: { ...state.canvasData, mapName: map },
     })),
-    
+
   setStrategySide: (side) =>
     set((state) => ({
       strategySide: side,
       canvasData: { ...state.canvasData, side },
     })),
-    
+
   setTool: (tool) => set({ tool }),
-  
+
+  setSelectedAgentId: (id) => set({ selectedAgentId: id }),
+
+  setSelectedAbilityIcon: (icon, name = null, subType = 'default', color = null, isGlobal = false) =>
+    set({
+      selectedAbilityIcon: icon,
+      selectedAbilityName: name,
+      selectedAbilitySubType: subType as any,
+      selectedAbilityColor: color,
+      selectedAbilityIsGlobal: isGlobal
+    }),
+
+  setSelectedAbilitySubType: (subType: 'default' | 'smoke' | 'wall' | 'curved-wall' | 'rect' | 'area' | 'path' | 'icon' | 'guided-path') => set({ selectedAbilitySubType: subType }),
+
   setCurrentColor: (color) => set({ currentColor: color }),
-  
+
   addElement: (element) =>
     set((state) => {
       const newCanvasData = {
@@ -96,7 +124,7 @@ export const useEditorStore = create<EditorState>((set) => ({
         ...saveToHistory({ ...state, canvasData: newCanvasData }),
       };
     }),
-    
+
   updateElement: (id, updates) =>
     set((state) => {
       const newCanvasData = {
@@ -110,7 +138,7 @@ export const useEditorStore = create<EditorState>((set) => ({
         ...saveToHistory({ ...state, canvasData: newCanvasData }),
       };
     }),
-    
+
   removeElement: (id) =>
     set((state) => {
       const newCanvasData = {
@@ -124,9 +152,14 @@ export const useEditorStore = create<EditorState>((set) => ({
         ...saveToHistory({ ...state, canvasData: newCanvasData }),
       };
     }),
-    
-  selectElement: (id) => set({ selectedElementId: id, selectedElementIds: id ? [id] : [] }),
-  
+
+  selectElement: (id) => set((state) => {
+    if (state.selectedElementId === id && state.selectedElementIds.length === 1 && state.selectedElementIds[0] === id) {
+      return state;
+    }
+    return { selectedElementId: id, selectedElementIds: id ? [id] : [] };
+  }),
+
   toggleElementSelection: (id) =>
     set((state) => {
       const isSelected = state.selectedElementIds.includes(id);
@@ -138,9 +171,9 @@ export const useEditorStore = create<EditorState>((set) => ({
         selectedElementId: newSelection.length === 1 ? newSelection[0] : null,
       };
     }),
-    
+
   clearSelection: () => set({ selectedElementId: null, selectedElementIds: [] }),
-  
+
   clearCanvas: () =>
     set((state) => {
       const newCanvasData = {
@@ -153,7 +186,7 @@ export const useEditorStore = create<EditorState>((set) => ({
         ...saveToHistory({ ...state, canvasData: newCanvasData }),
       };
     }),
-    
+
   undo: () =>
     set((state) => {
       if (state.historyIndex <= 0) return {};
@@ -163,7 +196,7 @@ export const useEditorStore = create<EditorState>((set) => ({
         historyIndex: newIndex,
       };
     }),
-    
+
   redo: () =>
     set((state) => {
       if (state.historyIndex >= state.history.length - 1) return {};

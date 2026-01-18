@@ -92,8 +92,17 @@ export interface AgentPlacement extends CanvasElement {
 export interface AbilityPlacement extends CanvasElement {
   type: 'ability';
   abilityIcon: string;
+  side: StrategySide;
+  subType?: 'default' | 'smoke' | 'wall' | 'curved-wall' | 'rect' | 'area' | 'path' | 'icon' | 'guided-path';
   radius?: number;
   opacity?: number;
+  color?: string;
+  points?: number[]; // For wall/path
+  guidedPoints?: number[]; // For guided-path (free-form trajectory)
+  width?: number;
+  height?: number;
+  isGlobal?: boolean;
+  tension?: number; // For curved-wall: 0 = straight, 0.3 = smooth curves
 }
 
 /**
