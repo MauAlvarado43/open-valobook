@@ -2,6 +2,7 @@
 
 import { useEditorStore } from '@/lib/store/editorStore';
 import type { DrawingElement, AgentPlacement, AbilityPlacement, StrategySide } from '@/types/strategy';
+import { getAbilityDefinition, getMaxDimension, isFixedSize } from '@/lib/constants/abilityDefinitions';
 
 const colors = [
   { name: 'Valorant Red', value: '#FF4655' },
@@ -202,65 +203,49 @@ export function ElementPropertiesPanel() {
         {/* Ability Specific Controls (Radius, Width, Height) */}
         {selectedElements.some((el) => el.type === 'ability') && (
           <div className="space-y-3 pt-2 border-t border-gray-800">
-            {selectedElements.some((el) => el.type === 'ability' && (el as AbilityPlacement).subType === 'smoke' || (el as AbilityPlacement).subType === 'area') && (
+            {selectedElements.some((el) => el.type === 'ability' && ((el as AbilityPlacement).subType === 'smoke' || (el as AbilityPlacement).subType === 'area')) && (
               <div>
-                <label className="text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-1.5 block">Radius</label>
-                <div className="flex gap-1 flex-wrap mb-2">
-                  {[30, 45, 60, 80, 100, 150].map((r) => (
-                    <button
-                      key={r}
-                      onClick={() => selectedElementIds.forEach(id => updateElement(id, { radius: r }))}
-                      className="px-2 py-1 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded text-[10px] transition-colors"
-                    >
-                      {r}
-                    </button>
-                  ))}
-                </div>
-                <input
-                  type="range"
-                  min="10"
-                  max="400"
-                  step="5"
-                  title="Radius"
-                  value={(selectedElements.find(el => el.type === 'ability' && ('radius' in el)) as AbilityPlacement)?.radius || 60}
-                  onChange={(e) => {
-                    const radius = parseInt(e.target.value);
-                    selectedElementIds.forEach(id => updateElement(id, { radius }));
-                  }}
-                  className="w-full h-1.5 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-blue-500"
-                />
-              </div>
-            )}
+                {(() => {
+                  const abilityEl = selectedElements.find(el => el.type === 'ability' && ('radius' in el)) as AbilityPlacement;
+                  const def = getAbilityDefinition(abilityEl?.abilityName || abilityEl?.abilityIcon || '');
+                  const fixed = isFixedSize(def, 'radius');
 
-            {selectedElements.some((el) => el.type === 'ability' && (['wall', 'path', 'rect'].includes((el as AbilityPlacement).subType || ''))) && (
-              <div>
-                <label className="text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-1.5 block">
-                  {selectedElements.some(el => (el as AbilityPlacement).subType === 'path') ? 'Path Width' : 'Thickness'}
-                </label>
-                <div className="flex gap-1 flex-wrap mb-2">
-                  {[2, 4, 8, 12, 16, 24, 48, 80].map((w) => (
-                    <button
-                      key={w}
-                      onClick={() => selectedElementIds.forEach(id => updateElement(id, { width: w }))}
-                      className="px-2 py-1 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded text-[10px] transition-colors"
-                    >
-                      {w}
-                    </button>
-                  ))}
-                </div>
-                <input
-                  type="range"
-                  min="2"
-                  max="300"
-                  step="2"
-                  title="Thickness"
-                  value={(selectedElements.find(el => el.type === 'ability' && ('width' in el)) as AbilityPlacement)?.width || 12}
-                  onChange={(e) => {
-                    const width = parseInt(e.target.value);
-                    selectedElementIds.forEach(id => updateElement(id, { width }));
-                  }}
-                  className="w-full h-1.5 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-blue-500"
-                />
+                  return (
+                    <>
+                      <label className="text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-1.5 block">
+                        Radius {fixed ? '(Fixed)' : ''}
+                      </label>
+                      {!fixed && (
+                        <>
+                          <div className="flex gap-1 flex-wrap mb-2">
+                            {[30, 45, 60, 80, 100, 150].map((r) => (
+                              <button
+                                key={r}
+                                onClick={() => selectedElementIds.forEach(id => updateElement(id, { radius: r }))}
+                                className="px-2 py-1 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded text-[10px] transition-colors"
+                              >
+                                {r}
+                              </button>
+                            ))}
+                          </div>
+                          <input
+                            type="range"
+                            min="10"
+                            max={getMaxDimension(def, 'radius')}
+                            step="5"
+                            title="Radius"
+                            value={abilityEl?.radius || 60}
+                            onChange={(e) => {
+                              const radius = parseInt(e.target.value);
+                              selectedElementIds.forEach(id => updateElement(id, { radius }));
+                            }}
+                            className="w-full h-1.5 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-blue-500"
+                          />
+                        </>
+                      )}
+                    </>
+                  );
+                })()}
               </div>
             )}
 
@@ -280,6 +265,84 @@ export function ElementPropertiesPanel() {
                   }}
                   className="w-full h-1.5 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-blue-500"
                 />
+              </div>
+            )}
+
+            {/* Intermediate Points control for curved-wall */}
+            {selectedElements.some((el) => el.type === 'ability' && (el as AbilityPlacement).subType === 'curved-wall') && (
+              <div>
+                <label className="text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-1.5 block">Intermediate Points</label>
+                <div className="flex gap-1 flex-wrap">
+                  {[0, 1, 2, 3, 4, 5, 6, 8, 10].map((num) => {
+                    const currentCount = (selectedElements.find(el => el.type === 'ability' && (el as AbilityPlacement).subType === 'curved-wall') as AbilityPlacement)?.intermediatePoints ?? 0;
+                    const isActive = currentCount === num;
+
+                    return (
+                      <button
+                        key={num}
+                        onClick={() => {
+                          selectedElementIds.forEach(id => {
+                            const el = selectedElements.find(e => e.id === id) as AbilityPlacement;
+                            if (el && el.subType === 'curved-wall' && el.points) {
+                              const oldPoints = [...el.points];
+                              const oldCount = el.intermediatePoints ?? 0;
+
+                              // Preserve start and end
+                              const startX = oldPoints[0];
+                              const startY = oldPoints[1];
+                              const endX = oldPoints[oldPoints.length - 2];
+                              const endY = oldPoints[oldPoints.length - 1];
+
+                              const newPoints = [startX, startY];
+
+                              if (num > 0) {
+                                // Interpolate new intermediate points from old shape
+                                for (let i = 1; i <= num; i++) {
+                                  const t = i / (num + 1); // Position along the path (0 to 1)
+
+                                  // Find corresponding position in old points
+                                  const oldT = t * (oldCount + 1);
+                                  const oldIndex = Math.floor(oldT);
+                                  const fraction = oldT - oldIndex;
+
+                                  let newX, newY;
+
+                                  if (oldCount === 0 || oldIndex >= oldCount) {
+                                    // Linear interpolation if no old points or beyond range
+                                    newX = startX + (endX - startX) * t;
+                                    newY = startY + (endY - startY) * t;
+                                  } else {
+                                    // Interpolate between old points
+                                    const idx1 = oldIndex * 2;
+                                    const idx2 = Math.min(idx1 + 2, oldPoints.length - 2);
+                                    const x1 = oldPoints[idx1];
+                                    const y1 = oldPoints[idx1 + 1];
+                                    const x2 = oldPoints[idx2];
+                                    const y2 = oldPoints[idx2 + 1];
+
+                                    newX = x1 + (x2 - x1) * fraction;
+                                    newY = y1 + (y2 - y1) * fraction;
+                                  }
+
+                                  newPoints.push(newX, newY);
+                                }
+                              }
+
+                              newPoints.push(endX, endY);
+                              updateElement(id, { points: newPoints, intermediatePoints: num });
+                            }
+                          });
+                        }}
+                        className={`px-2 py-1 rounded text-[10px] transition-colors ${isActive
+                            ? 'bg-blue-600 text-white'
+                            : 'bg-gray-800 hover:bg-gray-700 text-gray-300'
+                          }`}
+                      >
+                        {num}
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
             )}
           </div>

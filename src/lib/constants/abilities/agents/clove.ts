@@ -1,0 +1,43 @@
+import { AbilityDefinition } from '../base';
+
+export const CloveAbilities: Record<string, AbilityDefinition> = {
+  'Pick-me-up': {
+    agent: 'Clove',
+    ability: 'Pick-me-up',
+    shape: 'icon',
+  },
+  'Meddle': {
+    agent: 'Clove',
+    ability: 'Meddle',
+    shape: 'area',
+    stats: {
+      radius: {
+        max: 6,
+        min: 6,
+        unit: 'm'
+      },
+      duration: {
+        value: 5,
+        unit: 's'
+      }
+    }
+  },
+  'Ruse': {
+    agent: 'Clove', ability: 'Ruse', shape: 'smoke', stats: {
+      radius: {
+        max: 4,
+        min: 4,
+        unit: 'm'
+      },
+      duration: {
+        value: 13.5,
+        unit: 's'
+      }
+    }
+  },
+  'Not Dead Yet': {
+    agent: 'Clove',
+    ability: 'Not Dead Yet',
+    shape: 'icon',
+  }
+};

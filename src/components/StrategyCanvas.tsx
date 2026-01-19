@@ -8,7 +8,7 @@ import { DrawingElementRenderer } from './DrawingElementRenderer';
 import { AgentIcon } from './AgentIcon';
 import { AbilityIcon } from './AbilityIcon';
 import { ElementPropertiesPanel } from './ElementPropertiesPanel';
-import { getAbilityDefinition } from '@/lib/constants/abilityDefinitions';
+import { getAbilityDefinition, getAbilityDimension, getMinDimension } from '@/lib/constants/abilityDefinitions';
 import type { DrawingElement, AgentPlacement, AbilityPlacement } from '@/types/strategy';
 import type Konva from 'konva';
 
@@ -24,12 +24,12 @@ const MapImage = memo(function MapImage({ src, rotation }: { src: string; rotati
     <KonvaImage
       image={image}
       width={1024}
-      height={768}
+      height={1024}
       rotation={rotation}
       offsetX={rotation !== 0 ? 1024 / 2 : 0}
-      offsetY={rotation !== 0 ? 768 / 2 : 0}
+      offsetY={rotation !== 0 ? 1024 / 2 : 0}
       x={rotation !== 0 ? 1024 / 2 : 0}
-      y={rotation !== 0 ? 768 / 2 : 0}
+      y={rotation !== 0 ? 1024 / 2 : 0}
       name="map-image"
       listening={false}
       perfectDrawEnabled={false}
@@ -37,8 +37,12 @@ const MapImage = memo(function MapImage({ src, rotation }: { src: string; rotati
   );
 });
 
-export function StrategyCanvas({ width = 1024, height = 768 }: StrategyCanvasProps) {
+export function StrategyCanvas({ }: StrategyCanvasProps) {
   const stageRef = useRef<Konva.Stage>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [containerSize, setContainerSize] = useState({ width: 1024, height: 1024 });
+  const [autoScale, setAutoScale] = useState(1);
+  const [stageOffset, setStageOffset] = useState({ x: 0, y: 0 });
   const {
     selectedMap,
     canvasData,
@@ -105,6 +109,29 @@ export function StrategyCanvas({ width = 1024, height = 768 }: StrategyCanvasPro
   const baseRotation = selectedMap ? (mapRotations[selectedMap] || 0) : 0;
   const mapRotation = baseRotation + (strategySide === 'defense' ? 180 : 0);
 
+  // Responsive scaling
+  useEffect(() => {
+    const updateSize = () => {
+      if (containerRef.current) {
+        const { width: cw, height: ch } = containerRef.current.getBoundingClientRect();
+        // We want to fit 1024 within the available space
+        const s = Math.min(cw / 1024, ch / 1024);
+        setAutoScale(s);
+        setContainerSize({ width: cw, height: ch });
+
+        // Center the 1024x1024 workspace
+        setStageOffset({
+          x: (cw - (1024 * s)) / 2,
+          y: (ch - (1024 * s)) / 2
+        });
+      }
+    };
+
+    window.addEventListener('resize', updateSize);
+    updateSize();
+    return () => window.removeEventListener('resize', updateSize);
+  }, []);
+
   // Keyboard shortcuts
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -159,8 +186,8 @@ export function StrategyCanvas({ width = 1024, height = 768 }: StrategyCanvasPro
       const pos = stage.getPointerPosition();
       if (pos) {
         const adjustedPos = {
-          x: (pos.x - stage.x()) / scale,
-          y: (pos.y - stage.y()) / scale,
+          x: (pos.x - stage.x()) / (scale * autoScale),
+          y: (pos.y - stage.y()) / (scale * autoScale),
         };
         setIsSelecting(true);
         setSelectionBox({ x: adjustedPos.x, y: adjustedPos.y, width: 0, height: 0 });
@@ -207,8 +234,8 @@ export function StrategyCanvas({ width = 1024, height = 768 }: StrategyCanvasPro
     if (!pos) return;
 
     const adjustedPos = {
-      x: (pos.x - stage.x()) / scale,
-      y: (pos.y - stage.y()) / scale,
+      x: (pos.x - stage.x()) / (scale * autoScale),
+      y: (pos.y - stage.y()) / (scale * autoScale),
     };
 
     if (tool === 'agent' && selectedAgentId) {
@@ -236,6 +263,7 @@ export function StrategyCanvas({ width = 1024, height = 768 }: StrategyCanvasPro
           id: `ability-${Date.now()}`,
           type: 'ability',
           abilityIcon: selectedAbilityIcon,
+          abilityName: selectedAbilityName || undefined,
           subType: selectedAbilitySubType,
           side: strategySide,
           color: selectedAbilityColor || undefined,
@@ -257,6 +285,7 @@ export function StrategyCanvas({ width = 1024, height = 768 }: StrategyCanvasPro
         id: newId,
         type: 'ability',
         abilityIcon: selectedAbilityIcon,
+        abilityName: selectedAbilityName || undefined,
         subType: selectedAbilitySubType,
         side: strategySide,
         color: selectedAbilityColor || undefined,
@@ -273,18 +302,19 @@ export function StrategyCanvas({ width = 1024, height = 768 }: StrategyCanvasPro
         const isPath = selectedAbilitySubType === 'path';
         const isCurvedWall = selectedAbilitySubType === 'curved-wall';
 
-        const length = isPath
-          ? (def?.defaultHeight || 400)
-          : (def?.defaultWidth || 300);
+        // Use minimum dimension for initial placement
+        const length = def
+          ? getMinDimension(def, isPath ? 'height' : 'width') || (isPath ? 400 : 300)
+          : (isPath ? 400 : 300);
 
         const thickness = isPath
-          ? (def?.defaultWidth || 80)
-          : 12;
+          ? (def ? getAbilityDimension(def, 'width') : 80) || 80
+          : (def ? getAbilityDimension(def, 'height') : 12) || 12; // Wall height is thickness
 
         // For curved walls, create intermediate points
         if (isCurvedWall) {
           // Get number of intermediate points from definition (default: 3)
-          const numIntermediatePoints = def?.intermediatePoints || 3;
+          const numIntermediatePoints = def?.intermediatePoints || 0;
           const totalPoints = numIntermediatePoints + 2; // +2 for start and end
           const step = length / (totalPoints - 1);
 
@@ -301,10 +331,10 @@ export function StrategyCanvas({ width = 1024, height = 768 }: StrategyCanvasPro
         newAbility.width = thickness;
       } else if (selectedAbilitySubType === 'smoke') {
         const def = getAbilityDefinition(selectedAbilityName || selectedAbilityIcon || '');
-        newAbility.radius = def?.defaultRadius || 60;
+        newAbility.radius = (def ? getAbilityDimension(def, 'radius') : 60) || 60;
       } else if (selectedAbilitySubType === 'area') {
         const def = getAbilityDefinition(selectedAbilityName || selectedAbilityIcon || '');
-        newAbility.radius = def?.defaultRadius || 80;
+        newAbility.radius = (def ? getAbilityDimension(def, 'radius') : 80) || 80;
       }
 
       addElement(newAbility);
@@ -347,8 +377,8 @@ export function StrategyCanvas({ width = 1024, height = 768 }: StrategyCanvasPro
     if (!pos) return;
 
     const adjustedPos = {
-      x: (pos.x - stage.x()) / scale,
-      y: (pos.y - stage.y()) / scale,
+      x: (pos.x - stage.x()) / (scale * autoScale),
+      y: (pos.y - stage.y()) / (scale * autoScale),
     };
 
     if (isSelecting && selectionBox) {
@@ -369,7 +399,7 @@ export function StrategyCanvas({ width = 1024, height = 768 }: StrategyCanvasPro
     if ((currentShape as any).subType === 'guided-path') {
       const abilityShape = currentShape as any;
       const def = getAbilityDefinition(selectedAbilityName || selectedAbilityIcon || '');
-      const maxDist = def?.maxDistance || 300;
+      const maxDist = (def ? getAbilityDimension(def, 'maxDistance') : 300) || 300;
 
       const lastPoints = abilityShape.guidedPoints || [0, 0];
       const newPoints = [...lastPoints, dx, dy];
@@ -451,15 +481,18 @@ export function StrategyCanvas({ width = 1024, height = 768 }: StrategyCanvasPro
   };
 
   return (
-    <div className="relative border border-gray-300 rounded-lg overflow-hidden bg-gray-900">
+    <div ref={containerRef} className="relative w-full h-full overflow-hidden bg-gray-900 shadow-2xl rounded-lg border border-gray-700">
       <Stage
         ref={stageRef}
-        width={width}
-        height={height}
+        width={containerSize.width}
+        height={containerSize.height}
         className="bg-gray-800"
-        scaleX={scale}
-        scaleY={scale}
+        scaleX={scale * autoScale}
+        scaleY={scale * autoScale}
+        x={stageOffset.x}
+        y={stageOffset.y}
         draggable={true}
+        dragButtons={[1]}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}

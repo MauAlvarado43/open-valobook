@@ -33,6 +33,16 @@ export const AgentIcon = memo(function AgentIcon({ element, isSelected, isDragga
       onTap={onSelect}
       onDragEnd={onDragEnd}
       id={element.id}
+      onMouseEnter={(e) => {
+        if (isDraggable) {
+          const stage = e.target.getStage();
+          if (stage) stage.container().style.cursor = 'move';
+        }
+      }}
+      onMouseLeave={(e) => {
+        const stage = e.target.getStage();
+        if (stage) stage.container().style.cursor = 'default';
+      }}
     >
       {/* Background/Shadow */}
       <Circle

@@ -163,8 +163,10 @@ export const DrawingElementRenderer = memo(function DrawingElementRenderer({
       onDragEnd={onDragEnd}
       onMouseEnter={(e: Konva.KonvaEventObject<MouseEvent>) => {
         setIsHovered(true);
-        const container = e.target.getStage()?.container();
-        if (container) container.style.cursor = 'pointer';
+        if (isDraggable && isSelectTool) {
+          const container = e.target.getStage()?.container();
+          if (container) container.style.cursor = 'move';
+        }
       }}
       onMouseLeave={(e: Konva.KonvaEventObject<MouseEvent>) => {
         setIsHovered(false);
@@ -190,6 +192,14 @@ export const DrawingElementRenderer = memo(function DrawingElementRenderer({
                 stroke="#3b82f6"
                 strokeWidth={2}
                 draggable
+                onMouseEnter={(e) => {
+                  const stage = e.target.getStage();
+                  if (stage) stage.container().style.cursor = 'move';
+                }}
+                onMouseLeave={(e) => {
+                  const stage = e.target.getStage();
+                  if (stage) stage.container().style.cursor = 'default';
+                }}
                 onDragStart={(e) => { e.cancelBubble = true; }}
                 onDragMove={(e) => { e.cancelBubble = true; handleResize(e, 'start-point'); }}
                 onDragEnd={(e) => { e.cancelBubble = true; }}
@@ -206,6 +216,14 @@ export const DrawingElementRenderer = memo(function DrawingElementRenderer({
                 stroke="#3b82f6"
                 strokeWidth={2}
                 draggable
+                onMouseEnter={(e) => {
+                  const stage = e.target.getStage();
+                  if (stage) stage.container().style.cursor = 'move';
+                }}
+                onMouseLeave={(e) => {
+                  const stage = e.target.getStage();
+                  if (stage) stage.container().style.cursor = 'default';
+                }}
                 onDragStart={(e) => { e.cancelBubble = true; }}
                 onDragMove={(e) => { e.cancelBubble = true; handleResize(e, 'end-point'); }}
                 onDragEnd={(e) => { e.cancelBubble = true; }}
@@ -224,6 +242,14 @@ export const DrawingElementRenderer = memo(function DrawingElementRenderer({
               stroke="#3b82f6"
               strokeWidth={2}
               draggable
+              onMouseEnter={(e) => {
+                const stage = e.target.getStage();
+                if (stage) stage.container().style.cursor = 'ew-resize';
+              }}
+              onMouseLeave={(e) => {
+                const stage = e.target.getStage();
+                if (stage) stage.container().style.cursor = 'default';
+              }}
               onDragStart={(e) => { e.cancelBubble = true; }}
               onDragMove={(e) => { e.cancelBubble = true; handleResize(e, 'radius'); }}
               onDragEnd={(e) => { e.cancelBubble = true; }}
@@ -241,6 +267,14 @@ export const DrawingElementRenderer = memo(function DrawingElementRenderer({
               stroke="#3b82f6"
               strokeWidth={2}
               draggable
+              onMouseEnter={(e) => {
+                const stage = e.target.getStage();
+                if (stage) stage.container().style.cursor = 'nwse-resize';
+              }}
+              onMouseLeave={(e) => {
+                const stage = e.target.getStage();
+                if (stage) stage.container().style.cursor = 'default';
+              }}
               onDragStart={(e) => { e.cancelBubble = true; }}
               onDragMove={(e) => { e.cancelBubble = true; handleResize(e, 'rect-size'); }}
               onDragEnd={(e) => { e.cancelBubble = true; }}

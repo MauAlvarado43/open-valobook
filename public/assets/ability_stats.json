@@ -1,0 +1,4877 @@
+[
+  {
+    "name": "Aftershock",
+    "id": 357,
+    "url": "https://valorant.fandom.com/wiki/Aftershock",
+    "quantified": {
+      "equipTime": {
+        "value": 0.9,
+        "unit": "s",
+        "raw": "Equip time: 0.9 seconds"
+      },
+      "distance": {
+        "value": 35,
+        "unit": "m",
+        "raw": "Max deploy distance: 35 meters"
+      },
+      "unequipTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Unequip time: 0.7 seconds"
+      },
+      "cylinder size": {
+        "value": 10,
+        "unit": "m",
+        "raw": "Cylinder size: 10 meter length"
+      },
+      "radius": {
+        "value": 3,
+        "unit": "m",
+        "raw": "3 meter radius: v3.0"
+      },
+      "windupTime": {
+        "value": 2.2,
+        "unit": "s",
+        "raw": "Windup time: 2.2 seconds"
+      },
+      "damage": {
+        "value": 80,
+        "unit": null,
+        "raw": "Damage: 80 per tickTotal 160"
+      },
+      "ticks/tick rate": {
+        "value": 1,
+        "unit": "s",
+        "raw": "Ticks/Tick Rate: 1 every 0.6 secondsTotal 2 ticks"
+      }
+    }
+  },
+  {
+    "name": "Alarmbot",
+    "id": 1937,
+    "url": "https://valorant.fandom.com/wiki/Alarmbot",
+    "quantified": {
+      "equipTime": {
+        "value": 0.85,
+        "unit": "s",
+        "raw": "Equip time: 0.85 seconds"
+      },
+      "length": {
+        "value": 10,
+        "unit": "m",
+        "raw": "Max deploy length: 10 meters"
+      },
+      "unequipTime": {
+        "value": 0.75,
+        "unit": "s",
+        "raw": "Unequip time: 0.75 seconds"
+      },
+      "deploy time": {
+        "value": 1.85,
+        "unit": "s",
+        "raw": "Deploy time: 1.85 seconds"
+      },
+      "radius": {
+        "value": 40,
+        "unit": "m",
+        "raw": "Proximity radius to remain active: 40 meters"
+      },
+      "detection radii": {
+        "value": 5.5,
+        "unit": "m",
+        "raw": "Detection radii: Bot detecting enemies: 5.5 meters"
+      },
+      "agents detecting the bot: 7 meters": {
+        "value": 7,
+        "unit": "m",
+        "raw": "Agents detecting the bot: 7 meters: v1.11"
+      },
+      "proximity to target needed to explode": {
+        "value": 2,
+        "unit": "m",
+        "raw": "Proximity to target needed to explode: 2 meters"
+      },
+      "windupTime": {
+        "value": 1,
+        "unit": "s",
+        "raw": "Windup time: Total minimum: 1 second0.5-second alert phase0.5-second windup phase(Duration further increased by travel time)"
+      },
+      "duration": {
+        "value": 4,
+        "unit": "s",
+        "raw": "Vulnerable duration: 4 seconds"
+      },
+      "reactivation time": {
+        "value": 2,
+        "unit": "s",
+        "raw": "Reactivation time: 2 seconds"
+      }
+    }
+  },
+  {
+    "name": "Annihilation",
+    "id": 21430,
+    "url": "https://valorant.fandom.com/wiki/Annihilation",
+    "quantified": {
+      "equipTime": {
+        "value": 1.1,
+        "unit": "s",
+        "raw": "Equip time: 1.1 seconds"
+      },
+      "equipTime_1": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Reequip time: 0.7 seconds"
+      },
+      "duration": {
+        "value": 10,
+        "unit": "s",
+        "raw": "Max duration: 10 seconds(including Equip time)"
+      },
+      "radius": {
+        "value": 3,
+        "unit": "m",
+        "raw": "Pulse radius: 3 meters"
+      },
+      "pulse speed": {
+        "value": 82.5,
+        "unit": "m/s",
+        "raw": "Pulse speed: 82.5 meters/second"
+      },
+      "distance": {
+        "value": 40,
+        "unit": "m",
+        "raw": "Maximum pulse travel distance: 40 meters"
+      },
+      "radius_6": {
+        "value": 6.5,
+        "unit": "m",
+        "raw": "Pulse radius at path end: 6.5 meters"
+      },
+      "windupTime": {
+        "value": 0.5,
+        "unit": "s",
+        "raw": "Windup time: 0.5 seconds"
+      },
+      "distance_8": {
+        "value": 1.5,
+        "unit": "m",
+        "raw": "Self-knockback distance: 1.5 meters"
+      },
+      "unequipTime": {
+        "value": 0.25,
+        "unit": "s",
+        "raw": "Unequip time: 0.25 seconds"
+      },
+      "duration_10": {
+        "value": 7,
+        "unit": "s",
+        "raw": "Cocoon duration: 7 seconds"
+      }
+    }
+  },
+  {
+    "name": "Arc Rose",
+    "id": 29251,
+    "url": "https://valorant.fandom.com/wiki/Arc_Rose",
+    "quantified": {
+      "equipTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Equip time: 0.8 seconds"
+      },
+      "distance": {
+        "value": 20,
+        "unit": "m",
+        "raw": "Max targeting distance: 20 meters"
+      },
+      "max wall penetration": {
+        "value": 10,
+        "unit": "m",
+        "raw": "Max wall penetration: 10 meters"
+      },
+      "height": {
+        "value": 4.5,
+        "unit": "m",
+        "raw": "Max deploy height: 4.5 meters"
+      },
+      "unequipTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Unequip time: 0.7 seconds"
+      },
+      "radius": {
+        "value": 10,
+        "unit": "m",
+        "raw": "Detection radius: 10 meters"
+      },
+      "deploy time": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Deploy time: 0.8 seconds"
+      },
+      "distance_7": {
+        "value": 32.5,
+        "unit": "m",
+        "raw": "Max recall distance: 32.5 meters"
+      },
+      "windupTime": {
+        "value": 0.5,
+        "unit": "s",
+        "raw": "Windup time: 0.5 seconds"
+      },
+      "duration": {
+        "value": 2,
+        "unit": "s",
+        "raw": "Max blind duration: 2 seconds"
+      }
+    }
+  },
+  {
+    "name": "Armageddon",
+    "id": 31305,
+    "url": "https://valorant.fandom.com/wiki/Armageddon",
+    "quantified": {
+      "equipTime": {
+        "value": 0.6,
+        "unit": "s",
+        "raw": "Equip time: 0.6 seconds"
+      },
+      "distance": {
+        "value": 52.5,
+        "unit": "m",
+        "raw": "Max deploy distance: 52.5 meters"
+      },
+      "windupTime": {
+        "value": 3.08,
+        "unit": "s",
+        "raw": "Windup time: Total 3.08 seconds"
+      },
+      "delay": {
+        "value": 0.33,
+        "unit": "s",
+        "raw": "0.33-second activation delay: Game files"
+      },
+      "unequipTime": {
+        "value": 1,
+        "unit": "s",
+        "raw": "Unequip time: 1 second"
+      },
+      "area size": {
+        "value": 10,
+        "unit": "m",
+        "raw": "Area size: 10-meter width2-meter length per segment16 segments, 32-meter total length"
+      },
+      "damage": {
+        "value": 60,
+        "unit": null,
+        "raw": "Damage: 60 per tick"
+      },
+      "detonation ticks/tick rate per segment": {
+        "value": 1,
+        "unit": "s",
+        "raw": "Detonation Ticks/Tick Rate per segment: 1 every 0.25 seconds"
+      },
+      "total 4 ticks": {
+        "value": 4,
+        "unit": null,
+        "raw": "Total 4 ticks: In-game"
+      },
+      "delay_9": {
+        "value": 0.25,
+        "unit": "s",
+        "raw": "Delay between successive segment detonations: 0.25 seconds"
+      }
+    }
+  },
+  {
+    "name": "Barrier Mesh",
+    "id": 21429,
+    "url": "https://valorant.fandom.com/wiki/Barrier_Mesh",
+    "quantified": {
+      "equipTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Equip time: 0.8 seconds"
+      },
+      "unequipTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Unequip time: 0.7 seconds"
+      },
+      "deploy time": {
+        "value": 1,
+        "unit": "s",
+        "raw": "Deploy time: 1 second"
+      },
+      "time taken to fortify": {
+        "value": 3,
+        "unit": "s",
+        "raw": "Time taken to fortify: 3 seconds (Begins on impact with ground)"
+      },
+      "length": {
+        "value": 10,
+        "unit": "m",
+        "raw": "Barrier lengths: 10 meters"
+      },
+      "duration": {
+        "value": 30,
+        "unit": "s",
+        "raw": "Duration: Total 30 seconds (Includes deploy time)Begins to decay after 25 seconds"
+      }
+    }
+  },
+  {
+    "name": "Barrier Orb",
+    "id": 277,
+    "url": "https://valorant.fandom.com/wiki/Barrier_Orb",
+    "quantified": {
+      "equipTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Equip time: 0.8 seconds"
+      },
+      "length": {
+        "value": 15,
+        "unit": "m",
+        "raw": "Max cast length: 15 meters"
+      },
+      "unequipTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Unequip time: 0.7 seconds"
+      },
+      "deploy time": {
+        "value": 1.35,
+        "unit": "s",
+        "raw": "Deploy time: 1.35 seconds"
+      },
+      "time taken to fortify": {
+        "value": 2,
+        "unit": "s",
+        "raw": "Time taken to fortify: 2 seconds (Begins upon casting)"
+      },
+      "size": {
+        "value": 4,
+        "unit": "m",
+        "raw": "Size: 4 segments2.6 x 1.5 meters per segmentTotal 10.4 x 1.5 meters"
+      },
+      "duration": {
+        "value": 40,
+        "unit": "s",
+        "raw": "Duration: Total 40 seconds (Includes deploy time)Begins to decay after 35 seconds"
+      }
+    }
+  },
+  {
+    "name": "Blade Storm",
+    "id": 302,
+    "url": "https://valorant.fandom.com/wiki/Blade_Storm",
+    "quantified": {
+      "windupTime": {
+        "value": 1.02,
+        "unit": "s",
+        "raw": "Initial windup time: 1.02 seconds"
+      },
+      "ammunition": {
+        "value": 5,
+        "unit": null,
+        "raw": "Ammunition: 5 blades"
+      },
+      "equipTime": {
+        "value": 0.5,
+        "unit": "s",
+        "raw": "Reequip time: 0.5 seconds"
+      },
+      "equipTime_3": {
+        "value": 0.15,
+        "unit": "s",
+        "raw": "Quick equip time: 0.15 seconds"
+      },
+      "damage": {
+        "value": 50,
+        "unit": null,
+        "raw": "Damage: 50"
+      },
+      "damage_5": {
+        "value": 3,
+        "unit": null,
+        "raw": "Damage multipliers: Headshot: x3Leg shot: x0.85"
+      },
+      "'single fire' fire rate": {
+        "value": 6,
+        "unit": "s",
+        "raw": "'Single Fire' fire rate: 6 per second1 every 0.167 seconds"
+      },
+      "unequipTime": {
+        "value": 0.167,
+        "unit": "s",
+        "raw": "Unequip times(out of ammo): 0.167 seconds (Single fire)0.45 seconds (Burst fire)"
+      }
+    }
+  },
+  {
+    "name": "Blast Pack",
+    "id": 872,
+    "url": "https://valorant.fandom.com/wiki/Blast_Pack",
+    "quantified": {
+      "unequipTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Unequip time: 0.7 seconds"
+      },
+      "duration": {
+        "value": 5,
+        "unit": "s",
+        "raw": "Max duration: 5 seconds"
+      },
+      "radii": {
+        "value": 2,
+        "unit": "m",
+        "raw": "Radii: 2 meters (Inner)5 meters (Outer)"
+      },
+      "time needed to arm": {
+        "value": 1.5,
+        "unit": "s",
+        "raw": "Time needed to arm: 1.5 seconds"
+      },
+      "20-50 after arming": {
+        "value": 1.05,
+        "unit": null,
+        "raw": "20-50 after arming(Minimum Outer radius damage to Inner radius damage): Range's training bot & v1.05"
+      },
+      "x225 multiplier to objects": {
+        "value": 1,
+        "unit": null,
+        "raw": "x2.25 multiplier to objects: [s 1]"
+      }
+    }
+  },
+  {
+    "name": "Blaze",
+    "id": 300,
+    "url": "https://valorant.fandom.com/wiki/Blaze",
+    "quantified": {
+      "equipTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Equip time: 0.8 seconds"
+      },
+      "deploy time": {
+        "value": {
+          "min": 0.125,
+          "max": 0.75
+        },
+        "unit": "s",
+        "raw": "Deploy time: 0.125-0.75 seconds(Depending on distance)"
+      },
+      "unequipTime": {
+        "value": 0.5,
+        "unit": "s",
+        "raw": "Unequip time: 0.5 seconds"
+      },
+      "length": {
+        "value": {
+          "min": 1,
+          "max": 21
+        },
+        "unit": "m",
+        "raw": "Length: 1–21 meters"
+      },
+      "damage": {
+        "value": 1,
+        "unit": null,
+        "raw": "Damage: 1 per tickTotal 225-240"
+      },
+      "x05 multiplier to objects": {
+        "value": 5.12,
+        "unit": null,
+        "raw": "x0.5 multiplier to objects: Game files (v5.12)"
+      },
+      "ticks/tick rate": {
+        "value": 30,
+        "unit": "s",
+        "raw": "Ticks/Tick Rate: 30 per second(1 every 0.033 seconds)Total 225-240 ticks"
+      },
+      "duration": {
+        "value": 8,
+        "unit": "s",
+        "raw": "Duration: 8 seconds"
+      }
+    }
+  },
+  {
+    "name": "Blindside",
+    "id": 4048,
+    "url": "https://valorant.fandom.com/wiki/Blindside",
+    "quantified": {
+      "equipTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Equip time: 0.8 seconds"
+      },
+      "unequipTime": {
+        "value": 0.5,
+        "unit": "s",
+        "raw": "Unequip time: 0.5 seconds"
+      },
+      "max travel time in air": {
+        "value": 2,
+        "unit": "s",
+        "raw": "Max travel time in air: 2 seconds"
+      },
+      "windupTime": {
+        "value": 0.6,
+        "unit": "s",
+        "raw": "Windup time: 0.6 seconds"
+      },
+      "duration": {
+        "value": 1.5,
+        "unit": "s",
+        "raw": "Max flash duration: 1.5 seconds"
+      }
+    }
+  },
+  {
+    "name": "Boom Bot",
+    "id": 699,
+    "url": "https://valorant.fandom.com/wiki/Boom_Bot",
+    "quantified": {
+      "equipTime": {
+        "value": 1.1,
+        "unit": "s",
+        "raw": "Equip time: 1.1 seconds"
+      },
+      "deploy time": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Deploy time: 0.7 seconds"
+      },
+      "unequipTime": {
+        "value": 0,
+        "unit": "s",
+        "raw": "Unequip time: 0 seconds"
+      },
+      "duration": {
+        "value": 5,
+        "unit": "s",
+        "raw": "Duration: 5 seconds(Includes Deploy time)"
+      },
+      "distance": {
+        "value": 15,
+        "unit": "m",
+        "raw": "Max detection cone distance: 15 meters"
+      },
+      "proximity to target needed to explode": {
+        "value": 2.5,
+        "unit": "m",
+        "raw": "Proximity to target needed to explode: 2.5 meters"
+      },
+      "windupTime": {
+        "value": 0.6,
+        "unit": "s",
+        "raw": "Windup time: 0.6 seconds"
+      },
+      "radii": {
+        "value": 2,
+        "unit": "m",
+        "raw": "Radii: 2 meters (Inner)6 meters (Outer)"
+      },
+      "damage": {
+        "value": {
+          "min": 30,
+          "max": 80150
+        },
+        "unit": null,
+        "raw": "Damage: 30-80150 in Escalationx2.5 multiplier to objects(Minimum Outer radius damage to Inner radius damage)"
+      }
+    }
+  },
+  {
+    "name": "Cascade",
+    "id": 18661,
+    "url": "https://valorant.fandom.com/wiki/Cascade",
+    "quantified": {
+      "equipTime": {
+        "value": 1,
+        "unit": "s",
+        "raw": "Equip time: 1 second"
+      },
+      "unequipTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Unequip time: 0.7 seconds"
+      },
+      "windupTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Windup: 0.7 seconds"
+      },
+      "chunks": {
+        "value": 5,
+        "unit": null,
+        "raw": "Chunks: 5"
+      },
+      "length": {
+        "value": 1.95,
+        "unit": "m",
+        "raw": "Length: 1.95 meters per chunk9.75 meters total (width)"
+      },
+      "height": {
+        "value": 6,
+        "unit": "m",
+        "raw": "Height: 6 meters"
+      },
+      "velocity": {
+        "value": 6.5,
+        "unit": "m/s",
+        "raw": "Velocity: 6.5 meters/second"
+      },
+      "maximum rise": {
+        "value": 1.1,
+        "unit": "m",
+        "raw": "Maximum rise: 1.1 meters"
+      },
+      "maximum drop": {
+        "value": 8,
+        "unit": "m",
+        "raw": "Maximum drop: 8 meters"
+      },
+      "distance": {
+        "value": {
+          "min": 5,
+          "max": 35
+        },
+        "unit": "m",
+        "raw": "Travel distance: 5-35 meters"
+      },
+      "duration": {
+        "value": 7,
+        "unit": "s",
+        "raw": "Stationary Duration: 7 seconds"
+      },
+      "debuff": {
+        "value": 30,
+        "unit": "%",
+        "raw": "Debuff: 30% Slow"
+      },
+      "duration_12": {
+        "value": 0.6,
+        "unit": "s",
+        "raw": "Slow Duration: 0.6 seconds"
+      },
+      "deactivation time": {
+        "value": 0.5,
+        "unit": "s",
+        "raw": "Deactivation time: 0.5 seconds"
+      }
+    }
+  },
+  {
+    "name": "Chokehold",
+    "id": 36116,
+    "url": "https://valorant.fandom.com/wiki/Chokehold",
+    "quantified": {
+      "equipTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Equip time: 0.8 seconds"
+      },
+      "unequipTime": {
+        "value": 0.6,
+        "unit": "s",
+        "raw": "Unequip time: 0.6 seconds"
+      },
+      "deployment time": {
+        "value": 1.5,
+        "unit": "s",
+        "raw": "Deployment time: 1.5 seconds"
+      },
+      "detection radii": {
+        "value": 6.58,
+        "unit": "m",
+        "raw": "Detection radii: Trap detecting enemies: 6.58 meters"
+      },
+      "agents detecting the trap: 9 meters": {
+        "value": 9,
+        "unit": "m",
+        "raw": "Agents detecting the trap: 9 meters: Game files"
+      },
+      "windupTime": {
+        "value": 0.5,
+        "unit": "s",
+        "raw": "Windup: 0.5 seconds"
+      },
+      "decay stats": {
+        "value": 75,
+        "unit": "s",
+        "raw": "Decay stats: 75 HPHealth restored over 4.5 seconds"
+      },
+      "radius": {
+        "value": 6.58,
+        "unit": "m",
+        "raw": "Zone radius: 6.58 meters"
+      },
+      "duration": {
+        "value": 4.5,
+        "unit": "s",
+        "raw": "Zone Duration: 4.5 seconds"
+      }
+    }
+  },
+  {
+    "name": "Cloudburst",
+    "id": 309,
+    "url": "https://valorant.fandom.com/wiki/Cloudburst",
+    "quantified": {
+      "unequipTime": {
+        "value": 0.25,
+        "unit": "s",
+        "raw": "Unequip time: 0.25 seconds"
+      },
+      "maximum travel time in air": {
+        "value": 2,
+        "unit": "s",
+        "raw": "Maximum travel time in air: 2 seconds"
+      },
+      "radius": {
+        "value": 3.35,
+        "unit": "m",
+        "raw": "Radius: 3.35 meters"
+      },
+      "duration": {
+        "value": 2.5,
+        "unit": "s",
+        "raw": "Duration: 2.5 seconds(includes 0.6-second deployment time)"
+      }
+    }
+  },
+  {
+    "name": "Contingency",
+    "id": 23846,
+    "url": "https://valorant.fandom.com/wiki/Contingency",
+    "quantified": {
+      "equipTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Equip time: 0.8 seconds"
+      },
+      "unequipTime": {
+        "value": 0.5,
+        "unit": "s",
+        "raw": "Unequip time: 0.5 seconds"
+      },
+      "distance": {
+        "value": 27.5,
+        "unit": "m",
+        "raw": "Travel distance: 27.5 meters (primary cast)13.75 meters (alt cast)"
+      },
+      "distance_3": {
+        "value": 5,
+        "unit": "m",
+        "raw": "Distance between Iso and wall on cast: 5 meters"
+      },
+      "time taken to fully form": {
+        "value": 0.4,
+        "unit": "s",
+        "raw": "Time taken to fully form: 0.4 seconds"
+      },
+      "duration": {
+        "value": 5.4,
+        "unit": "s",
+        "raw": "Duration: 5.4 seconds total4.6 seconds at full size"
+      },
+      "deactivation time": {
+        "value": 0.4,
+        "unit": "s",
+        "raw": "Deactivation time: 0.4 seconds"
+      }
+    }
+  },
+  {
+    "name": "Convergent Paths",
+    "id": 32321,
+    "url": "https://valorant.fandom.com/wiki/Convergent_Paths",
+    "quantified": {
+      "equipTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Equip time: 0.7 seconds"
+      },
+      "area size": {
+        "value": 36,
+        "unit": "m",
+        "raw": "Area size: 36 x 13.5 meters"
+      },
+      "distance": {
+        "value": 3,
+        "unit": "m",
+        "raw": "Distance between Waylay and AoE: 3 meters"
+      },
+      "channel time": {
+        "value": 0.6,
+        "unit": "s",
+        "raw": "Channel time: 0.6 seconds"
+      },
+      "unequipTime": {
+        "value": 0.5,
+        "unit": "s",
+        "raw": "Unequip time: 0.5 seconds"
+      },
+      "windupTime": {
+        "value": 1,
+        "unit": "s",
+        "raw": "Windup: 1 seconds"
+      },
+      "ticks/tick rate": {
+        "value": 1,
+        "unit": "s",
+        "raw": "Ticks/Tick rate: 1 every 0.125 seconds"
+      },
+      "total 4 ticks": {
+        "value": 4,
+        "unit": null,
+        "raw": "Total 4 ticks: Game files"
+      },
+      "buffs": {
+        "value": 10,
+        "unit": "%",
+        "raw": "Buffs: +10% speed boost"
+      },
+      "duration": {
+        "value": 7,
+        "unit": "s",
+        "raw": "Buff duration: 7 seconds"
+      },
+      "duration_10": {
+        "value": 6,
+        "unit": "s",
+        "raw": "Debuff duration: 6 seconds"
+      }
+    }
+  },
+  {
+    "name": "Cosmic Divide",
+    "id": 4480,
+    "url": "https://valorant.fandom.com/wiki/Cosmic_Divide",
+    "quantified": {
+      "unequipTime": {
+        "value": 0.4,
+        "unit": "s",
+        "raw": "Unequip time: 0.4 seconds"
+      },
+      "windupTime": {
+        "value": 2.667,
+        "unit": "s",
+        "raw": "Windup time: 2.667 seconds"
+      },
+      "duration": {
+        "value": 21,
+        "unit": "s",
+        "raw": "Duration: 21-second total effective duration2.5-second deformation time"
+      }
+    }
+  },
+  {
+    "name": "Cove",
+    "id": 18662,
+    "url": "https://valorant.fandom.com/wiki/Cove",
+    "quantified": {
+      "equipTime": {
+        "value": 0.6,
+        "unit": "s",
+        "raw": "Equip time: 0.6 seconds"
+      },
+      "distance": {
+        "value": 80,
+        "unit": "m",
+        "raw": "Max deploy distance: 80 meters"
+      },
+      "unequipTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Smoke unequip time: 0.7 seconds"
+      },
+      "velocity": {
+        "value": 64,
+        "unit": "m",
+        "raw": "Orb velocity: 64 meters per second"
+      },
+      "deploy time": {
+        "value": 1,
+        "unit": "s",
+        "raw": "Deploy time: 1 second"
+      },
+      "radius": {
+        "value": 4.6,
+        "unit": "m",
+        "raw": "Radius: 4.6 meters"
+      },
+      "duration": {
+        "value": 15,
+        "unit": "s",
+        "raw": "Duration: 15 seconds"
+      },
+      "windupTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Shield windup: 0.800 seconds"
+      },
+      "unequipTime_8": {
+        "value": 0.5,
+        "unit": "s",
+        "raw": "Shield unequip time: 0.5 seconds"
+      },
+      "shield deactivation time": {
+        "value": 1,
+        "unit": "s",
+        "raw": "Shield deactivation time: 1 second"
+      },
+      "smoke deactivation time": {
+        "value": 1,
+        "unit": "s",
+        "raw": "Smoke deactivation time: 1 second"
+      }
+    }
+  },
+  {
+    "name": "Crosscut",
+    "id": 36115,
+    "url": "https://valorant.fandom.com/wiki/Crosscut",
+    "quantified": {
+      "equipTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Equip time: 0.8 seconds"
+      },
+      "distance": {
+        "value": 20,
+        "unit": "m",
+        "raw": "Max cast distance: 20 meters"
+      },
+      "unequipTime": {
+        "value": 0.5,
+        "unit": "s",
+        "raw": "Unequip time: 0.5 seconds"
+      },
+      "deployment time": {
+        "value": 1.5,
+        "unit": "s",
+        "raw": "Deployment time: 1.5 seconds"
+      },
+      "radius": {
+        "value": 24,
+        "unit": "m",
+        "raw": "Vortex radius: 24 meters"
+      },
+      "duration": {
+        "value": 1.6,
+        "unit": "s",
+        "raw": "Teleport duration: Total duration: 1.6 seconds"
+      },
+      "windupTime": {
+        "value": 1,
+        "unit": "s",
+        "raw": "1-second windup0.8-second arrival at vortex: Game files"
+      }
+    }
+  },
+  {
+    "name": "Curveball",
+    "id": 175,
+    "url": "https://valorant.fandom.com/wiki/Curveball",
+    "quantified": {
+      "equipTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Equip time: 0.8 seconds"
+      },
+      "unequipTime": {
+        "value": 0.48,
+        "unit": "s",
+        "raw": "Unequip time: 0.48 seconds"
+      },
+      "windupTime": {
+        "value": 0.6,
+        "unit": "s",
+        "raw": "Windup time: 0.6 seconds"
+      },
+      "duration": {
+        "value": 1.5,
+        "unit": "s",
+        "raw": "Max blind duration: 1.5 seconds"
+      }
+    }
+  },
+  {
+    "name": "Cyber Cage",
+    "id": 346,
+    "url": "https://valorant.fandom.com/wiki/Cyber_Cage",
+    "quantified": {
+      "unequipTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Unequip time: 0.7 seconds"
+      },
+      "radius": {
+        "value": 3.72,
+        "unit": "m",
+        "raw": "Cylinder radius: 3.72 meters"
+      },
+      "duration": {
+        "value": 7.25,
+        "unit": "s",
+        "raw": "Duration: Total duration: 7.25 seconds0.75-second formation time6 seconds at full size0.5-second deactivation time"
+      }
+    }
+  },
+  {
+    "name": "Dark Cover",
+    "id": 340,
+    "url": "https://valorant.fandom.com/wiki/Dark_Cover",
+    "quantified": {
+      "equipTime": {
+        "value": 0.6,
+        "unit": "s",
+        "raw": "Equip time: 0.6 seconds"
+      },
+      "distance": {
+        "value": 80,
+        "unit": "m",
+        "raw": "Max deploy distance: 80 meters"
+      },
+      "unequipTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Unequip time: 0.7 seconds"
+      },
+      "velocity": {
+        "value": 64,
+        "unit": "m",
+        "raw": "Orb velocity: 64 meters per second"
+      },
+      "deploy time": {
+        "value": 1,
+        "unit": "s",
+        "raw": "Deploy time: 1 second"
+      },
+      "radius": {
+        "value": 4.1,
+        "unit": "m",
+        "raw": "Radius: 4.1 meters"
+      },
+      "duration": {
+        "value": 15,
+        "unit": "s",
+        "raw": "Duration: 15 seconds"
+      },
+      "expiration warning at 135 seconds": {
+        "value": 13.5,
+        "unit": "s",
+        "raw": "Expiration warning at 13.5 seconds: v7.08"
+      }
+    }
+  },
+  {
+    "name": "Devour",
+    "id": 1452,
+    "url": "https://valorant.fandom.com/wiki/Devour",
+    "quantified": {
+      "delay": {
+        "value": 0.1,
+        "unit": "s",
+        "raw": "Activation delay (without Empress): 0.1 seconds"
+      },
+      "unequipTime": {
+        "value": 0.5,
+        "unit": "s",
+        "raw": "Unequip time: 0.5 seconds"
+      },
+      "healing": {
+        "value": 1,
+        "unit": null,
+        "raw": "Healing: 1 per tickTotal 50"
+      },
+      "ticks/tick rate": {
+        "value": 25,
+        "unit": "s",
+        "raw": "Ticks/Tick rate: 25 per second(1 every 0.04 seconds)Total 50 ticks"
+      },
+      "duration": {
+        "value": 2,
+        "unit": "s",
+        "raw": "Healing duration: 2 seconds"
+      }
+    }
+  },
+  {
+    "name": "Dimensional Drift",
+    "id": 4050,
+    "url": "https://valorant.fandom.com/wiki/Dimensional_Drift",
+    "quantified": {
+      "equipTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Equip time: 0.8 seconds"
+      },
+      "delay": {
+        "value": 0.4,
+        "unit": "s",
+        "raw": "Cast delay: 0.4 seconds"
+      },
+      "duration": {
+        "value": 10,
+        "unit": "s",
+        "raw": "Duration: 10 seconds"
+      },
+      "radius": {
+        "value": 15,
+        "unit": "m",
+        "raw": "Detection radius: 15 meters(footstep audio only)"
+      },
+      "unequipTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Unequip/Return time: 0.8 seconds"
+      }
+    }
+  },
+  {
+    "name": "Dismiss",
+    "id": 1450,
+    "url": "https://valorant.fandom.com/wiki/Dismiss",
+    "quantified": {
+      "duration": {
+        "value": 1.5,
+        "unit": "s",
+        "raw": "Duration: 1.5 seconds"
+      },
+      "unequipTime": {
+        "value": 0.6,
+        "unit": "s",
+        "raw": "Unequip time: 0.6 seconds"
+      },
+      "movement speed increase": {
+        "value": 12,
+        "unit": "m/s",
+        "raw": "Movement speed increase: 12 m/s"
+      }
+    }
+  },
+  {
+    "name": "Dizzy",
+    "id": 19940,
+    "url": "https://valorant.fandom.com/wiki/Dizzy",
+    "quantified": {
+      "equipTime": {
+        "value": 0.9,
+        "unit": "s",
+        "raw": "Equip time: 0.9 seconds"
+      },
+      "unequipTime": {
+        "value": 0.85,
+        "unit": "s",
+        "raw": "Unequip time: 0.85 seconds"
+      },
+      "windupTime": {
+        "value": 0.65,
+        "unit": "s",
+        "raw": "Activation windup: 0.65 seconds"
+      },
+      "windupTime_3": {
+        "value": 0.35,
+        "unit": "s",
+        "raw": "Blind windup on target acquisition: 0.35 seconds"
+      },
+      "duration": {
+        "value": 1,
+        "unit": "s",
+        "raw": "Effective active duration: 1 second"
+      },
+      "distance": {
+        "value": 45,
+        "unit": "m",
+        "raw": "Max detection distance: 45 meters"
+      },
+      "radius": {
+        "value": 2.5,
+        "unit": "m",
+        "raw": "Plasma explosion radius on target: 2.5 meters"
+      },
+      "duration_7": {
+        "value": 2,
+        "unit": "s",
+        "raw": "Plasma blind duration: Total 2 seconds1 second at max potency1 second to fade away"
+      }
+    }
+  },
+  {
+    "name": "Double Tap",
+    "id": 23848,
+    "url": "https://valorant.fandom.com/wiki/Double_Tap",
+    "quantified": {
+      "windupTime": {
+        "value": 1,
+        "unit": "s",
+        "raw": "Windup: 1 seconds"
+      },
+      "reload speed increase": {
+        "value": 25,
+        "unit": "%",
+        "raw": "Reload speed increase: +25%"
+      },
+      "duration": {
+        "value": 12,
+        "unit": "s",
+        "raw": "Flow state duration: 12 seconds"
+      },
+      "duration_3": {
+        "value": 3,
+        "unit": "s",
+        "raw": "Energy orb duration: 3 seconds"
+      },
+      "width": {
+        "value": 1,
+        "unit": "m",
+        "raw": "Shield width: 1 meter"
+      }
+    }
+  },
+  {
+    "name": "Empress",
+    "id": 1449,
+    "url": "https://valorant.fandom.com/wiki/Empress",
+    "quantified": {
+      "windupTime": {
+        "value": 1,
+        "unit": "s",
+        "raw": "Windup time: 1 second"
+      },
+      "buffs": {
+        "value": 10,
+        "unit": "%",
+        "raw": "Buffs: +10% Equip speed+10% Fire rate+10% Reload speed+10% Recovery speed"
+      }
+    }
+  },
+  {
+    "name": "Evolution",
+    "id": 23050,
+    "url": "https://valorant.fandom.com/wiki/Evolution",
+    "quantified": {
+      "windupTime": {
+        "value": 1,
+        "unit": "s",
+        "raw": "Windup time: 1 second"
+      },
+      "buffs": {
+        "value": 10,
+        "unit": "%",
+        "raw": "Buffs: +10% Equip speed+10% Fire rate+10% Reload speed+10% Recovery speed"
+      },
+      "healing": {
+        "value": 40,
+        "unit": null,
+        "raw": "Healing: 40 HP/sec"
+      }
+    }
+  },
+  {
+    "name": "Fakeout",
+    "id": 4047,
+    "url": "https://valorant.fandom.com/wiki/Fakeout",
+    "quantified": {
+      "equipTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Equip time: 0.8 seconds"
+      },
+      "unequipTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Unequip time: 0.7 seconds"
+      },
+      "duration": {
+        "value": 10,
+        "unit": "s",
+        "raw": "Maximum image duration: 10 seconds"
+      },
+      "flash angle": {
+        "value": 30,
+        "unit": null,
+        "raw": "Flash angle: 30°(either side of the direction the image is looking in)"
+      },
+      "windupTime": {
+        "value": 0.6,
+        "unit": "s",
+        "raw": "Flash windup time: 0.6 seconds"
+      },
+      "duration_5": {
+        "value": 2,
+        "unit": "s",
+        "raw": "Max flash duration: 2 seconds"
+      }
+    }
+  },
+  {
+    "name": "Fast Lane",
+    "id": 14414,
+    "url": "https://valorant.fandom.com/wiki/Fast_Lane",
+    "quantified": {
+      "unequipTime": {
+        "value": 1,
+        "unit": "s",
+        "raw": "Unequip time: 1 second"
+      },
+      "deploy time": {
+        "value": 0.4,
+        "unit": "s",
+        "raw": "Deploy time: 0.4 seconds"
+      },
+      "length": {
+        "value": 46.5,
+        "unit": "m",
+        "raw": "Length: 46.5 m total45 meters in front of Neon1.5 m behind Neon"
+      },
+      "distance": {
+        "value": 3.5,
+        "unit": "m",
+        "raw": "Distance between walls: 3.5 meters"
+      },
+      "duration": {
+        "value": 4,
+        "unit": "s",
+        "raw": "Duration: 4 seconds"
+      },
+      "duration_5": {
+        "value": 2,
+        "unit": "s",
+        "raw": "Wall Dissolve Duration: 2 seconds"
+      },
+      "": {
+        "value": 1,
+        "unit": "s",
+        "raw": "(Includes 1-second telegraph time during walls' active duration): Game files"
+      }
+    }
+  },
+  {
+    "name": "Fault Line",
+    "id": 355,
+    "url": "https://valorant.fandom.com/wiki/Fault_Line",
+    "quantified": {
+      "equipTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Equip time: 0.8 seconds"
+      },
+      "area size": {
+        "value": 8,
+        "unit": "m",
+        "raw": "Area size: 8 to 56-meter length, depending on charge time"
+      },
+      "width": {
+        "value": 8,
+        "unit": "m",
+        "raw": "8-meter width: v12.00"
+      },
+      "distance": {
+        "value": 8,
+        "unit": "m",
+        "raw": "Distance between Breach and AoE: 8 meters"
+      },
+      "time required to fully charge": {
+        "value": 1,
+        "unit": "s",
+        "raw": "Time required to fully charge: 1 second"
+      },
+      "unequipTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Unequip time: 0.7 seconds"
+      },
+      "windupTime": {
+        "value": 1.1,
+        "unit": "s",
+        "raw": "Windup time: 1.1 seconds"
+      },
+      "duration": {
+        "value": 2.5,
+        "unit": "s",
+        "raw": "Concuss duration: 2.5 seconds"
+      }
+    }
+  },
+  {
+    "name": "FLASH-drive",
+    "id": 6783,
+    "url": "https://valorant.fandom.com/wiki/FLASH-drive",
+    "quantified": {
+      "equipTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Equip time: 0.8 seconds"
+      },
+      "unequipTime": {
+        "value": 0.6,
+        "unit": "s",
+        "raw": "Unequip time: 0.6 seconds"
+      },
+      "windupTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Windup time on bounce: 0.8 seconds (Primary fire)(max windup time not affected)"
+      },
+      "windupTime_3": {
+        "value": 1.6,
+        "unit": "s",
+        "raw": "Max windup time: 1.6 seconds (Primary fire)1 second (Alt fire)"
+      },
+      "windupTime_4": {
+        "value": 0.3,
+        "unit": "s",
+        "raw": "Telegraph windup time: 0.3 seconds"
+      },
+      "duration": {
+        "value": 2.25,
+        "unit": "s",
+        "raw": "Max blind duration: 2.25 seconds"
+      }
+    }
+  },
+  {
+    "name": "Flashpoint",
+    "id": 356,
+    "url": "https://valorant.fandom.com/wiki/Flashpoint",
+    "quantified": {
+      "equipTime": {
+        "value": 1.1,
+        "unit": "s",
+        "raw": "Equip time: 1.1 seconds"
+      },
+      "distance": {
+        "value": 35,
+        "unit": "m",
+        "raw": "Max deploy distance: 35 meters"
+      },
+      "max wall penetration depth": {
+        "value": 10,
+        "unit": "m",
+        "raw": "Max wall penetration depth: 10 meters"
+      },
+      "unequipTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Unequip time: 0.7 seconds"
+      },
+      "windupTime": {
+        "value": 0.5,
+        "unit": "s",
+        "raw": "Windup time: 0.5 seconds"
+      },
+      "duration": {
+        "value": 2.25,
+        "unit": "s",
+        "raw": "Max blind duration: 2.25 seconds"
+      }
+    }
+  },
+  {
+    "name": "FRAG-ment",
+    "id": 6782,
+    "url": "https://valorant.fandom.com/wiki/FRAG-ment",
+    "quantified": {
+      "equipTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Equip time: 0.7 seconds"
+      },
+      "unequipTime": {
+        "value": 0.6,
+        "unit": "s",
+        "raw": "Unequip time: 0.6 seconds"
+      },
+      "windupTime": {
+        "value": 0.5,
+        "unit": "s",
+        "raw": "Windup: 0.5 seconds"
+      },
+      "radii": {
+        "value": 1,
+        "unit": "m",
+        "raw": "Radii: 1 meter (Inner)"
+      },
+      "4 meters": {
+        "value": 4,
+        "unit": "m",
+        "raw": "4 meters (Outer): v5.01"
+      },
+      "damage": {
+        "value": {
+          "min": 25,
+          "max": 60
+        },
+        "unit": null,
+        "raw": "Damage: 25-60 per tickTotal 100-240(Minimum Outer radius damage to Inner radius damage)"
+      },
+      "ticks/tick rate": {
+        "value": 1,
+        "unit": "s",
+        "raw": "Ticks/Tick Rate: 1 every 1 second"
+      },
+      "total 4 ticks": {
+        "value": 4,
+        "unit": null,
+        "raw": "Total 4 ticks: Range's training bot"
+      },
+      "duration": {
+        "value": 4,
+        "unit": "s",
+        "raw": "Duration: 4 seconds"
+      }
+    }
+  },
+  {
+    "name": "From the Shadows",
+    "id": 339,
+    "url": "https://valorant.fandom.com/wiki/From_the_Shadows",
+    "quantified": {
+      "equipTime": {
+        "value": 0.5,
+        "unit": "s",
+        "raw": "Equip time: 0.5 seconds"
+      },
+      "duration": {
+        "value": 4,
+        "unit": "s",
+        "raw": "Teleport duration: Total duration: 4 seconds1.5-second windup2.5-second arrival at target location"
+      },
+      "radius": {
+        "value": 22.5,
+        "unit": "m",
+        "raw": "Audio cue radius: 22.5 meters"
+      }
+    }
+  },
+  {
+    "name": "Gatecrash",
+    "id": 4049,
+    "url": "https://valorant.fandom.com/wiki/Gatecrash",
+    "quantified": {
+      "equipTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Equip time: 0.8 seconds"
+      },
+      "length": {
+        "value": 3,
+        "unit": "m",
+        "raw": "Max deploy length: 3 meters"
+      },
+      "unequipTime": {
+        "value": 0.5,
+        "unit": "s",
+        "raw": "Unequip time: 0.5 seconds"
+      },
+      "duration": {
+        "value": 30,
+        "unit": "s",
+        "raw": "Tether Duration: 30 seconds"
+      },
+      "radius": {
+        "value": 4,
+        "unit": "m",
+        "raw": "Detection radius: 4 meters"
+      },
+      "radius_5": {
+        "value": 12.5,
+        "unit": "m",
+        "raw": "Tether audio cue radius: 12.5 meters"
+      },
+      "duration_6": {
+        "value": 1.2,
+        "unit": "s",
+        "raw": "Teleport duration: Total 1.2 seconds0.5-second windup0.7-second arrival at tether location"
+      },
+      "radius_7": {
+        "value": 42.5,
+        "unit": "m",
+        "raw": "Teleport audio cue radius: 42.5 meters"
+      },
+      "duration_8": {
+        "value": 30,
+        "unit": "s",
+        "raw": "Fake decal duration: 30 seconds"
+      }
+    }
+  },
+  {
+    "name": "Gravity Well",
+    "id": 4477,
+    "url": "https://valorant.fandom.com/wiki/Gravity_Well",
+    "quantified": {
+      "windupTime": {
+        "value": 1.25,
+        "unit": "s",
+        "raw": "Windup time: 1.25 seconds"
+      },
+      "radius": {
+        "value": 4.75,
+        "unit": "m",
+        "raw": "Radius: 4.75 meters"
+      },
+      "duration": {
+        "value": 2,
+        "unit": "s",
+        "raw": "Pull duration: 2 seconds"
+      },
+      "duration_3": {
+        "value": 2.5,
+        "unit": "s",
+        "raw": "Vulnerable duration: 2.5 seconds"
+      }
+    }
+  },
+  {
+    "name": "GravNet",
+    "id": 21427,
+    "url": "https://valorant.fandom.com/wiki/GravNet",
+    "quantified": {
+      "equipTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Equip time: 0.8 seconds"
+      },
+      "unequipTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Unequip time: 0.7 seconds"
+      },
+      "windupTime": {
+        "value": 0.4,
+        "unit": "s",
+        "raw": "Windup: 0.4 seconds"
+      },
+      "radius": {
+        "value": 6.5,
+        "unit": "m",
+        "raw": "Radius: 6.5 meters"
+      },
+      "slow amount": {
+        "value": 70,
+        "unit": "%",
+        "raw": "Slow amount: 70%"
+      },
+      "net removal channel time": {
+        "value": 1.5,
+        "unit": "s",
+        "raw": "Net removal channel time: 1.5 seconds"
+      }
+    }
+  },
+  {
+    "name": "Guided Salvo",
+    "id": 31304,
+    "url": "https://valorant.fandom.com/wiki/Guided_Salvo",
+    "quantified": {
+      "equipTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Equip time: 0.7 seconds"
+      },
+      "distance": {
+        "value": 45,
+        "unit": "m",
+        "raw": "Max deploy distance: 45 meters"
+      },
+      "unequipTime": {
+        "value": 0.92,
+        "unit": "s",
+        "raw": "Unequip time: 0.92 seconds"
+      },
+      "flight altitude": {
+        "value": 2,
+        "unit": "m",
+        "raw": "Flight altitude: 2 meters"
+      },
+      "radii": {
+        "value": 2.5,
+        "unit": "m",
+        "raw": "Radii: Inner: 2.5 metersOuter: 4.5 meters"
+      },
+      "windupTime": {
+        "value": 1.25,
+        "unit": "s",
+        "raw": "Windup time: 1.25 seconds"
+      },
+      "damage": {
+        "value": 65,
+        "unit": null,
+        "raw": "Damage: Inner radius: 65 per tickOuter radius: 50 per tickTotal 195/150 damagex0.5 multiplier to objects"
+      },
+      "ticks/tick rate": {
+        "value": 1,
+        "unit": "s",
+        "raw": "Ticks/Tick Rate: 1 every 0.8 secondsTotal 3 ticks"
+      }
+    }
+  },
+  {
+    "name": "Guiding Light",
+    "id": 3121,
+    "url": "https://valorant.fandom.com/wiki/Guiding_Light",
+    "quantified": {
+      "equipTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Equip time: 0.8 seconds"
+      },
+      "unequipTime": {
+        "value": 0.85,
+        "unit": "s",
+        "raw": "Unequip time: 0.85 seconds"
+      },
+      "velocity": {
+        "value": 18,
+        "unit": "m",
+        "raw": "Velocity: 18 meters per second"
+      },
+      "duration": {
+        "value": 2,
+        "unit": "s",
+        "raw": "Duration: 2 seconds"
+      },
+      "duration_4": {
+        "value": 0.75,
+        "unit": "s",
+        "raw": "Flash max duration windup time: 0.75 seconds"
+      },
+      "windupTime": {
+        "value": 0.3,
+        "unit": "s",
+        "raw": "Flash activation windup time: 0.3 seconds"
+      },
+      "duration_6": {
+        "value": {
+          "min": 1,
+          "max": 2.25
+        },
+        "unit": "s",
+        "raw": "Max flash duration: 1-2.25 seconds(based on duration windup)"
+      }
+    }
+  },
+  {
+    "name": "Haunt",
+    "id": 16714,
+    "url": "https://valorant.fandom.com/wiki/Haunt",
+    "quantified": {
+      "equipTime": {
+        "value": 0.85,
+        "unit": "s",
+        "raw": "Equip time: 0.85 seconds"
+      },
+      "unequipTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Unequip time: 0.7 seconds"
+      },
+      "maximum air time": {
+        "value": 1.5,
+        "unit": "s",
+        "raw": "Maximum air time: 1.5 seconds"
+      },
+      "windupTime": {
+        "value": 0.825,
+        "unit": "s",
+        "raw": "Windup: 0.825 seconds"
+      },
+      "radius": {
+        "value": 30,
+        "unit": "m",
+        "raw": "Radius: 30 meters"
+      },
+      "duration": {
+        "value": 1.5,
+        "unit": "s",
+        "raw": "Eye duration: 1.5 seconds"
+      },
+      "duration_6": {
+        "value": 12,
+        "unit": "s",
+        "raw": "Trail duration: 12 seconds"
+      }
+    }
+  },
+  {
+    "name": "Healing Orb",
+    "id": 278,
+    "url": "https://valorant.fandom.com/wiki/Healing_Orb",
+    "quantified": {
+      "equipTime": {
+        "value": 0.5,
+        "unit": "s",
+        "raw": "Equip time: 0.5 seconds"
+      },
+      "unequipTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Unequip time: 0.7 seconds"
+      },
+      "healing": {
+        "value": 20,
+        "unit": "HP",
+        "raw": "Healing: 20 HP/sec, total 100 HP (Heal)10 HP/sec, total 50 HP (Self heal)"
+      },
+      "duration": {
+        "value": 5,
+        "unit": "s",
+        "raw": "Duration: 5 seconds"
+      }
+    }
+  },
+  {
+    "name": "High Gear",
+    "id": 14416,
+    "url": "https://valorant.fandom.com/wiki/High_Gear",
+    "quantified": {
+      "duration": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Activation animation duration: 0.7 seconds"
+      },
+      "movement speed increase": {
+        "value": 35,
+        "unit": "m/s",
+        "raw": "Movement speed increase: +35% (9.11 m/s)"
+      },
+      "duration_2": {
+        "value": 0.6,
+        "unit": "s",
+        "raw": "Slide duration: 0.6 seconds"
+      },
+      "distance": {
+        "value": 7,
+        "unit": "m",
+        "raw": "Slide distance: 7 meters"
+      }
+    }
+  },
+  {
+    "name": "High Tide",
+    "id": 18663,
+    "url": "https://valorant.fandom.com/wiki/High_Tide",
+    "quantified": {
+      "equipTime": {
+        "value": 0.6,
+        "unit": "s",
+        "raw": "Equip time: 0.6 seconds"
+      },
+      "unequipTime": {
+        "value": 0.6,
+        "unit": "s",
+        "raw": "Unequip time: 0.6 seconds"
+      },
+      "velocity": {
+        "value": 25,
+        "unit": "m/s",
+        "raw": "Sphere Velocity: 25 meters/second"
+      },
+      "maximum bend": {
+        "value": 180,
+        "unit": "s",
+        "raw": "Maximum bend: 180 degrees/second"
+      },
+      "distance": {
+        "value": 50,
+        "unit": "m",
+        "raw": "Travel distance: 50 meters"
+      },
+      "height": {
+        "value": 5,
+        "unit": "m",
+        "raw": "Wall Height: 5 meters"
+      },
+      "duration": {
+        "value": 15,
+        "unit": "s",
+        "raw": "Duration: 15 seconds"
+      },
+      "debuff": {
+        "value": 30,
+        "unit": "%",
+        "raw": "Debuff: 30% Slow"
+      },
+      "duration_8": {
+        "value": 0.6,
+        "unit": "s",
+        "raw": "Slow Duration: 0.6 seconds"
+      },
+      "deactivation time": {
+        "value": 1.5,
+        "unit": "s",
+        "raw": "Deactivation time: 1.5 seconds"
+      }
+    }
+  },
+  {
+    "name": "Hot Hands",
+    "id": 301,
+    "url": "https://valorant.fandom.com/wiki/Hot_Hands",
+    "quantified": {
+      "equipTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Equip time: 0.8 seconds"
+      },
+      "unequipTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Unequip time: 0.7 seconds"
+      },
+      "maximum air time": {
+        "value": 1.5,
+        "unit": "s",
+        "raw": "Maximum air time: 1.5 seconds"
+      },
+      "radius": {
+        "value": 4.5,
+        "unit": "m",
+        "raw": "Radius: 4.5 meters"
+      },
+      "damage": {
+        "value": 1,
+        "unit": null,
+        "raw": "Damage: 1 per tickTotal 195-240x0.5 multiplier to objects"
+      },
+      "ticks/tick rate": {
+        "value": 60,
+        "unit": "s",
+        "raw": "Ticks/Tick Rate: 60 per second(1 every 0.0167 seconds)Total 195-240 ticks"
+      },
+      "duration": {
+        "value": 4,
+        "unit": "s",
+        "raw": "Duration: 4 seconds"
+      }
+    }
+  },
+  {
+    "name": "Hunter's Fury",
+    "id": 304,
+    "url": "https://valorant.fandom.com/wiki/Hunter's_Fury",
+    "quantified": {
+      "equipTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Equip time: 0.8 seconds"
+      },
+      "ammunition": {
+        "value": 3,
+        "unit": null,
+        "raw": "Ammunition: 3 charges"
+      },
+      "duration": {
+        "value": 6,
+        "unit": "s",
+        "raw": "Max Duration: 6 seconds (Not including equip time)"
+      },
+      "windupTime": {
+        "value": 1,
+        "unit": "s",
+        "raw": "Windup time per charge: 1 second"
+      },
+      "fire rate": {
+        "value": 1,
+        "unit": "s",
+        "raw": "Fire rate: 1 every 2.125 seconds (including charge windup time)"
+      },
+      "distance": {
+        "value": 1.5,
+        "unit": "m",
+        "raw": "Self-knockback distance: 1.5 meters"
+      },
+      "cylinder size": {
+        "value": 66,
+        "unit": "m",
+        "raw": "Cylinder size: 66 meter length1.76 meter radius"
+      },
+      "damage": {
+        "value": 80,
+        "unit": null,
+        "raw": "Damage: 80"
+      },
+      "duration_8": {
+        "value": 1,
+        "unit": "s",
+        "raw": "Reveal duration: 1 second"
+      },
+      "unequipTime": {
+        "value": 1,
+        "unit": "s",
+        "raw": "Unequip time: 1 second"
+      }
+    }
+  },
+  {
+    "name": "Incendiary",
+    "id": 341,
+    "url": "https://valorant.fandom.com/wiki/Incendiary",
+    "quantified": {
+      "equipTime": {
+        "value": 1.1,
+        "unit": "s",
+        "raw": "Equip time: 1.1 seconds"
+      },
+      "unequipTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Unequip time: 0.7 seconds"
+      },
+      "radius": {
+        "value": 4.5,
+        "unit": "m",
+        "raw": "Radius: 4.5 meters"
+      },
+      "damage": {
+        "value": 1,
+        "unit": null,
+        "raw": "Damage: 1 per tick"
+      },
+      "total 420-465x05 multiplier to objects": {
+        "value": 1,
+        "unit": null,
+        "raw": "Total 420-465x0.5 multiplier to objects: [s 1] & v5.12"
+      },
+      "ticks/tick rate": {
+        "value": 60,
+        "unit": "s",
+        "raw": "Ticks/Tick rate: 60 per second(1 every 0.0167 secs)Total 420-465 ticks"
+      },
+      "duration": {
+        "value": 8,
+        "unit": "s",
+        "raw": "Duration: Total 8 seconds0.25-second explosion time0.75-second spread time7 seconds at full size"
+      }
+    }
+  },
+  {
+    "name": "Interceptor",
+    "id": 36114,
+    "url": "https://valorant.fandom.com/wiki/Interceptor",
+    "quantified": {
+      "equipTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Equip time: 0.8 seconds"
+      },
+      "distance": {
+        "value": 7,
+        "unit": "m",
+        "raw": "Deployment distance: 7 meters(Can be reduced if pushed back by terrain)"
+      },
+      "unequipTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Unequip time: 0.7 seconds"
+      },
+      "deployment time": {
+        "value": 0.35,
+        "unit": "s",
+        "raw": "Deployment time: 0.35 seconds to travel to target location at max deployment distance"
+      },
+      "windupTime": {
+        "value": 0.5,
+        "unit": "s",
+        "raw": "Windup time: 0.5 seconds"
+      },
+      "cast time": {
+        "value": 0.5,
+        "unit": "s",
+        "raw": "Cast time: 0.5 seconds"
+      },
+      "duration": {
+        "value": 9,
+        "unit": "s",
+        "raw": "Duration: 9 seconds"
+      },
+      "radius": {
+        "value": 18,
+        "unit": "m",
+        "raw": "Radius: 18 meters"
+      },
+      "damage": {
+        "value": 100,
+        "unit": null,
+        "raw": "Damage: 100 per tick"
+      },
+      "ticks/tick rate": {
+        "value": 8,
+        "unit": "s",
+        "raw": "Ticks/Tick rate: 8 per second(1 every 0.125 secs)"
+      },
+      "delay": {
+        "value": 0.2,
+        "unit": "s",
+        "raw": "Targeting delay: 0.2 seconds"
+      }
+    }
+  },
+  {
+    "name": "Kill Contract",
+    "id": 23849,
+    "url": "https://valorant.fandom.com/wiki/Kill_Contract",
+    "quantified": {
+      "equipTime": {
+        "value": 1.1,
+        "unit": "s",
+        "raw": "Equip time: 1.1 seconds"
+      },
+      "column area": {
+        "value": 36,
+        "unit": "m",
+        "raw": "Column area: 36-meter length15-meter width"
+      },
+      "unequipTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Unequip time: 0.8 seconds"
+      },
+      "windupTime": {
+        "value": 0.9,
+        "unit": "s",
+        "raw": "Capture windup: 0.9 seconds"
+      },
+      "duration": {
+        "value": 0.5,
+        "unit": "s",
+        "raw": "Transportation duration to and from arena: 0.5 seconds"
+      },
+      "duration_5": {
+        "value": 1.5,
+        "unit": "s",
+        "raw": "Arena creation duration: 1.5 seconds"
+      },
+      "duration_6": {
+        "value": 13,
+        "unit": "s",
+        "raw": "Max duel duration: 13 seconds"
+      },
+      "distance": {
+        "value": 21,
+        "unit": "m",
+        "raw": "Initial distance between agents on Arena spawn: 21 meters"
+      },
+      "duration_8": {
+        "value": 2.5,
+        "unit": "s",
+        "raw": "Contingency duration: 2.5 seconds"
+      },
+      "time until exit on kill": {
+        "value": 2,
+        "unit": "s",
+        "raw": "Time until exit on kill: 2 seconds"
+      }
+    }
+  },
+  {
+    "name": "Leer",
+    "id": 1451,
+    "url": "https://valorant.fandom.com/wiki/Leer",
+    "quantified": {
+      "equipTime": {
+        "value": 0.77,
+        "unit": "s",
+        "raw": "Equip time: 0.77 seconds"
+      },
+      "distance": {
+        "value": 10,
+        "unit": "m",
+        "raw": "Deployment distance: 10 meters(Can be reduced if pushed back by terrain)"
+      },
+      "unequipTime": {
+        "value": 0.5,
+        "unit": "s",
+        "raw": "Unequip time: 0.5 seconds"
+      },
+      "windupTime": {
+        "value": 0.55,
+        "unit": "s",
+        "raw": "Windup time: 0.55 seconds to travel to target location at max deployment distance"
+      },
+      "04 seconds on arrival at target location": {
+        "value": 0.4,
+        "unit": "s",
+        "raw": "0.4 seconds on arrival at target location: v5.07"
+      },
+      "duration": {
+        "value": 1.6,
+        "unit": "s",
+        "raw": "Duration while applying nearsight: 1.6 seconds"
+      },
+      "radius": {
+        "value": 6,
+        "unit": "m",
+        "raw": "Max vision radius while nearsighted: 6 meters"
+      }
+    }
+  },
+  {
+    "name": "Lightspeed",
+    "id": 32319,
+    "url": "https://valorant.fandom.com/wiki/Lightspeed",
+    "quantified": {
+      "equipTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Equip time: 0.8 seconds"
+      },
+      "duration": {
+        "value": 0.45,
+        "unit": "s",
+        "raw": "Dash duration: 0.45 seconds per dash"
+      },
+      "distance": {
+        "value": 9,
+        "unit": "m",
+        "raw": "Dash distance: 9 meters"
+      },
+      "unequipTime": {
+        "value": 0,
+        "unit": "s",
+        "raw": "Unequip time: 0 seconds"
+      }
+    }
+  },
+  {
+    "name": "Lockdown",
+    "id": 1940,
+    "url": "https://valorant.fandom.com/wiki/Lockdown",
+    "quantified": {
+      "equipTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Equip time: 0.8 seconds"
+      },
+      "length": {
+        "value": 0.5,
+        "unit": "m",
+        "raw": "Max deploy length: 0.5 meters"
+      },
+      "deploy time": {
+        "value": 0.52,
+        "unit": "s",
+        "raw": "Deploy time: 0.52 seconds"
+      },
+      "unequipTime": {
+        "value": 0.15,
+        "unit": "s",
+        "raw": "Unequip time: 0.15 seconds"
+      },
+      "radius": {
+        "value": 32.5,
+        "unit": "m",
+        "raw": "Radius: 32.5 meters"
+      },
+      "windupTime": {
+        "value": 13,
+        "unit": "s",
+        "raw": "Windup time: 13 seconds"
+      },
+      "delay": {
+        "value": 0.15,
+        "unit": "s",
+        "raw": "0.15-second pulse delay: v11.00"
+      },
+      "duration": {
+        "value": 8,
+        "unit": "s",
+        "raw": "Detain duration: 8 seconds"
+      }
+    }
+  },
+  {
+    "name": "Meddle",
+    "id": 25745,
+    "url": "https://valorant.fandom.com/wiki/Meddle",
+    "quantified": {
+      "equipTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Equip time: 0.8 seconds"
+      },
+      "unequipTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Unequip time: 0.7 seconds"
+      },
+      "windupTime": {
+        "value": 0.75,
+        "unit": "s",
+        "raw": "Windup: 0.75 seconds after in contact with ground"
+      },
+      "radius": {
+        "value": 6,
+        "unit": "m",
+        "raw": "Radius: 6 meters"
+      },
+      "decay rates": {
+        "value": 90,
+        "unit": "s",
+        "raw": "Decay rates: Decay: 90 HP over 0.75 seconds (120 HP/s)Restoration: 90 HP over 1.75 seconds (51 HP/s)"
+      },
+      "maximum decayed health": {
+        "value": 90,
+        "unit": null,
+        "raw": "Maximum decayed health: 90 HP"
+      },
+      "duration": {
+        "value": 5,
+        "unit": "s",
+        "raw": "Decay duration: 5 seconds (Includes decaying and restoration times)"
+      }
+    }
+  },
+  {
+    "name": "Mosh Pit",
+    "id": 19936,
+    "url": "https://valorant.fandom.com/wiki/Mosh_Pit",
+    "quantified": {
+      "equipTime": {
+        "value": 0.9,
+        "unit": "s",
+        "raw": "Equip time: 0.9 seconds"
+      },
+      "unequipTime": {
+        "value": 0.85,
+        "unit": "s",
+        "raw": "Unequip time: 0.85 seconds"
+      },
+      "radii": {
+        "value": 5.5,
+        "unit": "m",
+        "raw": "Radii: Inner: 5.5 metersOuter: 6.2 meters"
+      },
+      "windupTime": {
+        "value": 3,
+        "unit": "s",
+        "raw": "Windup: 3 seconds"
+      },
+      "damage": {
+        "value": 1,
+        "unit": null,
+        "raw": "Damage: DoT1 per tickTotal 30 damage"
+      },
+      "radius": {
+        "value": 50,
+        "unit": null,
+        "raw": "ExplosionInner radius: 50 per tickOuter radius: 25 per tickTotal 150/75 damage: Game files"
+      },
+      "ticks/tick rate": {
+        "value": 1,
+        "unit": "s",
+        "raw": "Ticks/Tick rate: DoT1 every 0.1 secondsTotal 30 ticks"
+      },
+      "explosion1 every 01 secondstotal 3 ticks": {
+        "value": 1,
+        "unit": "s",
+        "raw": "Explosion1 every 0.1 secondsTotal 3 ticks: Game files"
+      }
+    }
+  },
+  {
+    "name": "Nanoswarm",
+    "id": 1938,
+    "url": "https://valorant.fandom.com/wiki/Nanoswarm",
+    "quantified": {
+      "equipTime": {
+        "value": 0.74,
+        "unit": "s",
+        "raw": "Equip time: 0.74 seconds"
+      },
+      "unequipTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Unequip time: 0.7 seconds"
+      },
+      "buy phase pickup range": {
+        "value": 4,
+        "unit": "m",
+        "raw": "Buy Phase pickup range: 4 meters"
+      },
+      "radius": {
+        "value": 5.25,
+        "unit": "m",
+        "raw": "Detection radius: 5.25 meters"
+      },
+      "windupTime": {
+        "value": 1,
+        "unit": "s",
+        "raw": "Activation windup time: Total 1 second"
+      },
+      "damage": {
+        "value": 0.5,
+        "unit": "s",
+        "raw": "0.5-second damage delay: Game files"
+      },
+      "radius_6": {
+        "value": 4.5,
+        "unit": "m",
+        "raw": "Radius: 4.5 meters"
+      },
+      "damage_7": {
+        "value": 1,
+        "unit": null,
+        "raw": "Damage: 1 per tickTotal 180x0.5 multiplier to objects"
+      },
+      "ticks/tick rate": {
+        "value": 45,
+        "unit": "s",
+        "raw": "Ticks/Tick Rate: 45 per second(1 every 0.022 seconds)"
+      },
+      "total 180 ticks": {
+        "value": 180,
+        "unit": null,
+        "raw": "Total 180 ticks: Range's training bot"
+      },
+      "duration": {
+        "value": 4,
+        "unit": "s",
+        "raw": "Duration: 4 seconds"
+      }
+    }
+  },
+  {
+    "name": "Nebula / Dissipate",
+    "id": 4476,
+    "url": "https://valorant.fandom.com/wiki/Nebula_%2F_Dissipate",
+    "quantified": {
+      "windupTime": {
+        "value": 0.75,
+        "unit": "s",
+        "raw": "Windup time: 0.75 seconds"
+      },
+      "radius": {
+        "value": 4.75,
+        "unit": "m",
+        "raw": "Radius: 4.75 meters"
+      },
+      "duration": {
+        "value": 14.25,
+        "unit": "s",
+        "raw": "Duration: Nebula: 14.25 secondsExpiration warning at 12.75 seconds"
+      },
+      "dissipate: 1 second": {
+        "value": 1,
+        "unit": "s",
+        "raw": "Dissipate: 1 second: Game files"
+      }
+    }
+  },
+  {
+    "name": "Neural Theft",
+    "id": 348,
+    "url": "https://valorant.fandom.com/wiki/Neural_Theft",
+    "quantified": {
+      "distance": {
+        "value": 18,
+        "unit": "m",
+        "raw": "Max cast distance: 18 meters"
+      },
+      "unequipTime": {
+        "value": 1,
+        "unit": "s",
+        "raw": "Unequip time: 1 second"
+      },
+      "windupTime": {
+        "value": 2,
+        "unit": "s",
+        "raw": "1st reveal windup time: 2 seconds"
+      },
+      "windupTime_3": {
+        "value": 4,
+        "unit": "s",
+        "raw": "2nd reveal windup time: 4 seconds"
+      }
+    }
+  },
+  {
+    "name": "Nightfall",
+    "id": 16715,
+    "url": "https://valorant.fandom.com/wiki/Nightfall",
+    "quantified": {
+      "equipTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Equip time: 0.7 seconds"
+      },
+      "area size": {
+        "value": 40,
+        "unit": "m",
+        "raw": "Area size: 40-meter length20-meter width"
+      },
+      "windupTime": {
+        "value": 0.6,
+        "unit": "s",
+        "raw": "Windup: 0.6 seconds"
+      },
+      "unequipTime": {
+        "value": 1,
+        "unit": "s",
+        "raw": "Unequip time: 1 second"
+      },
+      "ticks/tick rate": {
+        "value": 1,
+        "unit": "s",
+        "raw": "Ticks/Tick Rate: 1 every 0.355 secondsTotal 10 ticks"
+      },
+      "duration": {
+        "value": 8,
+        "unit": "s",
+        "raw": "Debuff duration: 8 seconds"
+      },
+      "decay stats": {
+        "value": 80,
+        "unit": null,
+        "raw": "Decay Stats: 80 HP"
+      }
+    }
+  },
+  {
+    "name": "Not Dead Yet",
+    "id": 25747,
+    "url": "https://valorant.fandom.com/wiki/Not_Dead_Yet",
+    "quantified": {
+      "duration": {
+        "value": 1.5,
+        "unit": "s",
+        "raw": "Revive duration: 1.5 seconds"
+      },
+      "duration_1": {
+        "value": 2,
+        "unit": "s",
+        "raw": "Maximum intangibility duration: 2 seconds"
+      },
+      "duration_2": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Deactivation duration: 0.8 seconds"
+      },
+      "resurrection timer": {
+        "value": 10,
+        "unit": "s",
+        "raw": "Resurrection timer: 10 seconds"
+      }
+    }
+  },
+  {
+    "name": "Nova Pulse",
+    "id": 4478,
+    "url": "https://valorant.fandom.com/wiki/Nova_Pulse",
+    "quantified": {
+      "radius": {
+        "value": 4.75,
+        "unit": "m",
+        "raw": "Radius: 4.75 meters"
+      },
+      "windupTime": {
+        "value": 1,
+        "unit": "s",
+        "raw": "Windup time: 1 second"
+      },
+      "duration": {
+        "value": 2.5,
+        "unit": "s",
+        "raw": "Concuss duration: 2.5 seconds"
+      }
+    }
+  },
+  {
+    "name": "NULL-cmd",
+    "id": 6785,
+    "url": "https://valorant.fandom.com/wiki/NULL-cmd",
+    "quantified": {
+      "windupTime": {
+        "value": 1,
+        "unit": "s",
+        "raw": "Windup time: 1 second"
+      },
+      "radius": {
+        "value": 42.5,
+        "unit": "m",
+        "raw": "Radius: 42.5 meters"
+      },
+      "buffs": {
+        "value": 10,
+        "unit": "%",
+        "raw": "Buffs: +10% Fire rate+10% Reload speed+10% Recovery speed+10% Equip speed"
+      },
+      "duration": {
+        "value": 4,
+        "unit": "s",
+        "raw": "Suppression duration: 4 seconds"
+      },
+      "ticks/tick rate": {
+        "value": 1,
+        "unit": "s",
+        "raw": "Ticks/Tick Rate: 1 every 3 seconds"
+      },
+      "5 ticks": {
+        "value": 5,
+        "unit": null,
+        "raw": "5 ticks: In-game"
+      },
+      "duration_6": {
+        "value": 12,
+        "unit": "s",
+        "raw": "Overloaded Duration: 12 seconds"
+      },
+      "downed health": {
+        "value": 850,
+        "unit": null,
+        "raw": "Downed Health: 850 HP"
+      },
+      "duration_8": {
+        "value": 15,
+        "unit": "s",
+        "raw": "Downed Duration: 15 seconds"
+      },
+      "duration_9": {
+        "value": 1.5,
+        "unit": "s",
+        "raw": "Stabilization duration: 1.5 seconds"
+      },
+      "duration_10": {
+        "value": 1.55,
+        "unit": "s",
+        "raw": "Revive duration: 1.55 seconds"
+      }
+    }
+  },
+  {
+    "name": "Orbital Strike",
+    "id": 344,
+    "url": "https://valorant.fandom.com/wiki/Orbital_Strike",
+    "quantified": {
+      "equipTime": {
+        "value": 0.74,
+        "unit": "s",
+        "raw": "Equip time: 0.74 seconds"
+      },
+      "max cast range": {
+        "value": 60,
+        "unit": "m",
+        "raw": "Max cast range: 60 meters"
+      },
+      "unequipTime": {
+        "value": 1,
+        "unit": "s",
+        "raw": "Unequip time: 1 second"
+      },
+      "windupTime": {
+        "value": 2,
+        "unit": "s",
+        "raw": "Windup time: 2 seconds"
+      },
+      "radius": {
+        "value": 9,
+        "unit": "m",
+        "raw": "Radius: 9 meters"
+      },
+      "damage": {
+        "value": 20,
+        "unit": null,
+        "raw": "Damage: 20 per tickTotal 400-500"
+      },
+      "ticks/tick rate": {
+        "value": 6.67,
+        "unit": "s",
+        "raw": "Ticks/Tick rate: 6.67 per second(1 every 0.15 seconds)Total 20-25 ticks"
+      },
+      "duration": {
+        "value": 3,
+        "unit": "s",
+        "raw": "Duration: 3 seconds at full size0.75-second fadeaway time"
+      }
+    }
+  },
+  {
+    "name": "Overdrive",
+    "id": 14417,
+    "url": "https://valorant.fandom.com/wiki/Overdrive",
+    "quantified": {
+      "windupTime": {
+        "value": 1,
+        "unit": "s",
+        "raw": "Initial windup time: 1 second"
+      },
+      "ammunition": {
+        "value": 40,
+        "unit": null,
+        "raw": "Ammunition: 40 per \"magazine\"Minimum 10 ammo required to fire beamInfinite reserve"
+      },
+      "equipTime": {
+        "value": 0.333,
+        "unit": "s",
+        "raw": "Reequip time: 0.333 seconds"
+      },
+      "damage": {
+        "value": {
+          "min": 0,
+          "max": 20
+        },
+        "unit": "m",
+        "raw": "Damage: 0-20 meters: 1820-42 meters: 18-1043+ meters: 10"
+      },
+      "damage_4": {
+        "value": 3,
+        "unit": null,
+        "raw": "Damage multipliers: Headshot: x3Leg shot: x0.85"
+      },
+      "fire rate": {
+        "value": 20,
+        "unit": "s",
+        "raw": "Fire rate: 20 per second1 every 0.05 seconds"
+      },
+      "movement penalties": {
+        "value": 7,
+        "unit": null,
+        "raw": "Movement penalties: Airborne: +7° spread"
+      },
+      "reload time": {
+        "value": 0.5,
+        "unit": "s",
+        "raw": "Reload time: 0.5 second delay then 1 ammo every 0.05 seconds"
+      }
+    }
+  },
+  {
+    "name": "Owl Drone",
+    "id": 306,
+    "url": "https://valorant.fandom.com/wiki/Owl_Drone",
+    "quantified": {
+      "equipTime": {
+        "value": 0.9,
+        "unit": "s",
+        "raw": "Equip time: 0.9 seconds"
+      },
+      "deploy time": {
+        "value": 0.25,
+        "unit": "s",
+        "raw": "Deploy time: 0.25 seconds"
+      },
+      "duration": {
+        "value": 7,
+        "unit": "s",
+        "raw": "Duration: 7 seconds"
+      },
+      "reveal stats": {
+        "value": 0.6,
+        "unit": "s",
+        "raw": "Reveal stats: 0.6-second reveal per ping"
+      },
+      "total 2 pings1st ping 16 seconds after dart impact2nd ping 12 seconds after 1st ping ends": {
+        "value": 2,
+        "unit": "s",
+        "raw": "Total 2 pings1st ping 1.6 seconds after dart impact2nd ping 1.2 seconds after 1st ping ends: v4.08"
+      },
+      "dart cooldown": {
+        "value": 5,
+        "unit": "s",
+        "raw": "Dart cooldown: 5 seconds"
+      },
+      "unequipTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Unequip time: 0.7 seconds"
+      }
+    }
+  },
+  {
+    "name": "Paint Shells",
+    "id": 700,
+    "url": "https://valorant.fandom.com/wiki/Paint_Shells",
+    "quantified": {
+      "equipTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Equip time: 0.8 seconds"
+      },
+      "unequipTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Unequip time: 0.7 seconds"
+      },
+      "windupTime": {
+        "value": 2.25,
+        "unit": "s",
+        "raw": "Windup times: 2.25 seconds (Initial grenade)0.667 seconds (Sub-munitions)"
+      },
+      "radii": {
+        "value": 2.5,
+        "unit": "m",
+        "raw": "Radii: 2.5 meters (Inner)"
+      },
+      "55 meters 525 meters": {
+        "value": 5.5,
+        "unit": "m",
+        "raw": "5.5 meters (Outer; Initial grenade)5.25 meters (Outer; Sub-munitions): v7.09"
+      },
+      "damage": {
+        "value": {
+          "min": 1,
+          "max": 55
+        },
+        "unit": null,
+        "raw": "Damage: 1-55(Minimum Outer radius damage to Inner radius damage)"
+      }
+    }
+  },
+  {
+    "name": "Paranoia",
+    "id": 337,
+    "url": "https://valorant.fandom.com/wiki/Paranoia",
+    "quantified": {
+      "equipTime": {
+        "value": 1.1,
+        "unit": "s",
+        "raw": "Equip time: 1.1 seconds"
+      },
+      "unequipTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Unequip time: 0.7 seconds"
+      },
+      "area size": {
+        "value": 25,
+        "unit": "m",
+        "raw": "Area size: 25 meter travel length"
+      },
+      "radius": {
+        "value": 4.3,
+        "unit": "m",
+        "raw": "4.3 meter radius: Game files"
+      },
+      "velocity": {
+        "value": 20,
+        "unit": "m",
+        "raw": "Orb velocity: 20 meters per second"
+      },
+      "duration": {
+        "value": 2,
+        "unit": "s",
+        "raw": "Nearsight duration: 2 seconds"
+      },
+      "radius_6": {
+        "value": 7.5,
+        "unit": "m",
+        "raw": "Nearsighted vision radius: 7.5 meters"
+      }
+    }
+  },
+  {
+    "name": "Pick-me-up",
+    "id": 25744,
+    "url": "https://valorant.fandom.com/wiki/Pick-me-up",
+    "quantified": {
+      "duration": {
+        "value": 6,
+        "unit": "s",
+        "raw": "Max duration allowed for damaging assist to enable ability activation: Within 6 seconds"
+      },
+      "activation window upon eligible takedown": {
+        "value": 4.5,
+        "unit": "s",
+        "raw": "Activation window upon eligible takedown: 4.5 seconds"
+      },
+      "duration_2": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Activation duration: 0.7 seconds"
+      },
+      "bonus movement speed": {
+        "value": 15,
+        "unit": "%",
+        "raw": "Bonus movement speed: +15%"
+      },
+      "duration_4": {
+        "value": 10,
+        "unit": "s",
+        "raw": "Buff duration: 10 seconds (Overheal)3 seconds (Movement Speed)"
+      },
+      "overhealing rates": {
+        "value": 50,
+        "unit": null,
+        "raw": "Overhealing rates: Healing: 50 HP/sDecay: 25 HP/s"
+      },
+      "maximum overheal": {
+        "value": 50,
+        "unit": null,
+        "raw": "Maximum Overheal: 50 HP"
+      }
+    }
+  },
+  {
+    "name": "Poison Cloud",
+    "id": 333,
+    "url": "https://valorant.fandom.com/wiki/Poison_Cloud",
+    "quantified": {
+      "equipTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Equip time: 0.8 seconds"
+      },
+      "unequipTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Unequip time: 0.7 seconds"
+      },
+      "distance": {
+        "value": 4,
+        "unit": "m",
+        "raw": "Pickup distance (Buy phase only): 4 meters"
+      },
+      "windupTime": {
+        "value": 1.75,
+        "unit": "s",
+        "raw": "Windup time: Total 1.75 seconds0.75-second windup (fuel consumed after this point) 1 second for smoke to fully form"
+      },
+      "radius": {
+        "value": 4.5,
+        "unit": "m",
+        "raw": "Radius: 4.5 meters"
+      },
+      "deactivation time": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Deactivation time: 0.8 seconds"
+      },
+      "activation cooldowns": {
+        "value": 2,
+        "unit": "s",
+        "raw": "Activation cooldowns: 2 seconds (Deactivation)"
+      },
+      "5 seconds": {
+        "value": 5,
+        "unit": "s",
+        "raw": "5 seconds (Activation): v8.08"
+      }
+    }
+  },
+  {
+    "name": "Prowler",
+    "id": 16712,
+    "url": "https://valorant.fandom.com/wiki/Prowler",
+    "quantified": {
+      "equipTime": {
+        "value": 1.1,
+        "unit": "s",
+        "raw": "Equip time: 1.1 seconds"
+      },
+      "unequipTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Unequip time: 0.7 seconds"
+      },
+      "duration": {
+        "value": 2.5,
+        "unit": "s",
+        "raw": "Search duration: 2.5 seconds"
+      },
+      "distance": {
+        "value": 15,
+        "unit": "m",
+        "raw": "Detection distance: 15 meters (Agent)10 meters (Terror Trail)"
+      },
+      "travel speeds": {
+        "value": 10,
+        "unit": "m/s",
+        "raw": "Travel speeds: 10 meters/second (Initial)12 meters/second (Agent detected)15 meters/second (Terror Trail detected)"
+      },
+      "proximity needed to target to nearsight": {
+        "value": 2.5,
+        "unit": "m",
+        "raw": "Proximity needed to target to nearsight: 2.5 meters"
+      },
+      "windupTime": {
+        "value": 0.6,
+        "unit": "s",
+        "raw": "Windup time: 0.6 seconds"
+      },
+      "duration_7": {
+        "value": 2.75,
+        "unit": "s",
+        "raw": "Nearsight duration: 2.75 seconds"
+      },
+      "radius": {
+        "value": 7,
+        "unit": "m",
+        "raw": "Nearsight vision radius: 7 meters"
+      }
+    }
+  },
+  {
+    "name": "Razorvine",
+    "id": 29249,
+    "url": "https://valorant.fandom.com/wiki/Razorvine",
+    "quantified": {
+      "equipTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Equip time: 0.8 seconds"
+      },
+      "unequipTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Unequip time: 0.8 seconds"
+      },
+      "deploy time": {
+        "value": 0.75,
+        "unit": "s",
+        "raw": "Deploy time: 0.75 seconds"
+      },
+      "radius": {
+        "value": 3.5,
+        "unit": "m",
+        "raw": "Detection radius: 3.5 meters"
+      },
+      "windupTime": {
+        "value": 0.2,
+        "unit": "s",
+        "raw": "Windup: 0.2 seconds"
+      },
+      "radius_5": {
+        "value": 6.25,
+        "unit": "m",
+        "raw": "Radius: 6.25 meters"
+      },
+      "slow amount": {
+        "value": 15,
+        "unit": "%",
+        "raw": "Slow amount: 15%"
+      },
+      "damage": {
+        "value": 10,
+        "unit": "m",
+        "raw": "Damage per distance: 10 per 1.25 meters"
+      },
+      "duration": {
+        "value": 6,
+        "unit": "s",
+        "raw": "Duration: Total 6 seconds (Includes Windup)"
+      }
+    }
+  },
+  {
+    "name": "Reckoning",
+    "id": 18664,
+    "url": "https://valorant.fandom.com/wiki/Reckoning",
+    "quantified": {
+      "equipTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Equip time: 0.8 seconds"
+      },
+      "cast time": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Cast time: 0.7 seconds"
+      },
+      "unequipTime": {
+        "value": 0.9,
+        "unit": "s",
+        "raw": "Unequip time: 0.9 seconds"
+      },
+      "chunks": {
+        "value": 5,
+        "unit": null,
+        "raw": "Chunks: 5"
+      },
+      "length": {
+        "value": 5.6,
+        "unit": "m",
+        "raw": "Length: 5.6 meters per chunk (Including overlap)"
+      },
+      "distance": {
+        "value": 9,
+        "unit": "m",
+        "raw": "Effective distance between Harbor and wave: 9 meters"
+      },
+      "velocity": {
+        "value": 8,
+        "unit": "m/s",
+        "raw": "Velocity: 8 meters/second"
+      },
+      "maximum rise": {
+        "value": 1.1,
+        "unit": "m",
+        "raw": "Maximum rise: 1.1 meters"
+      },
+      "maximum drop": {
+        "value": 8,
+        "unit": "m",
+        "raw": "Maximum drop: 8 meters"
+      },
+      "distance_9": {
+        "value": 35,
+        "unit": "m",
+        "raw": "Effective travel distance: 35 meters"
+      },
+      "duration": {
+        "value": 3,
+        "unit": "s",
+        "raw": "Nearsight duration: 3 seconds"
+      },
+      "duration_11": {
+        "value": 2,
+        "unit": "s",
+        "raw": "Slow duration: 2 seconds"
+      }
+    }
+  },
+  {
+    "name": "Recon Bolt",
+    "id": 305,
+    "url": "https://valorant.fandom.com/wiki/Recon_Bolt",
+    "quantified": {
+      "equipTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Equip time: 0.8 seconds"
+      },
+      "maximum bounces": {
+        "value": 2,
+        "unit": null,
+        "raw": "Maximum bounces: 2"
+      },
+      "minimum charge times and projectile strengths": {
+        "value": 2,
+        "unit": "s",
+        "raw": "Minimum charge times and projectile strengths: Immediately cast as a Class 2 Projectile0.333 seconds/1st bar filled for Class 3 Projectile0.667 seconds/2nd bar filled for Class 4 Projectile1.000 second/3rd bar filled for Class 5 Projectile"
+      },
+      "unequipTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Unequip time: 0.7 seconds"
+      },
+      "windupTime": {
+        "value": 0.667,
+        "unit": "s",
+        "raw": "Windup time: 0.667 seconds"
+      },
+      "radius": {
+        "value": 30,
+        "unit": "m",
+        "raw": "Radius: 30 meters"
+      },
+      "sonar pulses": {
+        "value": 1,
+        "unit": "s",
+        "raw": "Sonar pulses: 1 every 1.6 seconds"
+      },
+      "total 2 pulses": {
+        "value": 2,
+        "unit": null,
+        "raw": "Total 2 pulses: v7.04"
+      },
+      "duration": {
+        "value": 0.75,
+        "unit": "s",
+        "raw": "Reveal duration: 0.75 seconds"
+      }
+    }
+  },
+  {
+    "name": "Refract",
+    "id": 32320,
+    "url": "https://valorant.fandom.com/wiki/Refract",
+    "quantified": {
+      "windupTime": {
+        "value": 1,
+        "unit": "s",
+        "raw": "Activation windup: 1 second"
+      },
+      "duration": {
+        "value": 8,
+        "unit": "s",
+        "raw": "Empowered duration: 8 seconds"
+      },
+      "windupTime_2": {
+        "value": 0.05,
+        "unit": "s",
+        "raw": "Reactivation windup: 0.05 seconds"
+      },
+      "duration_3": {
+        "value": {
+          "min": 0.35,
+          "max": 2
+        },
+        "unit": "m",
+        "raw": "Travel duration: 0.35-2 seconds based on travel distanceMinimum travel duration at travel distances <2.5 metersMaximum travel duration at travel distances >50 meters"
+      },
+      "radius": {
+        "value": 35,
+        "unit": "m",
+        "raw": "Max vision radius while nearsighted: 35 meters"
+      },
+      "unequipTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Unequip time: 0.8 seconds"
+      },
+      "duration_6": {
+        "value": 0.2,
+        "unit": "s",
+        "raw": "Self-blind duration on arrival: 0.2 seconds"
+      }
+    }
+  },
+  {
+    "name": "Regrowth",
+    "id": 3136,
+    "url": "https://valorant.fandom.com/wiki/Regrowth",
+    "quantified": {
+      "equipTime": {
+        "value": 0.5,
+        "unit": "s",
+        "raw": "Equip time: 0.5 seconds"
+      },
+      "radius": {
+        "value": 18,
+        "unit": "m",
+        "raw": "Radius: 18 meters"
+      },
+      "healing": {
+        "value": 1,
+        "unit": null,
+        "raw": "Healing: 1 per tickTotal 100"
+      },
+      "tick/tick rate": {
+        "value": 20,
+        "unit": "s",
+        "raw": "Tick/Tick rate: 20 per second1 every 0.05 secondsTotal 100 ticks"
+      },
+      "healing pool": {
+        "value": 100,
+        "unit": null,
+        "raw": "Healing pool: 100 HP"
+      },
+      "unequipTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Unequip time: 0.7 seconds"
+      }
+    }
+  },
+  {
+    "name": "Relay Bolt",
+    "id": 14415,
+    "url": "https://valorant.fandom.com/wiki/Relay_Bolt",
+    "quantified": {
+      "unequipTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Unequip time: 0.7 seconds"
+      },
+      "duration": {
+        "value": 5,
+        "unit": "s",
+        "raw": "Max projectile duration: 5 seconds"
+      },
+      "radius": {
+        "value": 5,
+        "unit": "m",
+        "raw": "Radius: 5 meters"
+      },
+      "windupTime": {
+        "value": 1,
+        "unit": "s",
+        "raw": "Explosion windup time: 1 second"
+      },
+      "duration_4": {
+        "value": 2.5,
+        "unit": "s",
+        "raw": "Concuss duration: 2.5 seconds"
+      }
+    }
+  },
+  {
+    "name": "Rendezvous",
+    "id": 13749,
+    "url": "https://valorant.fandom.com/wiki/Rendezvous",
+    "quantified": {
+      "equipTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Equip time: 0.8 seconds"
+      },
+      "distance": {
+        "value": 8.5,
+        "unit": "m",
+        "raw": "Max cast distance: 8.5 meters"
+      },
+      "unequipTime": {
+        "value": 0.6,
+        "unit": "s",
+        "raw": "Unequip time: 0.6 seconds"
+      },
+      "radius": {
+        "value": 18,
+        "unit": "m",
+        "raw": "Anchor radius: 18 meters"
+      },
+      "duration": {
+        "value": 1.3,
+        "unit": "s",
+        "raw": "Teleport duration: Total duration: 1.3 seconds0.1-second windup1.2-second arrival at anchor"
+      },
+      "radius_5": {
+        "value": 42.5,
+        "unit": "m",
+        "raw": "Audio cue radius: 42.5 meters"
+      },
+      "recall time": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Recall time: 0.7 seconds"
+      }
+    }
+  },
+  {
+    "name": "Resurrection",
+    "id": 279,
+    "url": "https://valorant.fandom.com/wiki/Resurrection",
+    "quantified": {
+      "equipTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Equip time: 0.8 seconds"
+      },
+      "distance": {
+        "value": 12,
+        "unit": "m",
+        "raw": "Max cast distance: 12 meters"
+      },
+      "windupTime": {
+        "value": 2,
+        "unit": "s",
+        "raw": "Windup time: 2 seconds"
+      },
+      "unequipTime": {
+        "value": 1,
+        "unit": "s",
+        "raw": "Unequip time: 1 second"
+      },
+      "duration": {
+        "value": 1.3,
+        "unit": "s",
+        "raw": "Revive duration: 1.3 seconds"
+      }
+    }
+  },
+  {
+    "name": "Rolling Thunder",
+    "id": 358,
+    "url": "https://valorant.fandom.com/wiki/Rolling_Thunder",
+    "quantified": {
+      "equipTime": {
+        "value": 1.1,
+        "unit": "s",
+        "raw": "Equip time: 1.1 seconds"
+      },
+      "channel time": {
+        "value": 0.6,
+        "unit": "s",
+        "raw": "Channel time: 0.6 seconds"
+      },
+      "unequipTime": {
+        "value": 0.4,
+        "unit": "s",
+        "raw": "Unequip time: 0.4 seconds"
+      },
+      "area size": {
+        "value": 32,
+        "unit": "m",
+        "raw": "Area size: 32-meter length"
+      },
+      "width": {
+        "value": 18,
+        "unit": "m",
+        "raw": "18-meter width: v11.08"
+      },
+      "distance": {
+        "value": 8,
+        "unit": "m",
+        "raw": "Distance between Breach and AoE: 8 meters"
+      },
+      "delay": {
+        "value": 0.6,
+        "unit": "s",
+        "raw": "Blast delay: 0.6 seconds"
+      },
+      "ticks/tick rate": {
+        "value": 1,
+        "unit": "s",
+        "raw": "Ticks/Tick Rate: 1 every 0.255 secondsTotal 8 ticks"
+      },
+      "distance_8": {
+        "value": 7,
+        "unit": "m",
+        "raw": "Displacement Distance: 7 meters"
+      },
+      "duration": {
+        "value": 4,
+        "unit": "s",
+        "raw": "Concuss duration: 4 seconds"
+      }
+    }
+  },
+  {
+    "name": "Run it Back",
+    "id": 299,
+    "url": "https://valorant.fandom.com/wiki/Run_it_Back",
+    "quantified": {
+      "duration": {
+        "value": 10,
+        "unit": "s",
+        "raw": "Duration: 10 seconds(Includes 1-second activation animation)"
+      },
+      "duration_1": {
+        "value": 2.4,
+        "unit": "s",
+        "raw": "Revive duration: Total 2.4 seconds1-second dissipate1.4-second respawn"
+      }
+    }
+  },
+  {
+    "name": "Ruse",
+    "id": 25746,
+    "url": "https://valorant.fandom.com/wiki/Ruse",
+    "quantified": {
+      "equipTime": {
+        "value": 0.6,
+        "unit": "s",
+        "raw": "Equip time: 0.6 seconds"
+      },
+      "max cast range": {
+        "value": 55,
+        "unit": "m",
+        "raw": "Max cast range: 55 meters (Alive)42.5 meters (Dead)"
+      },
+      "unequipTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Unequip time: 0.7 seconds"
+      },
+      "windupTime": {
+        "value": 1,
+        "unit": "s",
+        "raw": "Windup time: 1 second"
+      },
+      "radius": {
+        "value": 4,
+        "unit": "m",
+        "raw": "Radius: 4 meters"
+      },
+      "duration": {
+        "value": 13.5,
+        "unit": "s",
+        "raw": "Duration: 13.5 seconds (includes 0.75-second formation time)Expiration warning at 12 seconds"
+      }
+    }
+  },
+  {
+    "name": "Saturate",
+    "id": 32318,
+    "url": "https://valorant.fandom.com/wiki/Saturate",
+    "quantified": {
+      "unequipTime": {
+        "value": 0.3,
+        "unit": "s",
+        "raw": "Unequip time: 0.3 seconds"
+      },
+      "maximum air time": {
+        "value": 1,
+        "unit": "s",
+        "raw": "Maximum air time: 1 second"
+      },
+      "windupTime": {
+        "value": 0.6,
+        "unit": "s",
+        "raw": "Windup: 0.6 seconds"
+      },
+      "radius": {
+        "value": 6,
+        "unit": "m",
+        "raw": "Radius: 6 meters"
+      },
+      "duration": {
+        "value": 3,
+        "unit": "s",
+        "raw": "Hinder duration: 3 seconds"
+      }
+    }
+  },
+  {
+    "name": "Seekers",
+    "id": 3138,
+    "url": "https://valorant.fandom.com/wiki/Seekers",
+    "quantified": {
+      "equipTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Equip time: 0.8 seconds"
+      },
+      "unequipTime": {
+        "value": 0.55,
+        "unit": "s",
+        "raw": "Unequip time: 0.55 seconds"
+      },
+      "number of seekers deployed": {
+        "value": 3,
+        "unit": null,
+        "raw": "Number of Seekers deployed: 3"
+      },
+      "max lifespan": {
+        "value": 15,
+        "unit": "s",
+        "raw": "Max lifespan: 15 seconds"
+      },
+      "duration": {
+        "value": 3,
+        "unit": "s",
+        "raw": "Nearsight duration: 3 seconds"
+      },
+      "radius": {
+        "value": 7.5,
+        "unit": "m",
+        "raw": "Nearsight vision radius: 7.5 meters"
+      },
+      "duration_6": {
+        "value": 5,
+        "unit": "s",
+        "raw": "Slow duration: 5 seconds"
+      },
+      "slow potency": {
+        "value": 60,
+        "unit": "%",
+        "raw": "Slow potency: 60%"
+      }
+    }
+  },
+  {
+    "name": "Seize",
+    "id": 16713,
+    "url": "https://valorant.fandom.com/wiki/Seize",
+    "quantified": {
+      "equipTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Equip time: 0.8 seconds"
+      },
+      "unequipTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Unequip time: 0.7 seconds"
+      },
+      "maximum air time": {
+        "value": 1.5,
+        "unit": "s",
+        "raw": "Maximum air time: 1.5 seconds"
+      },
+      "windupTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Windup: 0.7 seconds"
+      },
+      "decay stats": {
+        "value": 75,
+        "unit": "s",
+        "raw": "Decay stats: 75 HPHealth restored over 5 seconds"
+      },
+      "radius": {
+        "value": 6.58,
+        "unit": "m",
+        "raw": "Zone radius: 6.58 meters"
+      },
+      "duration": {
+        "value": 4.5,
+        "unit": "s",
+        "raw": "Zone Duration: 4.5 seconds"
+      }
+    }
+  },
+  {
+    "name": "Shear",
+    "id": 29250,
+    "url": "https://valorant.fandom.com/wiki/Shear",
+    "quantified": {
+      "equipTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Equip time: 0.7 seconds"
+      },
+      "distance": {
+        "value": 15,
+        "unit": "m",
+        "raw": "Max deploy distance: 15 meters"
+      },
+      "wall dimensions": {
+        "value": {
+          "min": 1,
+          "max": 12
+        },
+        "unit": "m",
+        "raw": "Wall dimensions: Min-Max Length: 1-12 meters"
+      },
+      "unequipTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Unequip time: 0.8 seconds"
+      },
+      "deploy time": {
+        "value": 2,
+        "unit": "s",
+        "raw": "Deploy time: 2 seconds"
+      },
+      "distance_5": {
+        "value": 3.5,
+        "unit": "m",
+        "raw": "Detection distance: 3.5 meters"
+      },
+      "windupTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Windup: 0.8 seconds"
+      },
+      "duration": {
+        "value": 6,
+        "unit": "s",
+        "raw": "Duration: Total 6 seconds"
+      },
+      "08-second deactivation time": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "0.8-second deactivation time: Game files"
+      }
+    }
+  },
+  {
+    "name": "Shock Bolt",
+    "id": 303,
+    "url": "https://valorant.fandom.com/wiki/Shock_Bolt",
+    "quantified": {
+      "equipTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Equip time: 0.8 seconds"
+      },
+      "maximum bounces": {
+        "value": 2,
+        "unit": null,
+        "raw": "Maximum bounces: 2"
+      },
+      "minimum charge times and projectile strengths": {
+        "value": 2,
+        "unit": "s",
+        "raw": "Minimum charge times and projectile strengths: Immediately cast as a Class 2 Projectile0.333 seconds/1st bar filled for Class 3 Projectile0.667 seconds/2nd bar filled for Class 4 Projectile1.000 second/3rd bar filled for Class 5 Projectile"
+      },
+      "unequipTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Unequip time: 0.7 seconds"
+      },
+      "windupTime": {
+        "value": 0.4,
+        "unit": "s",
+        "raw": "Windup time: 0.4 seconds"
+      },
+      "radii": {
+        "value": 1.5,
+        "unit": "m",
+        "raw": "Radii: 1.5 meters (Inner)4 meters (Outer)"
+      },
+      "damage": {
+        "value": 1,
+        "unit": null,
+        "raw": "Damage: Minimum: 1"
+      },
+      "maximum: 75": {
+        "value": 75,
+        "unit": null,
+        "raw": "Maximum: 75(Minimum Outer radius damage to Inner radius damage): v4.08"
+      }
+    }
+  },
+  {
+    "name": "Showstopper",
+    "id": 701,
+    "url": "https://valorant.fandom.com/wiki/Showstopper",
+    "quantified": {
+      "equipTime": {
+        "value": 1.4,
+        "unit": "s",
+        "raw": "Equip time: 1.4 seconds"
+      },
+      "duration": {
+        "value": 10,
+        "unit": "s",
+        "raw": "Max duration: 10 seconds(including Equip time)"
+      },
+      "radii": {
+        "value": 4,
+        "unit": "m",
+        "raw": "Radii: 4 meters (Inner)7 meters (Outer)"
+      },
+      "damage": {
+        "value": {
+          "min": 30,
+          "max": 150
+        },
+        "unit": null,
+        "raw": "Damage: 30-150(Minimum Outer radius damage to Inner radius damage)x10 multiplier to objects"
+      },
+      "unequipTime": {
+        "value": 0.4,
+        "unit": "s",
+        "raw": "Unequip time: 0.4 seconds"
+      }
+    }
+  },
+  {
+    "name": "Shrouded Step",
+    "id": 338,
+    "url": "https://valorant.fandom.com/wiki/Shrouded_Step",
+    "quantified": {
+      "equipTime": {
+        "value": 0.5,
+        "unit": "s",
+        "raw": "Equip time: 0.5 seconds"
+      },
+      "distance": {
+        "value": 15,
+        "unit": "m",
+        "raw": "Max cast distance: 15 meters"
+      },
+      "unequipTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Unequip time: 0.7 seconds"
+      },
+      "duration": {
+        "value": 1.2,
+        "unit": "s",
+        "raw": "Teleport duration: Total duration: 1.2 seconds"
+      },
+      "windupTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "0.7-second windup: v4.04"
+      },
+      "radius": {
+        "value": 12.5,
+        "unit": "m",
+        "raw": "Arrival audio cue radius: 12.5 meters"
+      }
+    }
+  },
+  {
+    "name": "Sky Smoke",
+    "id": 343,
+    "url": "https://valorant.fandom.com/wiki/Sky_Smoke",
+    "quantified": {
+      "equipTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Equip time: 0.8 seconds"
+      },
+      "max cast range": {
+        "value": 55,
+        "unit": "m",
+        "raw": "Max cast range: 55 meters"
+      },
+      "unequipTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Unequip time: 0.7 seconds"
+      },
+      "deploy time": {
+        "value": 1,
+        "unit": "s",
+        "raw": "Deploy time: 1 seconds"
+      },
+      "radius": {
+        "value": 4.15,
+        "unit": "m",
+        "raw": "Radius: 4.15 meters"
+      },
+      "duration": {
+        "value": 19.25,
+        "unit": "s",
+        "raw": "Duration: 19.25 seconds"
+      },
+      "expiration warning at 1775 seconds": {
+        "value": 17.75,
+        "unit": "s",
+        "raw": "Expiration warning at 17.75 seconds: v7.08"
+      }
+    }
+  },
+  {
+    "name": "Slow Orb",
+    "id": 276,
+    "url": "https://valorant.fandom.com/wiki/Slow_Orb",
+    "quantified": {
+      "equipTime": {
+        "value": 0.5,
+        "unit": "s",
+        "raw": "Equip time: 0.5 seconds"
+      },
+      "unequipTime": {
+        "value": 0.4,
+        "unit": "s",
+        "raw": "Unequip time: 0.4 seconds"
+      },
+      "windupTime": {
+        "value": 0.5,
+        "unit": "s",
+        "raw": "Windup time: 0.5 seconds"
+      },
+      "slow amount": {
+        "value": 50,
+        "unit": "%",
+        "raw": "Slow amount: 50%"
+      },
+      "duration": {
+        "value": 7,
+        "unit": "s",
+        "raw": "Duration: 7 seconds"
+      }
+    }
+  },
+  {
+    "name": "Snake Bite",
+    "id": 334,
+    "url": "https://valorant.fandom.com/wiki/Snake_Bite",
+    "quantified": {
+      "equipTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Equip time: 0.8 seconds"
+      },
+      "unequipTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Unequip time: 0.7 seconds"
+      },
+      "radius": {
+        "value": 4.5,
+        "unit": "m",
+        "raw": "Radius: 4.5 meters"
+      },
+      "damage": {
+        "value": 1,
+        "unit": null,
+        "raw": "Damage: 1 per tick"
+      },
+      "total 76-79": {
+        "value": 1,
+        "unit": null,
+        "raw": "Total 76-79(152-158 with Vulnerable): Range's training bot[s 1]"
+      },
+      "x05 multiplier to objects": {
+        "value": 0.5,
+        "unit": null,
+        "raw": "x0.5 multiplier to objects: v5.12"
+      },
+      "ticks/tick rate": {
+        "value": 12.5,
+        "unit": "s",
+        "raw": "Ticks/Tick rate: 12.5 per second1 every 0.08 seconds"
+      },
+      "total 76-79 ticks": {
+        "value": 1,
+        "unit": null,
+        "raw": "Total 76-79 ticks: Range's training bot[s 1]"
+      },
+      "duration": {
+        "value": 6.5,
+        "unit": "s",
+        "raw": "Duration: 6.5 seconds"
+      },
+      "duration_9": {
+        "value": 2,
+        "unit": "s",
+        "raw": "Vulnerable duration: 2 seconds"
+      }
+    }
+  },
+  {
+    "name": "Sonic Sensor",
+    "id": 21428,
+    "url": "https://valorant.fandom.com/wiki/Sonic_Sensor",
+    "quantified": {
+      "equipTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Equip time: 0.8 seconds"
+      },
+      "distance": {
+        "value": 14,
+        "unit": "m",
+        "raw": "Max deploy distance: 14 meters"
+      },
+      "height": {
+        "value": 4.5,
+        "unit": "m",
+        "raw": "Max deploy height: 4.5 meters"
+      },
+      "unequipTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Unequip time: 0.7 seconds"
+      },
+      "deploy time": {
+        "value": 1.75,
+        "unit": "s",
+        "raw": "Deploy time: 1.75 seconds"
+      },
+      "area": {
+        "value": 9,
+        "unit": "m",
+        "raw": "Area: 9-meter length8-meter width2-meter depth"
+      },
+      "windupTime": {
+        "value": 0.5,
+        "unit": "s",
+        "raw": "Windup: 0.5 seconds"
+      },
+      "duration": {
+        "value": 2.5,
+        "unit": "s",
+        "raw": "Concuss duration: 2.5 seconds"
+      }
+    }
+  },
+  {
+    "name": "Special Delivery",
+    "id": 31246,
+    "url": "https://valorant.fandom.com/wiki/Special_Delivery",
+    "quantified": {
+      "equipTime": {
+        "value": 0.5,
+        "unit": "s",
+        "raw": "Equip time: 0.5 seconds"
+      },
+      "unequipTime": {
+        "value": 0.4,
+        "unit": "s",
+        "raw": "Unequip time: 0.4 seconds"
+      },
+      "duration": {
+        "value": 3,
+        "unit": "s",
+        "raw": "Max projectile duration: 3 seconds"
+      },
+      "radius": {
+        "value": 5.25,
+        "unit": "m",
+        "raw": "Radius: 5.25 meters"
+      },
+      "windupTime": {
+        "value": 0.9,
+        "unit": "s",
+        "raw": "Windup time: 0.9 seconds"
+      },
+      "damage": {
+        "value": {
+          "min": 20,
+          "max": 35
+        },
+        "unit": null,
+        "raw": "Damage(outer to center damage): 20-35"
+      },
+      "maximum 25 seconds": {
+        "value": 2.5,
+        "unit": "s",
+        "raw": "Maximum 2.5 seconds: v12.00"
+      }
+    }
+  },
+  {
+    "name": "Spycam",
+    "id": 347,
+    "url": "https://valorant.fandom.com/wiki/Spycam",
+    "quantified": {
+      "equipTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Equip time: 0.8 seconds"
+      },
+      "distance": {
+        "value": 20,
+        "unit": "m",
+        "raw": "Max deploy distance: 20 meters"
+      },
+      "height": {
+        "value": 4.5,
+        "unit": "m",
+        "raw": "Max deploy height: 4.5 meters"
+      },
+      "unequipTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Unequip time: 0.7 seconds"
+      },
+      "deploy time": {
+        "value": 1.15,
+        "unit": "s",
+        "raw": "Deploy time: 1.15 seconds"
+      },
+      "detection radii": {
+        "value": 8,
+        "unit": "m",
+        "raw": "Detection radii: Agent detecting cam while inactive: 8 meters"
+      },
+      "agent detecting cam while active: 12 meters": {
+        "value": 12,
+        "unit": "m",
+        "raw": "Agent detecting cam while active: 12 meters: v11.08"
+      },
+      "reveal ticks/tick rate": {
+        "value": 1,
+        "unit": "s",
+        "raw": "Reveal ticks/tick Rate: 1 every 2 secondsContinues indefinitely until dart removed"
+      },
+      "dart removal channel time": {
+        "value": 1.85,
+        "unit": "s",
+        "raw": "Dart removal channel time: 1.85 seconds"
+      },
+      "dart cooldown": {
+        "value": 6,
+        "unit": "s",
+        "raw": "Dart cooldown: 6 seconds"
+      }
+    }
+  },
+  {
+    "name": "Stars",
+    "id": 4479,
+    "url": "https://valorant.fandom.com/wiki/Stars",
+    "quantified": {
+      "placement deploy time": {
+        "value": 1.5,
+        "unit": "s",
+        "raw": "Placement deploy time: 1.5 seconds"
+      },
+      "windupTime": {
+        "value": 1.4,
+        "unit": "s",
+        "raw": "Round Start windup time: 1.4 seconds"
+      }
+    }
+  },
+  {
+    "name": "Stealth Drone",
+    "id": 31303,
+    "url": "https://valorant.fandom.com/wiki/Stealth_Drone",
+    "quantified": {
+      "equipTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Equip time: 0.8 seconds"
+      },
+      "length": {
+        "value": 6,
+        "unit": "m",
+        "raw": "Max deploy length: 6 meters"
+      },
+      "deploy time": {
+        "value": 0.3,
+        "unit": "s",
+        "raw": "Deploy time: 0.3 seconds"
+      },
+      "radius": {
+        "value": 18,
+        "unit": "m",
+        "raw": "Vision radius: 18 meters"
+      },
+      "vision cone angle": {
+        "value": 60,
+        "unit": null,
+        "raw": "Vision cone angle: 60°(either side of the direction Stealth Drone is looking in)"
+      },
+      "radius_5": {
+        "value": 18,
+        "unit": "m",
+        "raw": "Detection radius: 18 meters"
+      },
+      "re-stealth timer": {
+        "value": 2,
+        "unit": "s",
+        "raw": "Re-stealth timer: 2 seconds"
+      },
+      "duration": {
+        "value": 6,
+        "unit": "s",
+        "raw": "Duration: 6 seconds"
+      },
+      "windupTime": {
+        "value": 0.4,
+        "unit": "s",
+        "raw": "Windup time: 0.4 seconds"
+      },
+      "unequipTime": {
+        "value": 0.5,
+        "unit": "s",
+        "raw": "Unequip time: 0.5 seconds"
+      },
+      "radius_10": {
+        "value": 16,
+        "unit": "m",
+        "raw": "Detonation radius: 16 meters"
+      },
+      "velocity": {
+        "value": 16,
+        "unit": "m",
+        "raw": "Pulse velocity: 16 meters over 0.7 seconds"
+      },
+      "duration_12": {
+        "value": 8,
+        "unit": "s",
+        "raw": "Suppress duration: 8 seconds"
+      }
+    }
+  },
+  {
+    "name": "Steel Garden",
+    "id": 29252,
+    "url": "https://valorant.fandom.com/wiki/Steel_Garden",
+    "quantified": {
+      "equipTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Equip time: 0.7 seconds"
+      },
+      "radius": {
+        "value": 28,
+        "unit": "m",
+        "raw": "Radius: 28 meters"
+      },
+      "unequipTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Unequip time: 0.8 seconds"
+      },
+      "windupTime": {
+        "value": 4.4,
+        "unit": "s",
+        "raw": "Windup: 4.4 seconds"
+      },
+      "duration": {
+        "value": 8,
+        "unit": "s",
+        "raw": "Jammed duration: 8 seconds"
+      }
+    }
+  },
+  {
+    "name": "Stim Beacon",
+    "id": 342,
+    "url": "https://valorant.fandom.com/wiki/Stim_Beacon",
+    "quantified": {
+      "unequipTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Unequip time: 0.7 seconds"
+      },
+      "radius": {
+        "value": 6,
+        "unit": "m",
+        "raw": "Radius: 6 meters"
+      },
+      "buffs": {
+        "value": 10,
+        "unit": "%",
+        "raw": "Buffs: +10% Equip speed+10% Fire rate+10% Reload speed+10% Recovery speed+10% Speed Boost"
+      },
+      "duration": {
+        "value": 4,
+        "unit": "s",
+        "raw": "Buff duration: 4 seconds"
+      },
+      "duration_4": {
+        "value": 12,
+        "unit": "s",
+        "raw": "Beacon duration: 12 seconds"
+      }
+    }
+  },
+  {
+    "name": "Storm Surge",
+    "id": 37069,
+    "url": "https://valorant.fandom.com/wiki/Storm_Surge",
+    "quantified": {
+      "equipTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Equip time: 0.8 seconds"
+      },
+      "uneuqip time": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Uneuqip time: 0.7 seconds"
+      },
+      "radius": {
+        "value": 6,
+        "unit": "m",
+        "raw": "Radius: 6 meters"
+      },
+      "windupTime": {
+        "value": 0.6,
+        "unit": "s",
+        "raw": "Windup time: 0.6 seconds"
+      },
+      "duration": {
+        "value": 2,
+        "unit": "s",
+        "raw": "Nearsight duration: 2 seconds"
+      },
+      "duration_5": {
+        "value": 2,
+        "unit": "s",
+        "raw": "Slow duration: 2 seconds"
+      }
+    }
+  },
+  {
+    "name": "Tailwind",
+    "id": 307,
+    "url": "https://valorant.fandom.com/wiki/Tailwind",
+    "quantified": {
+      "windupTime": {
+        "value": 1,
+        "unit": "s",
+        "raw": "Windup: 1 second"
+      },
+      "duration": {
+        "value": 7.5,
+        "unit": "s",
+        "raw": "Empowered Duration: 7.5 seconds"
+      },
+      "duration_2": {
+        "value": 0.45,
+        "unit": "s",
+        "raw": "Dash Duration: 0.45 seconds"
+      },
+      "distance": {
+        "value": 11,
+        "unit": "m",
+        "raw": "Base dash distance: 11 meters"
+      },
+      "unequipTime": {
+        "value": 0.2,
+        "unit": "s",
+        "raw": "Unequip time: 0.2 seconds"
+      }
+    }
+  },
+  {
+    "name": "Thrash",
+    "id": 19941,
+    "url": "https://valorant.fandom.com/wiki/Thrash",
+    "quantified": {
+      "equipTime": {
+        "value": 0.9,
+        "unit": "s",
+        "raw": "Equip time: 0.9 seconds"
+      },
+      "duration": {
+        "value": 0.6,
+        "unit": "s",
+        "raw": "Deployment duration: 0.6 seconds"
+      },
+      "radius": {
+        "value": 20,
+        "unit": "m",
+        "raw": "Max vision radius: 20 meters"
+      },
+      "speed": {
+        "value": 11.22,
+        "unit": "m/s",
+        "raw": "Speed: 11.22 meters/second"
+      },
+      "duration_4": {
+        "value": 6,
+        "unit": "s",
+        "raw": "Search duration: 6 seconds"
+      },
+      "distance": {
+        "value": 13,
+        "unit": "m",
+        "raw": "Lunge distance: 13 meters"
+      },
+      "duration_6": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Lunge duration: 0.8 seconds"
+      },
+      "radius_7": {
+        "value": 5,
+        "unit": "m",
+        "raw": "Lunge radius: 5 meters"
+      },
+      "duration_8": {
+        "value": 6,
+        "unit": "s",
+        "raw": "Detain duration: 6 seconds"
+      },
+      "unequipTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Unequip time: 0.7 seconds"
+      },
+      "duration_10": {
+        "value": 1.5,
+        "unit": "s",
+        "raw": "Vision restoration duration: 1.5 seconds"
+      }
+    }
+  },
+  {
+    "name": "Tour De Force",
+    "id": 13750,
+    "url": "https://valorant.fandom.com/wiki/Tour_De_Force",
+    "quantified": {
+      "initial summon time": {
+        "value": 2.3,
+        "unit": "s",
+        "raw": "Initial summon time: 2.3 seconds"
+      },
+      "equipTime": {
+        "value": 0.667,
+        "unit": "s",
+        "raw": "Equip time: 0.667 seconds"
+      },
+      "ammunition": {
+        "value": 5,
+        "unit": null,
+        "raw": "Ammunition: 5 roundsNo reserve"
+      },
+      "damage": {
+        "value": 150,
+        "unit": null,
+        "raw": "Damage: 150"
+      },
+      "damage_4": {
+        "value": 1.7,
+        "unit": null,
+        "raw": "Damage multipliers: Headshot: x1.7Leg shot: x0.85"
+      },
+      "fire rate": {
+        "value": 0.9,
+        "unit": "s",
+        "raw": "Fire rate: 0.9 per second1 every 1.111 seconds"
+      },
+      "radius": {
+        "value": 6,
+        "unit": "m",
+        "raw": "Slow radius: 6 meters"
+      },
+      "duration": {
+        "value": 4,
+        "unit": "s",
+        "raw": "Slow duration: 4 seconds"
+      },
+      "unequipTime": {
+        "value": 1,
+        "unit": "s",
+        "raw": "Unequip time(out of ammo): 1 second"
+      }
+    }
+  },
+  {
+    "name": "Toxic Screen",
+    "id": 335,
+    "url": "https://valorant.fandom.com/wiki/Toxic_Screen",
+    "quantified": {
+      "equipTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Equip time: 0.8 seconds"
+      },
+      "unequipTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Unequip time: 0.7 seconds"
+      },
+      "total emitters at max range": {
+        "value": 30,
+        "unit": null,
+        "raw": "Total Emitters at max range: 30"
+      },
+      "wall dimensions": {
+        "value": 2,
+        "unit": "m",
+        "raw": "Wall Dimensions: 2 meters between emitters60 meters at max length4-meter height"
+      },
+      "windupTime": {
+        "value": 0.5,
+        "unit": "s",
+        "raw": "Windup times: 0.5-second windup (fuel consumed after this point)"
+      },
+      "deactivation time": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Deactivation time: 0.8 seconds"
+      },
+      "activation cooldowns": {
+        "value": 2,
+        "unit": "s",
+        "raw": "Activation cooldowns: 2 seconds (Deactivation)"
+      },
+      "5 seconds": {
+        "value": 5,
+        "unit": "s",
+        "raw": "5 seconds (Activation): v8.08"
+      }
+    }
+  },
+  {
+    "name": "Trademark",
+    "id": 13747,
+    "url": "https://valorant.fandom.com/wiki/Trademark",
+    "quantified": {
+      "equipTime": {
+        "value": 1,
+        "unit": "s",
+        "raw": "Equip time: 1 second"
+      },
+      "radius": {
+        "value": 12,
+        "unit": "m",
+        "raw": "Max cast radius: 12 meters"
+      },
+      "unequipTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Unequip time: 0.7 seconds"
+      },
+      "deploy time": {
+        "value": 2,
+        "unit": "s",
+        "raw": "Deploy time: 2 seconds"
+      },
+      "radius_4": {
+        "value": 10,
+        "unit": "m",
+        "raw": "Search radius: 10 meters"
+      },
+      "duration": {
+        "value": 0.75,
+        "unit": "s",
+        "raw": "Recall duration: 0.75 seconds"
+      },
+      "windupTime": {
+        "value": 0.9,
+        "unit": "s",
+        "raw": "Windup time: 0.9 seconds"
+      },
+      "radius_7": {
+        "value": 6,
+        "unit": "m",
+        "raw": "Slow radius: 6 meters"
+      },
+      "duration_8": {
+        "value": 4,
+        "unit": "s",
+        "raw": "Slow duration: 4 seconds"
+      }
+    }
+  },
+  {
+    "name": "Trailblazer",
+    "id": 3123,
+    "url": "https://valorant.fandom.com/wiki/Trailblazer",
+    "quantified": {
+      "equipTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Equip time: 0.8 seconds"
+      },
+      "deploy time": {
+        "value": 0.18,
+        "unit": "s",
+        "raw": "Deploy time: 0.18 seconds"
+      },
+      "radius": {
+        "value": 22.5,
+        "unit": "m",
+        "raw": "Vision radius: 22.5 meters"
+      },
+      "duration": {
+        "value": 6,
+        "unit": "s",
+        "raw": "Duration: 6 seconds"
+      },
+      "distance": {
+        "value": 12,
+        "unit": "m",
+        "raw": "Jump distance: 12 meters"
+      },
+      "radius_5": {
+        "value": 3.5,
+        "unit": "m",
+        "raw": "Explosion radius: 3.5 meters"
+      },
+      "damage": {
+        "value": 30,
+        "unit": null,
+        "raw": "Damage: 30"
+      },
+      "duration_7": {
+        "value": 2.5,
+        "unit": "s",
+        "raw": "Concuss duration: Minimum: 2.5 seconds"
+      },
+      "maximum: 4 seconds": {
+        "value": 4,
+        "unit": "s",
+        "raw": "Maximum: 4 seconds: v3.0"
+      },
+      "unequipTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Unequip time: 0.7 seconds"
+      }
+    }
+  },
+  {
+    "name": "Trapwire",
+    "id": 345,
+    "url": "https://valorant.fandom.com/wiki/Trapwire",
+    "quantified": {
+      "equipTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Equip time: 0.8 seconds"
+      },
+      "distance": {
+        "value": 20,
+        "unit": "m",
+        "raw": "Max deploy distance: 20 meters"
+      },
+      "length": {
+        "value": 15,
+        "unit": "m",
+        "raw": "Max wire length: 15 meters"
+      },
+      "unequipTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Unequip time: 0.7 seconds"
+      },
+      "deploy time": {
+        "value": 1.5,
+        "unit": "s",
+        "raw": "Deploy time: 1.5 seconds"
+      },
+      "distance_5": {
+        "value": 3,
+        "unit": "m",
+        "raw": "Detection distance: 3 meters"
+      },
+      "duration": {
+        "value": 0.5,
+        "unit": "s",
+        "raw": "Recall duration: 0.5 seconds"
+      },
+      "duration_7": {
+        "value": 1.25,
+        "unit": "s",
+        "raw": "Triggered Slow duration: 1.25 seconds"
+      },
+      "windupTime": {
+        "value": 0.9,
+        "unit": "s",
+        "raw": "Windup time: 0.9 seconds"
+      },
+      "distance_9": {
+        "value": 4,
+        "unit": "m",
+        "raw": "Distance required to move away when affected: 4 meters"
+      },
+      "damage": {
+        "value": 5,
+        "unit": null,
+        "raw": "Damage: 5"
+      },
+      "re-arm time": {
+        "value": 2,
+        "unit": "s",
+        "raw": "Re-arm time: 2 seconds"
+      }
+    }
+  },
+  {
+    "name": "Turret",
+    "id": 1939,
+    "url": "https://valorant.fandom.com/wiki/Turret",
+    "quantified": {
+      "equipTime": {
+        "value": 1.1,
+        "unit": "s",
+        "raw": "Equip time: 1.1 seconds"
+      },
+      "length": {
+        "value": 4.5,
+        "unit": "m",
+        "raw": "Max deploy length: 4.5 meters"
+      },
+      "unequipTime": {
+        "value": 0.7,
+        "unit": "s",
+        "raw": "Unequip time: 0.7 seconds"
+      },
+      "deploy time": {
+        "value": 2.7,
+        "unit": "s",
+        "raw": "Deploy time: 2.7 seconds"
+      },
+      "detection cone angle": {
+        "value": 100,
+        "unit": null,
+        "raw": "Detection cone angle: 100°"
+      },
+      "radius": {
+        "value": 40,
+        "unit": "m",
+        "raw": "Proximity radius to remain active: 40 meters"
+      },
+      "windupTime": {
+        "value": 0.75,
+        "unit": "s",
+        "raw": "Windup time: 0.75 seconds"
+      },
+      "damage": {
+        "value": {
+          "min": 0,
+          "max": 20
+        },
+        "unit": "m",
+        "raw": "Damage: 0–20 meters: 8 per shot, 24 per burst20–35 meters: 6 per shot, 18 per burst35+ meters: 4 per shot, 12 per burst"
+      },
+      "bullet tagging slow": {
+        "value": 50,
+        "unit": "%",
+        "raw": "Bullet tagging slow: 50%"
+      },
+      "fire rate": {
+        "value": 1.375,
+        "unit": "s",
+        "raw": "Fire rate: Overall cycle: 1.375 seconds1 second between bursts0.125 seconds between shots"
+      },
+      "reactivation time": {
+        "value": 2,
+        "unit": "s",
+        "raw": "Reactivation time: 2 seconds"
+      }
+    }
+  },
+  {
+    "name": "Undercut",
+    "id": 23847,
+    "url": "https://valorant.fandom.com/wiki/Undercut",
+    "quantified": {
+      "equipTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Equip time: 0.8 seconds"
+      },
+      "unequipTime": {
+        "value": 0.5,
+        "unit": "s",
+        "raw": "Unequip time: 0.5 seconds"
+      },
+      "velocity": {
+        "value": 22.5,
+        "unit": "m/s",
+        "raw": "Velocity: 22.5 meters/second"
+      },
+      "duration": {
+        "value": 1.55,
+        "unit": "s",
+        "raw": "Duration: 1.55 seconds"
+      },
+      "distance": {
+        "value": 34.875,
+        "unit": "m",
+        "raw": "Travel distance: 34.875 meters"
+      },
+      "radius": {
+        "value": 3,
+        "unit": "m",
+        "raw": "Radius: 3 meters"
+      },
+      "duration_6": {
+        "value": 4,
+        "unit": "s",
+        "raw": "Vulnerable duration: 4 seconds"
+      }
+    }
+  },
+  {
+    "name": "Updraft",
+    "id": 308,
+    "url": "https://valorant.fandom.com/wiki/Updraft",
+    "quantified": {
+      "duration": {
+        "value": 0.6,
+        "unit": "s",
+        "raw": "Duration: 0.6 seconds"
+      },
+      "distance": {
+        "value": 5,
+        "unit": "m",
+        "raw": "Dash distance: 5 meters"
+      }
+    }
+  },
+  {
+    "name": "Viper's Pit",
+    "id": 336,
+    "url": "https://valorant.fandom.com/wiki/Viper's_Pit",
+    "quantified": {
+      "equipTime": {
+        "value": 0.5,
+        "unit": "s",
+        "raw": "Equip time: 0.5 seconds"
+      },
+      "radius": {
+        "value": 7.25,
+        "unit": "m",
+        "raw": "Max cast radius for cloud's center: 7.25 meters"
+      },
+      "unequipTime": {
+        "value": 1.35,
+        "unit": "s",
+        "raw": "Unequip time: 1.35 seconds"
+      },
+      "deploy time": {
+        "value": 6,
+        "unit": "s",
+        "raw": "Deploy time: Total 6 seconds1-second channel time5-second expansion time"
+      },
+      "radius_4": {
+        "value": 9,
+        "unit": "m",
+        "raw": "Maximum radius: 9 meters"
+      },
+      "radius_5": {
+        "value": 8.1,
+        "unit": "m",
+        "raw": "Vision radius: 8.1 meters"
+      },
+      "duration": {
+        "value": 8,
+        "unit": "s",
+        "raw": "Integrity duration: 8 seconds"
+      },
+      "integrity regeneration rate": {
+        "value": 4,
+        "unit": "s",
+        "raw": "Integrity regeneration rate: 4% per second"
+      },
+      "deactivation time": {
+        "value": 3.25,
+        "unit": "s",
+        "raw": "Deactivation time: Total 3.25 seconds1-second holding deactivation command0.5-second delay1.75-second collapse time"
+      }
+    }
+  },
+  {
+    "name": "Wingman",
+    "id": 19938,
+    "url": "https://valorant.fandom.com/wiki/Wingman",
+    "quantified": {
+      "equipTime": {
+        "value": 0.9,
+        "unit": "s",
+        "raw": "Equip time: 0.9 seconds"
+      },
+      "unequipTime": {
+        "value": 0.4,
+        "unit": "s",
+        "raw": "Unequip time: 0.4 seconds"
+      },
+      "run speed": {
+        "value": 6.3,
+        "unit": "m/s",
+        "raw": "Run speed: 6.3 meters/second"
+      },
+      "duration": {
+        "value": 5,
+        "unit": "s",
+        "raw": "Search duration: 5 seconds"
+      },
+      "distance": {
+        "value": 15,
+        "unit": "m",
+        "raw": "Max detection cone distance: 15 meters"
+      },
+      "detection cone angle": {
+        "value": 90,
+        "unit": null,
+        "raw": "Detection cone angle: 90°(either side of the direction Wingman is looking in)"
+      },
+      "proximity to target needed to activate blast": {
+        "value": 6,
+        "unit": "m",
+        "raw": "Proximity to target needed to activate blast: 6 meters"
+      },
+      "windupTime": {
+        "value": 0.6,
+        "unit": "s",
+        "raw": "Blast windup: 0.6 seconds"
+      },
+      "duration_8": {
+        "value": 2.5,
+        "unit": "s",
+        "raw": "Concuss duration: 2.5 seconds"
+      }
+    }
+  },
+  {
+    "name": "ZERO-point",
+    "id": 6784,
+    "url": "https://valorant.fandom.com/wiki/ZERO-point",
+    "quantified": {
+      "equipTime": {
+        "value": 0.8,
+        "unit": "s",
+        "raw": "Equip time: 0.8 seconds"
+      },
+      "unequipTime": {
+        "value": 0.5,
+        "unit": "s",
+        "raw": "Unequip time: 0.5 seconds"
+      },
+      "radius": {
+        "value": 15,
+        "unit": "m",
+        "raw": "Radius: 15 meters"
+      },
+      "windupTime": {
+        "value": 1,
+        "unit": "s",
+        "raw": "Windup: 1 second"
+      },
+      "duration": {
+        "value": 8,
+        "unit": "s",
+        "raw": "Suppression duration: 8 seconds"
+      }
+    }
+  }
+]

@@ -3,6 +3,7 @@ import { Group, Rect, Image as KonvaImage, Circle, Line } from 'react-konva';
 import useImage from 'use-image';
 import { useEditorStore } from '@/lib/store/editorStore';
 import { getAgentColor } from '@/lib/constants/agentColors';
+import { getAbilityDefinition, getAbilityDimension, getMaxDimension, getMinDimension, isFixedSize } from '@/lib/constants/abilityDefinitions';
 import type { AbilityPlacement } from '@/types/strategy';
 import type Konva from 'konva';
 
@@ -35,34 +36,154 @@ export const AbilityIcon = memo(function AbilityIcon({ element, isSelected, isDr
     const handlePos = { x: e.target.x(), y: e.target.y() };
 
     if (type === 'radius') {
-      const radius = Math.sqrt(handlePos.x * handlePos.x + handlePos.y * handlePos.y);
+      let radius = Math.sqrt(handlePos.x * handlePos.x + handlePos.y * handlePos.y);
+      const max = getMaxDimension(def, 'radius');
+      radius = Math.min(radius, max);
       updateElement(element.id, { radius });
     } else if (type === 'wall-start') {
-      const points = [handlePos.x, handlePos.y, element.points![2], element.points![3]];
+      // Calculate distance from end point
+      const endX = element.points![2];
+      const endY = element.points![3];
+      const dx = handlePos.x - endX;
+      const dy = handlePos.y - endY;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+
+      // Get maximum and minimum allowed distance
+      // Paths use height for length, walls use width for length
+      const isPath = element.subType === 'path';
+      const maxDist = getMaxDimension(def, isPath ? 'height' : 'width');
+      const minDist = getMinDimension(def, isPath ? 'height' : 'width');
+
+      // Clamp position between min and max
+      let newX = handlePos.x;
+      let newY = handlePos.y;
+      if (distance > maxDist) {
+        const ratio = maxDist / distance;
+        newX = endX + dx * ratio;
+        newY = endY + dy * ratio;
+      } else if (distance < minDist) {
+        const ratio = minDist / distance;
+        newX = endX + dx * ratio;
+        newY = endY + dy * ratio;
+      }
+
+      const points = [newX, newY, element.points![2], element.points![3]];
       updateElement(element.id, { points });
     } else if (type === 'wall-end') {
-      const points = [element.points![0], element.points![1], handlePos.x, handlePos.y];
+      // Calculate distance from start point
+      const startX = element.points![0];
+      const startY = element.points![1];
+      const dx = handlePos.x - startX;
+      const dy = handlePos.y - startY;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+
+      // Get maximum and minimum allowed distance
+      // Paths use height for length, walls use width for length
+      const isPath = element.subType === 'path';
+      const maxDist = getMaxDimension(def, isPath ? 'height' : 'width');
+      const minDist = getMinDimension(def, isPath ? 'height' : 'width');
+
+      // Clamp position between min and max
+      let newX = handlePos.x;
+      let newY = handlePos.y;
+      if (distance > maxDist) {
+        const ratio = maxDist / distance;
+        newX = startX + dx * ratio;
+        newY = startY + dy * ratio;
+      } else if (distance < minDist) {
+        const ratio = minDist / distance;
+        newX = startX + dx * ratio;
+        newY = startY + dy * ratio;
+      }
+
+      const points = [element.points![0], element.points![1], newX, newY];
       updateElement(element.id, { points });
     } else if (type.startsWith('curved-point-')) {
       // Handle curved-wall intermediate points
       const pointIndex = parseInt(type.split('-')[2]);
       const newPoints = [...element.points!];
       const arrayIndex = pointIndex * 2;
+
+      // Update the point being dragged
       newPoints[arrayIndex] = handlePos.x;
       newPoints[arrayIndex + 1] = handlePos.y;
+
+      // Calculate total path length (sum of distances between consecutive points)
+      let totalLength = 0;
+      for (let i = 0; i < newPoints.length - 2; i += 2) {
+        const dx = newPoints[i + 2] - newPoints[i];
+        const dy = newPoints[i + 3] - newPoints[i + 1];
+        totalLength += Math.sqrt(dx * dx + dy * dy);
+      }
+
+      // Get maximum allowed total length
+      // Curved-walls always use width for distance
+      const maxDist = getMaxDimension(def, 'width');
+
+      // If total length exceeds max, find the closest valid position
+      if (totalLength > maxDist) {
+        // Binary search to find the maximum allowed position
+        const originalX = element.points![arrayIndex];
+        const originalY = element.points![arrayIndex + 1];
+        const targetX = handlePos.x;
+        const targetY = handlePos.y;
+
+        let low = 0;
+        let high = 1;
+        let bestRatio = 0;
+
+        // Binary search for the best ratio
+        for (let i = 0; i < 20; i++) {
+          const mid = (low + high) / 2;
+          const testX = originalX + (targetX - originalX) * mid;
+          const testY = originalY + (targetY - originalY) * mid;
+
+          // Calculate total length with this test position
+          const testPoints = [...newPoints];
+          testPoints[arrayIndex] = testX;
+          testPoints[arrayIndex + 1] = testY;
+
+          let testLength = 0;
+          for (let j = 0; j < testPoints.length - 2; j += 2) {
+            const dx = testPoints[j + 2] - testPoints[j];
+            const dy = testPoints[j + 3] - testPoints[j + 1];
+            testLength += Math.sqrt(dx * dx + dy * dy);
+          }
+
+          if (testLength <= maxDist) {
+            bestRatio = mid;
+            low = mid;
+          } else {
+            high = mid;
+          }
+        }
+
+        // Apply the best ratio found
+        newPoints[arrayIndex] = originalX + (targetX - originalX) * bestRatio;
+        newPoints[arrayIndex + 1] = originalY + (targetY - originalY) * bestRatio;
+      }
+
       updateElement(element.id, { points: newPoints });
     } else if (type === 'rect-size') {
       // Offset from center
-      const width = Math.abs(handlePos.x) * 2;
-      const height = Math.abs(handlePos.y) * 2;
+      let width = Math.abs(handlePos.x) * 2;
+      let height = Math.abs(handlePos.y) * 2;
+      const maxW = getMaxDimension(def, 'width');
+      const maxH = getMaxDimension(def, 'height');
+      width = Math.min(width, maxW);
+      height = Math.min(height, maxH);
       updateElement(element.id, { width, height });
     }
   };
 
+
   const isSelectTool = tool === 'select';
 
-  const rectWidth = element.width || 200;
-  const rectHeight = element.height || 120;
+  // Robust definition lookup with legacy support
+  const def = getAbilityDefinition(element.abilityName || element.abilityIcon || '');
+
+  const rectWidth = element.width || (def ? getAbilityDimension(def, 'width') : 200) || 200;
+  const rectHeight = element.height || (def ? getAbilityDimension(def, 'height') : 120) || 120;
 
   // Try to derive color from icon path if not explicitly stored (for legacy elements)
   let derivedColor = element.color;
@@ -89,19 +210,44 @@ export const AbilityIcon = memo(function AbilityIcon({ element, isSelected, isDr
       onTap={onSelect}
       onDragEnd={onDragEnd}
       id={element.id}
+      onMouseEnter={(e) => {
+        if (isDraggable && isSelectTool) {
+          const stage = e.target.getStage();
+          if (stage) stage.container().style.cursor = 'move';
+        }
+      }}
+      onMouseLeave={(e) => {
+        const stage = e.target.getStage();
+        if (stage) stage.container().style.cursor = 'default';
+      }}
     >
       {/* Smoke / Area Shape */}
       {(element.subType === 'smoke' || element.subType === 'area') && (
-        <Circle
-          radius={element.radius || (element.subType === 'smoke' ? 50 : 80)}
-          fill={fillColor}
-          opacity={element.opacity || (element.subType === 'smoke' ? 0.4 : 0.3)}
-          stroke={sideColor}
-          strokeWidth={isSelected ? 3 : 2}
-          dash={isSelected ? [5, 5] : undefined}
-          perfectDrawEnabled={false}
-          shadowForStrokeEnabled={false}
-        />
+        <>
+          <Circle
+            radius={element.radius || (def ? getAbilityDimension(def, 'radius') : (element.subType === 'smoke' ? 50 : 80)) || 50}
+            fill={fillColor}
+            opacity={element.opacity || (element.subType === 'smoke' ? 0.4 : 0.3)}
+            stroke={sideColor}
+            strokeWidth={isSelected ? 3 : 2}
+            dash={isSelected ? [5, 5] : undefined}
+            perfectDrawEnabled={false}
+            shadowForStrokeEnabled={false}
+          />
+          {/* Inner radius circle for dual-radius areas (e.g., Alarmbot) */}
+          {element.subType === 'area' && def && getAbilityDimension(def, 'innerRadius') && (
+            <Circle
+              radius={element.innerRadius || getAbilityDimension(def, 'innerRadius') || 0}
+              fill="transparent"
+              stroke={sideColor}
+              strokeWidth={isSelected ? 2 : 1}
+              dash={[3, 3]}
+              opacity={0.7}
+              perfectDrawEnabled={false}
+              shadowForStrokeEnabled={false}
+            />
+          )}
+        </>
       )}
 
       {/* Wall / Path / Curved-Wall Shape */}
@@ -116,7 +262,7 @@ export const AbilityIcon = memo(function AbilityIcon({ element, isSelected, isDr
                 <Line
                   points={pts}
                   stroke={fillColor}
-                  strokeWidth={element.subType === 'path' ? (element.width || 80) : (element.width || (element.isGlobal ? 20 : 12))}
+                  strokeWidth={element.subType === 'path' ? (element.width || (def ? getAbilityDimension(def, 'width') : 80) || 80) : (element.width || (element.isGlobal ? 20 : (def ? getAbilityDimension(def, 'height') : 12) || 12))}
                   opacity={element.opacity || (element.subType === 'path' ? 0.3 : (element.isGlobal ? 0.6 : 0.5))}
                   lineCap="butt"
                   tension={tension}
@@ -296,10 +442,11 @@ export const AbilityIcon = memo(function AbilityIcon({ element, isSelected, isDr
         </Group>
       )}
 
-      {/* Edit Handles (Only when selected) */}
+      {/* Selection & Transformation UI */}
       {isSelected && isSelectTool && (
         <>
-          {(element.subType === 'smoke' || element.subType === 'area') && (
+          {/* Resize Handles */}
+          {(element.subType === 'smoke' || element.subType === 'area') && !isFixedSize(def, 'radius') && (
             <Circle
               key={`${element.id}-radius-handle`}
               name="edit-handle"
@@ -310,6 +457,14 @@ export const AbilityIcon = memo(function AbilityIcon({ element, isSelected, isDr
               stroke="#3b82f6"
               strokeWidth={2}
               draggable
+              onMouseEnter={(e) => {
+                const stage = e.target.getStage();
+                if (stage) stage.container().style.cursor = 'ew-resize';
+              }}
+              onMouseLeave={(e) => {
+                const stage = e.target.getStage();
+                if (stage) stage.container().style.cursor = 'default';
+              }}
               onDragStart={(e) => { e.cancelBubble = true; }}
               onDragMove={(e) => handleResize(e, 'radius')}
               onDragEnd={(e) => { e.cancelBubble = true; }}
@@ -328,6 +483,14 @@ export const AbilityIcon = memo(function AbilityIcon({ element, isSelected, isDr
                 stroke="#3b82f6"
                 strokeWidth={2}
                 draggable
+                onMouseEnter={(e) => {
+                  const stage = e.target.getStage();
+                  if (stage) stage.container().style.cursor = 'move';
+                }}
+                onMouseLeave={(e) => {
+                  const stage = e.target.getStage();
+                  if (stage) stage.container().style.cursor = 'default';
+                }}
                 onDragStart={(e) => { e.cancelBubble = true; }}
                 onDragMove={(e) => handleResize(e, 'wall-end')}
                 onDragEnd={(e) => { e.cancelBubble = true; }}
@@ -353,6 +516,14 @@ export const AbilityIcon = memo(function AbilityIcon({ element, isSelected, isDr
                       stroke="#3b82f6"
                       strokeWidth={2}
                       draggable
+                      onMouseEnter={(e) => {
+                        const stage = e.target.getStage();
+                        if (stage) stage.container().style.cursor = 'move';
+                      }}
+                      onMouseLeave={(e) => {
+                        const stage = e.target.getStage();
+                        if (stage) stage.container().style.cursor = 'default';
+                      }}
                       onDragStart={(e) => { e.cancelBubble = true; }}
                       onDragMove={(e) => handleResize(e, `curved-point-${pointIndex}`)}
                       onDragEnd={(e) => { e.cancelBubble = true; }}
@@ -374,6 +545,14 @@ export const AbilityIcon = memo(function AbilityIcon({ element, isSelected, isDr
               stroke="#3b82f6"
               strokeWidth={2}
               draggable
+              onMouseEnter={(e) => {
+                const stage = e.target.getStage();
+                if (stage) stage.container().style.cursor = 'nwse-resize';
+              }}
+              onMouseLeave={(e) => {
+                const stage = e.target.getStage();
+                if (stage) stage.container().style.cursor = 'default';
+              }}
               onDragStart={(e) => { e.cancelBubble = true; }}
               onDragMove={(e) => handleResize(e, 'rect-size')}
               onDragEnd={(e) => { e.cancelBubble = true; }}

@@ -1,0 +1,163 @@
+[
+  {
+    "id": "7eaecc1b-4337-bbf6-6ab9-04b8f06b3319",
+    "name": "Ascent",
+    "coordinates": "45°26'BF'N,12°20'Q'E",
+    "icon": "maps/ascent.png",
+    "splash": "maps/ascent-splash.png"
+  },
+  {
+    "id": "d960549e-485c-e861-8d71-aa9d1aed12a2",
+    "name": "Split",
+    "coordinates": "35°41'CD'N,139°41'WX'E",
+    "icon": "maps/split.png",
+    "splash": "maps/split-splash.png"
+  },
+  {
+    "id": "b529448b-4d60-346e-e89e-00a4c527a405",
+    "name": "Fracture",
+    "coordinates": "35°48'BI\"N 106°08'YQ\"W",
+    "icon": "maps/fracture.png",
+    "splash": "maps/fracture-splash.png"
+  },
+  {
+    "id": "2c9d57ec-4431-9c5e-2939-8f9ef6dd5cba",
+    "name": "Bind",
+    "coordinates": "34°2'A'N,6°51'Z'W",
+    "icon": "maps/bind.png",
+    "splash": "maps/bind-splash.png"
+  },
+  {
+    "id": "a9009649-421f-d5d5-f80c-0cbe02c125bb",
+    "name": "Skirmish A",
+    "coordinates": null,
+    "icon": "maps/skirmish a.png",
+    "splash": "maps/skirmish a-splash.png"
+  },
+  {
+    "id": "a38a3f9a-4042-844c-8970-a3ac2f7ce93d",
+    "name": "Skirmish B",
+    "coordinates": null,
+    "icon": "maps/skirmish b.png",
+    "splash": "maps/skirmish b-splash.png"
+  },
+  {
+    "id": "a264de0f-4a04-9c78-c97a-a6b192ce6e86",
+    "name": "Skirmish C",
+    "coordinates": null,
+    "icon": "maps/skirmish c.png",
+    "splash": "maps/skirmish c-splash.png"
+  },
+  {
+    "id": "2fb9a4fd-47b8-4e7d-a969-74b4046ebd53",
+    "name": "Breeze",
+    "coordinates": "26°11'AG\"N 71°10'WY\"W",
+    "icon": "maps/breeze.png",
+    "splash": "maps/breeze-splash.png"
+  },
+  {
+    "id": "690b3ed2-4dff-945b-8223-6da834e30d24",
+    "name": "District",
+    "coordinates": null,
+    "icon": "maps/district.png",
+    "splash": "maps/district-splash.png"
+  },
+  {
+    "id": "12452a9d-48c3-0b02-e7eb-0381c3520404",
+    "name": "Kasbah",
+    "coordinates": null,
+    "icon": "maps/kasbah.png",
+    "splash": "maps/kasbah-splash.png"
+  },
+  {
+    "id": "2c09d728-42d5-30d8-43dc-96a05cc7ee9d",
+    "name": "Drift",
+    "coordinates": null,
+    "icon": "maps/drift.png",
+    "splash": "maps/drift-splash.png"
+  },
+  {
+    "id": "d6336a5a-428f-c591-98db-c8a291159134",
+    "name": "Glitch",
+    "coordinates": null,
+    "icon": "maps/glitch.png",
+    "splash": "maps/glitch-splash.png"
+  },
+  {
+    "id": "de28aa9b-4cbe-1003-320e-6cb3ec309557",
+    "name": "Piazza",
+    "coordinates": null,
+    "icon": "maps/piazza.png",
+    "splash": "maps/piazza-splash.png"
+  },
+  {
+    "id": "224b0a95-48b9-f703-1bd8-67aca101a61f",
+    "name": "Abyss",
+    "coordinates": "70° 50' AJ\" N, 9° 00' VX\" W",
+    "icon": "maps/abyss.png",
+    "splash": "maps/abyss-splash.png"
+  },
+  {
+    "id": "2fe4ed3a-450a-948b-6d6b-e89a78e680a9",
+    "name": "Lotus",
+    "coordinates": "14°07'AD.4\"N8 74°53'XY\"E8",
+    "icon": "maps/lotus.png",
+    "splash": "maps/lotus-splash.png"
+  },
+  {
+    "id": "92584fbe-486a-b1b2-9faa-39b0f486b498",
+    "name": "Sunset",
+    "coordinates": "34° 2′ C″ N, 118° 12′ YT″ W",
+    "icon": "maps/sunset.png",
+    "splash": "maps/sunset-splash.png"
+  },
+  {
+    "id": "1f10dab3-4294-3827-fa35-c2aa00213cf3",
+    "name": "Basic Training",
+    "coordinates": null,
+    "icon": "maps/basic training.png",
+    "splash": "maps/basic training-splash.png"
+  },
+  {
+    "id": "fd267378-4d1d-484f-ff52-77821ed10dc2",
+    "name": "Pearl",
+    "coordinates": "38°42'ED\"N8 9°08'XS\"W8",
+    "icon": "maps/pearl.png",
+    "splash": "maps/pearl-splash.png"
+  },
+  {
+    "id": "e2ad5c54-4114-a870-9641-8ea21279579a",
+    "name": "Icebox",
+    "coordinates": "76°44' A\"N 149°30' Z\"E",
+    "icon": "maps/icebox.png",
+    "splash": "maps/icebox-splash.png"
+  },
+  {
+    "id": "ee613ee9-28b7-4beb-9666-08db13bb2244",
+    "name": "The Range",
+    "coordinates": "45°26'FF'N,12°20'Q'E",
+    "icon": "maps/the range.png",
+    "splash": "maps/the range-splash.png"
+  },
+  {
+    "id": "5914d1e0-40c4-cfdd-6b88-eba06347686c",
+    "name": "The Range",
+    "coordinates": "45°26'FF'N,12°20'Q'E",
+    "icon": "maps/the range.png",
+    "splash": "maps/the range-splash.png"
+  },
+  {
+    "id": "1c18ab1f-420d-0d8b-71d0-77ad3c439115",
+    "name": "Corrode",
+    "coordinates": "48° 38' FH\" N8, 1° 33' YV\" W8",
+    "icon": "maps/corrode.png",
+    "splash": "maps/corrode-splash.png"
+  },
+  {
+    "id": "2bee0dc9-4ffe-519b-1cbd-7fbe763a6047",
+    "name": "Haven",
+    "coordinates": "27°28'A'N,89°38'WZ'E",
+    "icon": "maps/haven.png",
+    "splash": "maps/haven-splash.png"
+  }
+]

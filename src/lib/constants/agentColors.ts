@@ -5,6 +5,7 @@ export const AGENT_COLORS: Record<string, string> = {
   'astra': '#7C3AED',
   'breach': '#B45309',
   'brimstone': '#FB923C',
+  'chamber': '#EFBF0F',
   'clove': '#EC4899',
   'cypher': '#754b48',
   'deadlock': '#FFFFFF',

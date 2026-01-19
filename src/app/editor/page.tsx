@@ -57,10 +57,8 @@ export default function EditorPage() {
         <main className="flex-1 flex flex-col overflow-hidden">
           <Toolbar />
 
-          <div className="flex-1 p-6 overflow-auto">
-            <div className="max-w-6xl mx-auto">
-              <StrategyCanvas />
-            </div>
+          <div className="flex-1 relative overflow-hidden bg-gray-950 p-4">
+            <StrategyCanvas />
           </div>
         </main>
       </div>

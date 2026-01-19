@@ -13,6 +13,9 @@
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
     "update:agents": "node scripts/scrape-assets.mjs",
     "update:maps": "node scripts/update-maps.mjs",
+    "update:stats": "node scripts/scrape-ability-stats.mjs",
+    "update:stats:process": "node scripts/process-ability-stats.mjs",
+    "update:stats:sync": "node scripts/sync-ability-definitions.mjs",
     "update:all": "node scripts/scrape-assets.mjs",
     "electron:dev": "cross-env NODE_ENV=development electron .",
     "electron:build": "next build && next export && electron-builder",
@@ -33,6 +36,7 @@
     "zustand": "^5.0.9"
   },
   "devDependencies": {
+    "@types/jsdom": "^27.0.0",
     "@types/node": "^20.11.0",
     "@types/react": "^18.2.48",
     "@types/react-dom": "^18.2.18",
@@ -42,6 +46,7 @@
     "electron-builder": "^26.4.0",
     "eslint": "^8.56.0",
     "eslint-config-next": "^14.1.0",
+    "jsdom": "^26.1.0",
     "postcss": "^8.4.33",
     "prettier": "^3.2.4",
     "tailwindcss": "^3.4.1",
@@ -64,16 +69,25 @@
       "package.json"
     ],
     "win": {
-      "target": ["nsis", "portable"],
+      "target": [
+        "nsis",
+        "portable"
+      ],
       "icon": "public/icon.ico"
     },
     "mac": {
-      "target": ["dmg", "zip"],
+      "target": [
+        "dmg",
+        "zip"
+      ],
       "icon": "public/icon.icns",
       "category": "public.app-category.productivity"
     },
     "linux": {
-      "target": ["AppImage", "deb"],
+      "target": [
+        "AppImage",
+        "deb"
+      ],
       "icon": "public/icon.png",
       "category": "Utility"
     },

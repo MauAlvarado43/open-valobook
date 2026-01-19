@@ -58,7 +58,7 @@ function sanitizeFilename(name) {
  */
 function createDirectories() {
   const directories = Object.values(PATHS);
-  
+
   directories.forEach(dir => {
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir, { recursive: true });
@@ -79,7 +79,7 @@ async function downloadFile(url, filepath, attempt = 1) {
   return new Promise((resolve, reject) => {
     const protocol = url.startsWith('https') ? https : http;
     const file = fs.createWriteStream(filepath);
-    
+
     const request = protocol.get(url, (response) => {
       if (response.statusCode === 200) {
         response.pipe(file);
@@ -99,13 +99,13 @@ async function downloadFile(url, filepath, attempt = 1) {
         reject(new Error(`HTTP ${response.statusCode}`));
       }
     });
-    
+
     request.on('error', (err) => {
       file.close();
       if (fs.existsSync(filepath)) fs.unlinkSync(filepath);
       reject(err);
     });
-    
+
     request.setTimeout(CONFIG.timeout, () => {
       request.destroy();
       reject(new Error('Request timeout'));
@@ -144,34 +144,34 @@ async function downloadWithRetry(url, filepath) {
  */
 async function downloadAgents() {
   console.log('\n[AGENTS] Fetching agent data from API...\n');
-  
+
   const stats = {
     total: 0,
     successful: 0,
     failed: 0,
   };
-  
+
   try {
     const response = await fetch(`${CONFIG.apiBaseUrl}/agents?isPlayableCharacter=true`);
     const data = await response.json();
-    
+
     if (data.status !== 200) {
       throw new Error(`API returned status ${data.status}`);
     }
-    
+
     stats.total = data.data.length;
     console.log(`[AGENTS] Found ${stats.total} agents\n`);
-    
+
     for (const agent of data.data) {
       console.log(`[AGENT] Processing: ${agent.displayName}`);
       const safeName = sanitizeFilename(agent.displayName);
-      
+
       // Create agent abilities directory
       const agentDir = path.join(PATHS.abilities, safeName);
       if (!fs.existsSync(agentDir)) {
         fs.mkdirSync(agentDir, { recursive: true });
       }
-      
+
       // Download agent icon
       if (agent.displayIcon) {
         const iconPath = path.join(PATHS.agents, `${safeName}.png`);
@@ -180,7 +180,7 @@ async function downloadAgents() {
           console.log(`  [OK] Agent icon saved`);
         }
       }
-      
+
       // Download agent portrait
       if (agent.fullPortrait) {
         const portraitPath = path.join(PATHS.agents, `${safeName}-portrait.png`);
@@ -189,7 +189,7 @@ async function downloadAgents() {
           console.log(`  [OK] Portrait saved`);
         }
       }
-      
+
       // Download abilities
       if (agent.abilities && agent.abilities.length > 0) {
         for (const ability of agent.abilities) {
@@ -203,13 +203,13 @@ async function downloadAgents() {
           }
         }
       }
-      
+
       stats.successful++;
       console.log('');
     }
-    
+
     return { stats, agents: data.data };
-    
+
   } catch (error) {
     console.error(`[ERROR] Failed to download agents: ${error.message}`);
     stats.failed = stats.total - stats.successful;
@@ -224,28 +224,28 @@ async function downloadAgents() {
  */
 async function downloadMaps() {
   console.log('\n[MAPS] Fetching map data from API...\n');
-  
+
   const stats = {
     total: 0,
     successful: 0,
     failed: 0,
   };
-  
+
   try {
     const response = await fetch(`${CONFIG.apiBaseUrl}/maps`);
     const data = await response.json();
-    
+
     if (data.status !== 200) {
       throw new Error(`API returned status ${data.status}`);
     }
-    
+
     stats.total = data.data.length;
     console.log(`[MAPS] Found ${stats.total} maps\n`);
-    
+
     for (const map of data.data) {
       console.log(`[MAP] Processing: ${map.displayName}`);
       const safeMapName = sanitizeFilename(map.displayName);
-      
+
       // Download map icon
       if (map.displayIcon) {
         const iconPath = path.join(PATHS.maps, `${safeMapName}.png`);
@@ -254,7 +254,7 @@ async function downloadMaps() {
           console.log(`  [OK] Map icon saved`);
         }
       }
-      
+
       // Download map splash
       if (map.splash) {
         const splashPath = path.join(PATHS.maps, `${safeMapName}-splash.png`);
@@ -263,13 +263,13 @@ async function downloadMaps() {
           console.log(`  [OK] Splash saved`);
         }
       }
-      
+
       stats.successful++;
       console.log('');
     }
-    
+
     return { stats, maps: data.data };
-    
+
   } catch (error) {
     console.error(`[ERROR] Failed to download maps: ${error.message}`);
     stats.failed = stats.total - stats.successful;
@@ -284,7 +284,7 @@ async function downloadMaps() {
  */
 function generateAgentsMetadata(agentsData) {
   console.log('\n[METADATA] Generating agents metadata...');
-  
+
   try {
     const metadata = agentsData.map(agent => ({
       id: agent.uuid,
@@ -303,7 +303,7 @@ function generateAgentsMetadata(agentsData) {
       icon: `agents/${sanitizeFilename(agent.displayName)}.png`,
       portrait: `agents/${sanitizeFilename(agent.displayName)}-portrait.png`,
     }));
-    
+
     const metadataPath = path.join(PATHS.assets, 'agents-metadata.json');
     fs.writeFileSync(metadataPath, JSON.stringify(metadata, null, 2));
     console.log(`[OK] Agents metadata saved: ${metadataPath}`);
@@ -319,7 +319,7 @@ function generateAgentsMetadata(agentsData) {
  */
 function generateMapsMetadata(mapsData) {
   console.log('\n[METADATA] Generating maps metadata...');
-  
+
   try {
     const metadata = mapsData.map(map => ({
       id: map.uuid,
@@ -328,7 +328,7 @@ function generateMapsMetadata(mapsData) {
       icon: `maps/${sanitizeFilename(map.displayName)}.png`,
       splash: `maps/${sanitizeFilename(map.displayName)}-splash.png`,
     }));
-    
+
     const metadataPath = path.join(PATHS.assets, 'maps-metadata.json');
     fs.writeFileSync(metadataPath, JSON.stringify(metadata, null, 2));
     console.log(`[OK] Maps metadata saved: ${metadataPath}`);
@@ -347,28 +347,28 @@ async function main() {
   console.log('========================================');
   console.log(`Source: ${CONFIG.apiBaseUrl}`);
   console.log(`Output: ${CONFIG.outputDir}\n`);
-  
+
   const startTime = Date.now();
-  
+
   try {
     // Step 1: Setup directories
     createDirectories();
-    
+
     // Step 2: Download agents
     const agentsResult = await downloadAgents();
-    
+
     // Step 3: Download maps
     const mapsResult = await downloadMaps();
-    
+
     // Step 4: Generate metadata
     if (agentsResult.agents.length > 0) {
       generateAgentsMetadata(agentsResult.agents);
     }
-    
+
     if (mapsResult.maps.length > 0) {
       generateMapsMetadata(mapsResult.maps);
     }
-    
+
     // Summary
     const duration = ((Date.now() - startTime) / 1000).toFixed(2);
     console.log('\n========================================');
@@ -382,7 +382,7 @@ async function main() {
     console.log(`  - Agents: ${PATHS.agents}`);
     console.log(`  - Abilities: ${PATHS.abilities}`);
     console.log(`  - Maps: ${PATHS.maps}`);
-    
+
   } catch (error) {
     console.error(`\n[FATAL] Process failed: ${error.message}`);
     process.exit(1);

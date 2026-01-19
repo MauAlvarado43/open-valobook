@@ -38,7 +38,6 @@ next-env.d.ts
 public/assets/agents/
 public/assets/abilities/
 public/assets/maps/
-public/assets/*.json
 
 # IDE
 .vscode/*
