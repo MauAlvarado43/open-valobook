@@ -62,7 +62,6 @@ export const ABILITY_DEFINITIONS: Record<string, AbilityDefinition> = {
 };
 
 export function getAbilityDefinition(key: string): AbilityDefinition | undefined {
-  console.log(key);
   if (!key) return undefined;
 
   // Direct lookup
@@ -70,7 +69,7 @@ export function getAbilityDefinition(key: string): AbilityDefinition | undefined
 
   // Icon path lookup (legacy support)
   if (key.includes('/') || key.includes('.png')) {
-    return Object.values(ABILITY_DEFINITIONS).find(def => def.ability === key || (def as any).icon === key);
+    return Object.values(ABILITY_DEFINITIONS).find(def => def.ability === key);
   }
 
   return undefined;

@@ -119,7 +119,7 @@ export function getMinDimension(
   if (!def?.stats) return 10; // Default minimum
 
   const stats = def.stats;
-  let stat: any;
+  let stat: StatValue | undefined;
 
   // Find the relevant stat
   if (type === 'radius' && stats.radius) {
@@ -154,7 +154,7 @@ export function isFixedSize(
   if (!def?.stats) return false;
 
   const stats = def.stats;
-  let stat: any;
+  let stat: StatValue | undefined;
 
   // Find the relevant stat
   if (type === 'radius' && stats.radius) {

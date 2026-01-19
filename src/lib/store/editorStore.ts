@@ -100,11 +100,11 @@ export const useEditorStore = create<EditorState>((set) => ({
 
   setSelectedAgentId: (id) => set({ selectedAgentId: id }),
 
-  setSelectedAbilityIcon: (icon, name = null, subType = 'default', color = null, isGlobal = false) =>
+  setSelectedAbilityIcon: (icon, name = null, subType: AbilityPlacement['subType'] = 'default', color = null, isGlobal = false) =>
     set({
       selectedAbilityIcon: icon,
       selectedAbilityName: name,
-      selectedAbilitySubType: subType as any,
+      selectedAbilitySubType: subType,
       selectedAbilityColor: color,
       selectedAbilityIsGlobal: isGlobal
     }),

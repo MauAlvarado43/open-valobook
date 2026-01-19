@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect, useRef } from 'react';
 import { useEditorStore } from '@/lib/store/editorStore';
 import type { EditorState } from '@/lib/store/editorStore';
 import { MousePointer2, Minus, ArrowRight, Circle, Square, Type, Pencil, Trash2, Eye, MapPin, Image as ImageIcon, Timer } from 'lucide-react';
@@ -39,6 +40,22 @@ export function Toolbar() {
     { value: '#FF6B00', label: 'Orange' },
     { value: '#A855F7', label: 'Purple' },
   ];
+
+  const [localColor, setLocalColor] = useState(currentColor);
+  const debounceTimer = useRef<NodeJS.Timeout | null>(null);
+
+  // Sync local color if store changes
+  useEffect(() => {
+    setLocalColor(currentColor);
+  }, [currentColor]);
+
+  const handleCustomColorChange = (color: string) => {
+    setLocalColor(color);
+    if (debounceTimer.current) clearTimeout(debounceTimer.current);
+    debounceTimer.current = setTimeout(() => {
+      setCurrentColor(color);
+    }, 50);
+  };
 
   return (
     <div className="p-4 border-b border-gray-700 bg-gray-800">
@@ -110,11 +127,28 @@ export function Toolbar() {
                 ? 'border-white scale-110'
                 : 'border-gray-600 hover:border-gray-400'
                 }`}
+              /* eslint-disable-next-line react/forbid-component-props */
               style={{ backgroundColor: c.value }}
               title={c.label}
               aria-label={`Select ${c.label}`}
             />
           ))}
+          <div className="relative group ml-1">
+            <input
+              type="color"
+              id="custom-color-toolbar"
+              value={localColor}
+              onChange={(e) => handleCustomColorChange(e.target.value)}
+              className="absolute inset-0 w-8 h-8 opacity-0 cursor-pointer z-10"
+              title="Custom color"
+            />
+            <div className={`w-8 h-8 rounded-md border-2 flex items-center justify-center transition ${!colors.some(c => c.value === localColor)
+              ? 'border-white scale-110 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500'
+              : 'border-gray-600 group-hover:border-gray-400 bg-gray-700'
+              }`}>
+              <span className="text-white text-[10px] font-bold">HEX</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
