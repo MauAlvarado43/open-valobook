@@ -2,7 +2,7 @@
 
 import { useEditorStore } from '@/lib/store/editorStore';
 import type { EditorState } from '@/lib/store/editorStore';
-import { MousePointer2, Minus, ArrowRight, Circle, Square, Type, Pencil, Trash2 } from 'lucide-react';
+import { MousePointer2, Minus, ArrowRight, Circle, Square, Type, Pencil, Trash2, Eye, MapPin, Image as ImageIcon } from 'lucide-react';
 
 export function Toolbar() {
   const {
@@ -23,6 +23,9 @@ export function Toolbar() {
     { id: 'arrow', label: 'Arrow', Icon: ArrowRight },
     { id: 'circle', label: 'Circle', Icon: Circle },
     { id: 'rectangle', label: 'Rectangle', Icon: Square },
+    { id: 'vision-cone', label: 'Vision', Icon: Eye },
+    { id: 'icon', label: 'Marker', Icon: MapPin },
+    { id: 'image', label: 'Image', Icon: ImageIcon },
     { id: 'text', label: 'Text', Icon: Type },
   ] as const;
 

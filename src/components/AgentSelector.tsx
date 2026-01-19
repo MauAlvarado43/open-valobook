@@ -32,7 +32,7 @@ export function AgentSelector() {
   const [agents, setAgents] = useState<Agent[]>([]);
   const [search, setSearch] = useState('');
   const [expandedAgentId, setExpandedAgentId] = useState<string | null>(null);
-  const { setTool, setSelectedAgentId, setSelectedAbilityIcon, selectedAbilityIcon, clearSelection } = useEditorStore();
+  const { tool, setTool, selectedAgentId, setSelectedAgentId, setSelectedAbilityIcon, selectedAbilityIcon, clearSelection } = useEditorStore();
 
   useEffect(() => {
     fetch('/assets/agents-metadata.json')
@@ -91,8 +91,8 @@ export function AgentSelector() {
               onClick={() => toggleExpand(agent.id)}
               className="w-full flex items-center justify-between p-3 hover:bg-gray-700/50 transition text-left"
             >
-              <div className="flex items-center gap-3">
-                <div className="relative w-8 h-8 rounded-full overflow-hidden bg-gray-900 border border-gray-600">
+              <div className="flex items-center gap-2">
+                <div className="relative w-7 h-7 rounded-full overflow-hidden bg-gray-900 border border-gray-600">
                   <Image
                     src={`/assets/${agent.icon}`}
                     alt={agent.name}
@@ -113,11 +113,25 @@ export function AgentSelector() {
               <div className="bg-gray-900/30 p-2 pl-4 space-y-2 animate-in slide-in-from-top-2 duration-200">
                 {/* Place Agent Button */}
                 <button
-                  onClick={() => handleSelectAgent(agent)}
-                  className="w-full flex items-center gap-2 p-2 rounded-md hover:bg-blue-600/20 hover:text-blue-400 transition text-gray-300 text-xs text-left"
+                  onClick={() => {
+                    handleSelectAgent(agent);
+                    setSelectedAbilityIcon(null, '', 'default', '', false);
+                  }}
+                  className={`w-full flex items-center gap-2 p-1.5 rounded-md transition-all group text-left ${tool === 'agent' && selectedAgentId === agent.icon.replace('.png', '')
+                    ? 'bg-blue-600/30 ring-1 ring-blue-500/50 text-blue-200'
+                    : 'hover:bg-gray-700 text-gray-300'
+                    }`}
                 >
-                  <User size={14} />
-                  Place Agent Icon
+                  <div className={`relative w-6 h-6 rounded bg-black/40 p-1 border flex-shrink-0 transition-colors ${tool === 'agent' && selectedAgentId === agent.icon.replace('.png', '') ? 'border-blue-400' : 'border-gray-700 group-hover:border-gray-500'
+                    }`}>
+                    <User size={14} className={tool === 'agent' && selectedAgentId === agent.icon.replace('.png', '') ? 'text-blue-400' : ''} />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="text-[11px] font-medium truncate">Place Agent Icon</div>
+                  </div>
+                  {tool === 'agent' && selectedAgentId === agent.icon.replace('.png', '') && (
+                    <div className="w-1.5 h-1.5 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.5)]" />
+                  )}
                 </button>
 
                 {/* Abilities */}
@@ -134,7 +148,7 @@ export function AgentSelector() {
                         <button
                           key={ability.slot}
                           onClick={() => handleSelectAbility(agent, ability)}
-                          className={`w-full flex items-center gap-3 p-2 rounded-md transition-all group text-left ${isSelected
+                          className={`w-full flex items-center gap-2 p-1.5 rounded-md transition-all group text-left ${isSelected
                             ? 'bg-blue-600/30 ring-1 ring-blue-500/50 text-blue-200'
                             : 'hover:bg-gray-700 text-gray-300'
                             }`}

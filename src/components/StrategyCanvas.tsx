@@ -366,6 +366,24 @@ export function StrategyCanvas({ }: StrategyCanvasProps) {
     } else if (tool === 'text') {
       newShape.text = 'Text';
       newShape.fontSize = 16;
+    } else if (tool === 'vision-cone') {
+      newShape.type = 'vision-cone';
+      newShape.angle = 90;
+      newShape.radius = 150;
+      newShape.rotation = 0;
+      newShape.opacity = 1.0;
+    } else if (tool === 'icon') {
+      newShape.type = 'icon';
+      newShape.iconType = 'spike';
+      newShape.width = 40;
+      newShape.height = 40;
+      newShape.opacity = 1.0;
+    } else if (tool === 'image') {
+      newShape.type = 'image';
+      newShape.width = 100;
+      newShape.height = 100;
+      newShape.imageUrl = '';
+      newShape.opacity = 1.0;
     }
     setCurrentShape(newShape);
   };
@@ -419,6 +437,16 @@ export function StrategyCanvas({ }: StrategyCanvasProps) {
       setCurrentShape({ ...currentShape, radius });
     } else if (tool === 'rectangle') {
       setCurrentShape({ ...currentShape, width: dx, height: dy });
+    } else if (tool === 'vision-cone') {
+      const radius = Math.sqrt(dx * dx + dy * dy);
+      if (radius > 5) {
+        const rotation = Math.atan2(dy, dx) * (180 / Math.PI);
+        setCurrentShape({ ...currentShape, radius, rotation });
+      } else {
+        setCurrentShape({ ...currentShape, radius });
+      }
+    } else if (tool === 'icon' || tool === 'image') {
+      setCurrentShape({ ...currentShape, width: Math.abs(dx), height: Math.abs(dy) });
     }
   };
 

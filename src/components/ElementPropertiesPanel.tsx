@@ -1,6 +1,7 @@
 'use client';
 
 import { useEditorStore } from '@/lib/store/editorStore';
+import { Flag, TriangleAlert, Info, Target } from 'lucide-react';
 import type { DrawingElement, AgentPlacement, AbilityPlacement, StrategySide } from '@/types/strategy';
 import { getAbilityDefinition, getMaxDimension, isFixedSize } from '@/lib/constants/abilityDefinitions';
 
@@ -95,6 +96,7 @@ export function ElementPropertiesPanel() {
             <div className="flex gap-2">
               <button
                 onClick={() => handleSideChange('attack')}
+                title="Set team to Attack"
                 className={`flex-1 py-1.5 rounded text-xs font-bold transition ${commonSide === 'attack'
                   ? 'bg-red-600 text-white'
                   : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
@@ -104,6 +106,7 @@ export function ElementPropertiesPanel() {
               </button>
               <button
                 onClick={() => handleSideChange('defense')}
+                title="Set team to Defense"
                 className={`flex-1 py-1.5 rounded text-xs font-bold transition ${commonSide === 'defense'
                   ? 'bg-blue-600 text-white'
                   : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
@@ -228,43 +231,39 @@ export function ElementPropertiesPanel() {
                               </button>
                             ))}
                           </div>
-                          <input
-                            type="range"
-                            min="10"
-                            max={getMaxDimension(def, 'radius')}
-                            step="5"
-                            title="Radius"
-                            value={abilityEl?.radius || 60}
-                            onChange={(e) => {
-                              const radius = parseInt(e.target.value);
-                              selectedElementIds.forEach(id => updateElement(id, { radius }));
-                            }}
-                            className="w-full h-1.5 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-blue-500"
-                          />
+                          <div className="flex gap-2 items-center">
+                            <input
+                              type="range"
+                              min="10"
+                              max={getMaxDimension(def, 'radius')}
+                              step="5"
+                              title="Radius"
+                              value={abilityEl?.radius || 60}
+                              onChange={(e) => {
+                                const radius = parseInt(e.target.value);
+                                selectedElementIds.forEach(id => updateElement(id, { radius }));
+                              }}
+                              className="flex-1 h-1.5 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-blue-500"
+                            />
+                            <input
+                              type="number"
+                              min="10"
+                              max={getMaxDimension(def, 'radius')}
+                              aria-label="Radius value"
+                              title="Enter numeric radius"
+                              value={abilityEl?.radius || 60}
+                              onChange={(e) => {
+                                const radius = parseInt(e.target.value);
+                                selectedElementIds.forEach(id => updateElement(id, { radius }));
+                              }}
+                              className="w-12 bg-gray-800 text-white text-[10px] rounded border border-gray-600 px-1 py-0.5 text-center"
+                            />
+                          </div>
                         </>
                       )}
                     </>
                   );
                 })()}
-              </div>
-            )}
-
-            {hasAgentOrAbility && (
-              <div>
-                <label className="text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-1.5 block">Opacity</label>
-                <input
-                  type="range"
-                  min="0.1"
-                  max="1.0"
-                  step="0.05"
-                  title="Opacity"
-                  value={(selectedElements.find(el => el.type === 'ability' && ('opacity' in el)) as AbilityPlacement)?.opacity || 0.4}
-                  onChange={(e) => {
-                    const opacity = parseFloat(e.target.value);
-                    selectedElementIds.forEach(id => updateElement(id, { opacity }));
-                  }}
-                  className="w-full h-1.5 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-blue-500"
-                />
               </div>
             )}
 
@@ -356,6 +355,303 @@ export function ElementPropertiesPanel() {
             )}
           </div>
         )}
+
+        {hasAgentOrAbility && (
+          <div>
+            <label className="text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-1.5 block">Opacity</label>
+            <div className="flex gap-2 items-center">
+              <input
+                type="range"
+                min="0.1"
+                max="1.0"
+                step="0.05"
+                title="Opacity"
+                value={(selectedElements.find(el => el.type === 'ability' && ('opacity' in el)) as AbilityPlacement)?.opacity || 0.4}
+                onChange={(e) => {
+                  const opacity = parseFloat(e.target.value);
+                  selectedElementIds.forEach(id => updateElement(id, { opacity }));
+                }}
+                className="flex-1 h-1.5 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-blue-500"
+              />
+              <input
+                type="number"
+                min="0.1"
+                max="1.0"
+                step="0.05"
+                title="Opacity Value"
+                value={(selectedElements.find(el => el.type === 'ability' && ('opacity' in el)) as AbilityPlacement)?.opacity || 0.4}
+                onChange={(e) => {
+                  const opacity = parseFloat(e.target.value);
+                  selectedElementIds.forEach(id => updateElement(id, { opacity }));
+                }}
+                className="w-12 bg-gray-800 text-white text-[10px] rounded border border-gray-600 px-1 py-0.5 text-center"
+              />
+            </div>
+          </div>
+        )}
+        {/* Vision Cone Controls */}
+        {selectedElementIds.length === 1 && firstElement.type === 'vision-cone' && (
+          <div className="space-y-4 pt-2 border-t border-gray-800">
+            <div>
+              <label className="text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-1.5 block">Length</label>
+              <div className="flex gap-2 items-center">
+                <input
+                  type="range"
+                  min="50"
+                  max="500"
+                  step="5"
+                  aria-label="Vision Cone Length"
+                  title="Adjust the length of the vision cone"
+                  value={(firstElement as DrawingElement).radius || 150}
+                  onChange={(e) => updateElement(firstElement.id, { radius: parseInt(e.target.value) })}
+                  className="flex-1 h-1.5 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-blue-500"
+                />
+                <input
+                  type="number"
+                  min="50"
+                  max="500"
+                  step="5"
+                  aria-label="Vision Cone Length value"
+                  title="Enter numeric length"
+                  value={(firstElement as DrawingElement).radius || 150}
+                  onChange={(e) => updateElement(firstElement.id, { radius: parseInt(e.target.value) })}
+                  className="w-12 bg-gray-800 text-white text-[10px] rounded border border-gray-600 px-1 py-0.5 text-center"
+                />
+              </div>
+            </div>
+            <div>
+              <label className="text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-1.5 block">Angle ({(firstElement as DrawingElement).angle || 90}°)</label>
+              <div className="flex gap-2 items-center">
+                <input
+                  type="range"
+                  min="10"
+                  max="360"
+                  step="5"
+                  aria-label="Vision Cone Angle"
+                  title="Adjust the angle of the vision cone"
+                  value={(firstElement as DrawingElement).angle || 90}
+                  onChange={(e) => updateElement(firstElement.id, { angle: parseInt(e.target.value) })}
+                  className="flex-1 h-1.5 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-purple-500"
+                />
+                <input
+                  type="number"
+                  min="10"
+                  max="360"
+                  step="5"
+                  aria-label="Vision Cone Angle value"
+                  title="Enter numeric angle"
+                  value={(firstElement as DrawingElement).angle || 90}
+                  onChange={(e) => updateElement(firstElement.id, { angle: parseInt(e.target.value) })}
+                  className="w-12 bg-gray-800 text-white text-[10px] rounded border border-gray-600 px-1 py-0.5 text-center"
+                />
+              </div>
+            </div>
+            <div>
+              <label className="text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-1.5 block">Direction ({(firstElement as DrawingElement).rotation || 0}°)</label>
+              <div className="flex gap-2 items-center">
+                <input
+                  type="range"
+                  min="0"
+                  max="360"
+                  step="5"
+                  aria-label="Vision Cone Direction"
+                  title="Adjust the direction of the vision cone"
+                  value={(firstElement as DrawingElement).rotation || 0}
+                  onChange={(e) => updateElement(firstElement.id, { rotation: parseInt(e.target.value) })}
+                  className="flex-1 h-1.5 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-orange-500"
+                />
+                <input
+                  type="number"
+                  min="0"
+                  max="360"
+                  step="5"
+                  aria-label="Vision Cone Direction value"
+                  title="Enter numeric direction"
+                  value={(firstElement as DrawingElement).rotation || 0}
+                  onChange={(e) => updateElement(firstElement.id, { rotation: parseInt(e.target.value) })}
+                  className="w-12 bg-gray-800 text-white text-[10px] rounded border border-gray-600 px-1 py-0.5 text-center"
+                />
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Icon & Image Controls */}
+        {selectedElementIds.length === 1 && (firstElement.type === 'icon' || firstElement.type === 'image') && (
+          <div className="space-y-4 pt-2 border-t border-gray-800">
+            {firstElement.type === 'icon' && (
+              <div>
+                <label className="text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-1.5 block">Icon Type</label>
+                <div className="grid grid-cols-4 gap-2">
+                  {(['spike', 'flag', 'danger', 'warning'] as const).map((type) => {
+                    let Icon;
+                    switch (type) {
+                      case 'spike': Icon = Target; break;
+                      case 'flag': Icon = Flag; break;
+                      case 'danger': Icon = TriangleAlert; break;
+                      case 'warning': Icon = Info; break;
+                      default: Icon = Flag;
+                    }
+                    return (
+                      <button
+                        key={type}
+                        onClick={() => updateElement(firstElement.id, { iconType: type })}
+                        className={`py-2 rounded flex flex-col items-center gap-1 transition-colors ${(firstElement as DrawingElement).iconType === type
+                          ? 'bg-blue-600 text-white shadow-inner'
+                          : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
+                          }`}
+                        title={type.charAt(0).toUpperCase() + type.slice(1)}
+                      >
+                        {type === 'spike' ? (
+                          <img src="/assets/icons/spike.png" alt="Spike" className="w-4 h-4 object-contain" />
+                        ) : (
+                          <Icon size={16} />
+                        )}
+                        <span className="text-[8px] uppercase font-bold">{type}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+            {firstElement.type === 'image' && (
+              <div>
+                <label className="text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-1.5 block">Custom Image</label>
+                <div className="space-y-2">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    aria-label="Upload Custom Image"
+                    title="Select an image file from your computer"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (event) => {
+                          const dataUrl = event.target?.result as string;
+                          updateElement(firstElement.id, { imageUrl: dataUrl });
+                        };
+                        reader.readAsDataURL(file);
+                      }
+                    }}
+                    className="block w-full text-xs text-gray-400 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-xs file:font-semibold file:bg-gray-700 file:text-white hover:file:bg-gray-600"
+                  />
+                  <input
+                    type="text"
+                    placeholder="or enter URL..."
+                    aria-label="Custom Image URL"
+                    title="Enter the URL of an image"
+                    value={(firstElement as DrawingElement).imageUrl || ''}
+                    onChange={(e) => updateElement(firstElement.id, { imageUrl: e.target.value })}
+                    className="w-full px-3 py-2 bg-gray-800 text-white rounded border border-gray-600 focus:border-blue-500 focus:outline-none text-xs"
+                  />
+                </div>
+              </div>
+            )}
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-1.5 block">Width</label>
+                <input
+                  type="number"
+                  aria-label="Element Width"
+                  title="Adjust the width of the element"
+                  value={(firstElement as DrawingElement).width || 40}
+                  onChange={(e) => updateElement(firstElement.id, { width: parseInt(e.target.value) })}
+                  className="w-full px-2 py-1 bg-gray-800 text-white rounded border border-gray-600 text-xs"
+                />
+              </div>
+              <div>
+                <label className="text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-1.5 block">Height</label>
+                <input
+                  type="number"
+                  aria-label="Element Height"
+                  title="Adjust the height of the element"
+                  value={(firstElement as DrawingElement).height || 40}
+                  onChange={(e) => updateElement(firstElement.id, { height: parseInt(e.target.value) })}
+                  className="w-full px-2 py-1 bg-gray-800 text-white rounded border border-gray-600 text-xs"
+                />
+              </div>
+            </div>
+
+            {/* Redundant individual rotation controls removed */}
+          </div>
+        )}
+
+        {/* Generic Rotation and Opacity Control for Drawing Elements */}
+        {hasDrawingElement && (
+          <div className="pt-2 border-t border-gray-800 space-y-4">
+            <div>
+              <label className="text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-1.5 block">
+                Rotation ({(firstElement as DrawingElement).rotation || 0}°)
+              </label>
+              <div className="flex gap-2">
+                <input
+                  type="range"
+                  min="0"
+                  max="360"
+                  step="1"
+                  aria-label="Element Rotation"
+                  title="Rotate the selected elements"
+                  value={(firstElement as DrawingElement).rotation || 0}
+                  onChange={(e) => {
+                    const rotation = parseInt(e.target.value);
+                    selectedElementIds.forEach(id => updateElement(id, { rotation }));
+                  }}
+                  className="flex-1 h-1.5 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-orange-500 my-auto"
+                />
+                <input
+                  type="number"
+                  min="0"
+                  max="360"
+                  aria-label="Element Rotation value"
+                  title="Enter numeric rotation"
+                  value={(firstElement as DrawingElement).rotation || 0}
+                  onChange={(e) => {
+                    const rotation = parseInt(e.target.value) || 0;
+                    selectedElementIds.forEach(id => updateElement(id, { rotation }));
+                  }}
+                  className="w-12 bg-gray-800 text-white text-[10px] rounded border border-gray-600 px-1 py-0.5 text-center"
+                />
+              </div>
+            </div>
+            <div>
+              <label className="text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-1.5 block">Opacity</label>
+              <div className="flex gap-2 items-center">
+                <input
+                  type="range"
+                  min="0.1"
+                  max="1.0"
+                  step="0.05"
+                  aria-label="Element Opacity"
+                  title="Adjust the opacity of the selected elements"
+                  value={(firstElement as DrawingElement).opacity !== undefined ? (firstElement as DrawingElement).opacity : 1.0}
+                  onChange={(e) => {
+                    const opacity = parseFloat(e.target.value);
+                    selectedElementIds.forEach(id => updateElement(id, { opacity }));
+                  }}
+                  className="flex-1 h-1.5 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-blue-500"
+                />
+                <input
+                  type="number"
+                  min="0.1"
+                  max="1.0"
+                  step="0.05"
+                  aria-label="Element Opacity value"
+                  title="Enter numeric opacity"
+                  value={(firstElement as DrawingElement).opacity !== undefined ? (firstElement as DrawingElement).opacity : 1.0}
+                  onChange={(e) => {
+                    const opacity = parseFloat(e.target.value);
+                    selectedElementIds.forEach(id => updateElement(id, { opacity }));
+                  }}
+                  className="w-12 bg-gray-800 text-white text-[10px] rounded border border-gray-600 px-1 py-0.5 text-center"
+                />
+              </div>
+            </div>
+          </div>
+        )}
+
       </div>
     </div>
   );

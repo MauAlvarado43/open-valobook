@@ -52,8 +52,8 @@ export function MapSelector() {
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto p-4 custom-scrollbar">
-        <div className="grid grid-cols-1 gap-3">
+      <div className="flex-1 overflow-y-auto p-2.5 custom-scrollbar">
+        <div className="grid grid-cols-1 gap-2.5">
           {filteredMaps.map((map) => {
             const mapKey = map.name.toLowerCase().replace(' ', '-') as MapName;
             const isSelected = selectedMap === mapKey;

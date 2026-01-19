@@ -61,7 +61,7 @@ export type StrategySide = 'attack' | 'defense';
 /**
  * Canvas element types
  */
-export type ElementType = 'agent' | 'ability' | 'line' | 'arrow' | 'circle' | 'rectangle' | 'text' | 'freehand';
+export type ElementType = 'agent' | 'ability' | 'line' | 'arrow' | 'circle' | 'rectangle' | 'text' | 'freehand' | 'vision-cone' | 'icon' | 'image';
 
 /**
  * Base canvas element
@@ -112,7 +112,7 @@ export interface AbilityPlacement extends CanvasElement {
  * Drawing element (line, arrow, shape, text)
  */
 export interface DrawingElement extends CanvasElement {
-  type: 'line' | 'arrow' | 'circle' | 'rectangle' | 'text' | 'freehand';
+  type: 'line' | 'arrow' | 'circle' | 'rectangle' | 'text' | 'freehand' | 'vision-cone' | 'icon' | 'image';
   color?: string;
   strokeWidth?: number;
   points?: number[];
@@ -121,6 +121,12 @@ export interface DrawingElement extends CanvasElement {
   radius?: number;
   text?: string;
   fontSize?: number;
+  opacity?: number;
+  // Vision cone properties
+  angle?: number;
+  // Icon/Image properties
+  imageUrl?: string;
+  iconType?: 'spike' | 'flag' | 'danger' | 'warning';
 }
 
 /**
