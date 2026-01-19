@@ -15,7 +15,7 @@ export interface EditorState {
   canvasData: CanvasData;
 
   // Editor mode
-  tool: 'select' | 'agent' | 'ability' | 'line' | 'arrow' | 'circle' | 'rectangle' | 'text' | 'pen' | 'vision-cone' | 'icon' | 'image';
+  tool: 'select' | 'agent' | 'ability' | 'line' | 'arrow' | 'circle' | 'rectangle' | 'text' | 'pen' | 'timer-path' | 'vision-cone' | 'icon' | 'image';
   selectedElementId: string | null;
   selectedElementIds: string[];
   selectedAgentId: string | null;

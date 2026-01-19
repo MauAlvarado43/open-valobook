@@ -356,7 +356,7 @@ export function StrategyCanvas({ }: StrategyCanvasProps) {
 
     if (tool === 'line' || tool === 'arrow') {
       newShape.points = [0, 0, 0, 0];
-    } else if (tool === 'pen') {
+    } else if (tool === 'pen' || tool === 'timer-path') {
       newShape.points = [0, 0];
     } else if (tool === 'circle') {
       newShape.radius = 0;
@@ -427,7 +427,7 @@ export function StrategyCanvas({ }: StrategyCanvasProps) {
       if (totalDistance <= maxDist) {
         setCurrentShape({ ...abilityShape, guidedPoints: newPoints });
       }
-    } else if (tool === 'pen') {
+    } else if (tool === 'pen' || tool === 'timer-path') {
       const lastPoint = currentShape.points || [0, 0];
       setCurrentShape({ ...currentShape, points: [...lastPoint, dx, dy] });
     } else if (tool === 'line' || tool === 'arrow') {
@@ -502,7 +502,7 @@ export function StrategyCanvas({ }: StrategyCanvasProps) {
   const getCursorStyle = () => {
     if (tool === 'ability' && selectedAbilityIcon) return 'crosshair';
     if (tool === 'agent' && selectedAgentId) return 'crosshair';
-    if (tool === 'pen') return 'crosshair';
+    if (tool === 'pen' || tool === 'timer-path') return 'crosshair';
     if (tool === 'text') return 'text';
     if (tool === 'select') return 'default';
     return 'crosshair';

@@ -2,7 +2,7 @@
 
 import { useEditorStore } from '@/lib/store/editorStore';
 import type { EditorState } from '@/lib/store/editorStore';
-import { MousePointer2, Minus, ArrowRight, Circle, Square, Type, Pencil, Trash2, Eye, MapPin, Image as ImageIcon } from 'lucide-react';
+import { MousePointer2, Minus, ArrowRight, Circle, Square, Type, Pencil, Trash2, Eye, MapPin, Image as ImageIcon, Timer } from 'lucide-react';
 
 export function Toolbar() {
   const {
@@ -19,6 +19,7 @@ export function Toolbar() {
   const tools = [
     { id: 'select', label: 'Select', Icon: MousePointer2 },
     { id: 'pen', label: 'Pen', Icon: Pencil },
+    { id: 'timer-path', label: 'Rotation', Icon: Timer },
     { id: 'line', label: 'Line', Icon: Minus },
     { id: 'arrow', label: 'Arrow', Icon: ArrowRight },
     { id: 'circle', label: 'Circle', Icon: Circle },
