@@ -273,75 +273,84 @@ export function ElementPropertiesPanel() {
               <div>
                 <label className="text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-1.5 block">Intermediate Points</label>
                 <div className="flex gap-1 flex-wrap">
-                  {[0, 1, 2, 3, 4, 5, 6, 8, 10].map((num) => {
+                  {(() => {
+                    const def = getAbilityDefinition(
+                      (selectedElements.find(el => el.type === 'ability' && (el as AbilityPlacement).subType === 'curved-wall') as AbilityPlacement)?.abilityName ||
+                      (selectedElements.find(el => el.type === 'ability' && (el as AbilityPlacement).subType === 'curved-wall') as AbilityPlacement)?.abilityIcon || ''
+                    );
+                    const maxIntermediatePoints = def?.maxIntermediatePoints ?? 10;
+                    const options = [0, 1, 2, 3, 4, 5, 6, 8, 10].filter(n => n <= maxIntermediatePoints);
                     const currentCount = (selectedElements.find(el => el.type === 'ability' && (el as AbilityPlacement).subType === 'curved-wall') as AbilityPlacement)?.intermediatePoints ?? 0;
-                    const isActive = currentCount === num;
 
-                    return (
-                      <button
-                        key={num}
-                        onClick={() => {
-                          selectedElementIds.forEach(id => {
-                            const el = selectedElements.find(e => e.id === id) as AbilityPlacement;
-                            if (el && el.subType === 'curved-wall' && el.points) {
-                              const oldPoints = [...el.points];
-                              const oldCount = el.intermediatePoints ?? 0;
+                    return options.map((num) => {
+                      const isActive = currentCount === num;
 
-                              // Preserve start and end
-                              const startX = oldPoints[0];
-                              const startY = oldPoints[1];
-                              const endX = oldPoints[oldPoints.length - 2];
-                              const endY = oldPoints[oldPoints.length - 1];
+                      return (
+                        <button
+                          key={num}
+                          onClick={() => {
+                            selectedElementIds.forEach(id => {
+                              const el = selectedElements.find(e => e.id === id) as AbilityPlacement;
+                              if (el && el.subType === 'curved-wall' && el.points) {
+                                const oldPoints = [...el.points];
+                                const oldCount = el.intermediatePoints ?? 0;
 
-                              const newPoints = [startX, startY];
+                                // Preserve start and end
+                                const startX = oldPoints[0];
+                                const startY = oldPoints[1];
+                                const endX = oldPoints[oldPoints.length - 2];
+                                const endY = oldPoints[oldPoints.length - 1];
 
-                              if (num > 0) {
-                                // Interpolate new intermediate points from old shape
-                                for (let i = 1; i <= num; i++) {
-                                  const t = i / (num + 1); // Position along the path (0 to 1)
+                                const newPoints = [startX, startY];
 
-                                  // Find corresponding position in old points
-                                  const oldT = t * (oldCount + 1);
-                                  const oldIndex = Math.floor(oldT);
-                                  const fraction = oldT - oldIndex;
+                                if (num > 0) {
+                                  // Interpolate new intermediate points from old shape
+                                  for (let i = 1; i <= num; i++) {
+                                    const t = i / (num + 1); // Position along the path (0 to 1)
 
-                                  let newX, newY;
+                                    // Find corresponding position in old points
+                                    const oldT = t * (oldCount + 1);
+                                    const oldIndex = Math.floor(oldT);
+                                    const fraction = oldT - oldIndex;
 
-                                  if (oldCount === 0 || oldIndex >= oldCount) {
-                                    // Linear interpolation if no old points or beyond range
-                                    newX = startX + (endX - startX) * t;
-                                    newY = startY + (endY - startY) * t;
-                                  } else {
-                                    // Interpolate between old points
-                                    const idx1 = oldIndex * 2;
-                                    const idx2 = Math.min(idx1 + 2, oldPoints.length - 2);
-                                    const x1 = oldPoints[idx1];
-                                    const y1 = oldPoints[idx1 + 1];
-                                    const x2 = oldPoints[idx2];
-                                    const y2 = oldPoints[idx2 + 1];
+                                    let newX, newY;
 
-                                    newX = x1 + (x2 - x1) * fraction;
-                                    newY = y1 + (y2 - y1) * fraction;
+                                    if (oldCount === 0 || oldIndex >= oldCount) {
+                                      // Linear interpolation if no old points or beyond range
+                                      newX = startX + (endX - startX) * t;
+                                      newY = startY + (endY - startY) * t;
+                                    } else {
+                                      // Interpolate between old points
+                                      const idx1 = oldIndex * 2;
+                                      const idx2 = Math.min(idx1 + 2, oldPoints.length - 2);
+                                      const x1 = oldPoints[idx1];
+                                      const y1 = oldPoints[idx1 + 1];
+                                      const x2 = oldPoints[idx2];
+                                      const y2 = oldPoints[idx2 + 1];
+
+                                      newX = x1 + (x2 - x1) * fraction;
+                                      newY = y1 + (y2 - y1) * fraction;
+                                    }
+
+                                    newPoints.push(newX, newY);
                                   }
-
-                                  newPoints.push(newX, newY);
                                 }
-                              }
 
-                              newPoints.push(endX, endY);
-                              updateElement(id, { points: newPoints, intermediatePoints: num });
-                            }
-                          });
-                        }}
-                        className={`px-2 py-1 rounded text-[10px] transition-colors ${isActive
+                                newPoints.push(endX, endY);
+                                updateElement(id, { points: newPoints, intermediatePoints: num });
+                              }
+                            });
+                          }}
+                          className={`px-2 py-1 rounded text-[10px] transition-colors ${isActive
                             ? 'bg-blue-600 text-white'
                             : 'bg-gray-800 hover:bg-gray-700 text-gray-300'
-                          }`}
-                      >
-                        {num}
-                      </button>
-                    );
-                  })}
+                            }`}
+                        >
+                          {num}
+                        </button>
+                      );
+                    });
+                  })()}
                 </div>
               </div>
             )}

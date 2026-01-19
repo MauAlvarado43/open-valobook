@@ -263,7 +263,7 @@ export const AbilityIcon = memo(function AbilityIcon({ element, isSelected, isDr
                   points={pts}
                   stroke={fillColor}
                   strokeWidth={element.subType === 'path' ? (element.width || (def ? getAbilityDimension(def, 'width') : 80) || 80) : (element.width || (element.isGlobal ? 20 : (def ? getAbilityDimension(def, 'height') : 12) || 12))}
-                  opacity={element.opacity || (element.subType === 'path' ? 0.3 : (element.isGlobal ? 0.6 : 0.5))}
+                  opacity={element.opacity || (element.subType === 'path' ? 0.15 : (element.isGlobal ? 0.3 : 0.25))}
                   lineCap="butt"
                   tension={tension}
                   shadowColor={element.isGlobal ? fillColor : undefined}
@@ -276,14 +276,13 @@ export const AbilityIcon = memo(function AbilityIcon({ element, isSelected, isDr
                 <Line
                   points={pts}
                   stroke={sideColor}
-                  strokeWidth={element.isGlobal ? 6 : 4}
-                  opacity={Math.min(1, (element.opacity || 0.8) * 1.5)}
+                  strokeWidth={2}
+                  opacity={0.5}
                   lineCap="butt"
                   tension={tension}
-                  dash={element.isGlobal ? [20, 10, 5, 10] : (element.subType === 'wall' ? [10, 5] : undefined)}
                   perfectDrawEnabled={false}
                   shadowForStrokeEnabled={false}
-                  listening={false}
+                  hitStrokeWidth={Math.max(25, element.width || 0)}
                 />
                 {/* Colored border for paths */}
                 {element.subType === 'path' && (

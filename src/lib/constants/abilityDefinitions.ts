@@ -62,7 +62,7 @@ export const ABILITY_DEFINITIONS: Record<string, AbilityDefinition> = {
 };
 
 export function getAbilityDefinition(key: string): AbilityDefinition | undefined {
-  console.log(key)
+  console.log(key);
   if (!key) return undefined;
 
   // Direct lookup

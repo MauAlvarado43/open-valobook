@@ -313,8 +313,8 @@ export function StrategyCanvas({ }: StrategyCanvasProps) {
 
         // For curved walls, create intermediate points
         if (isCurvedWall) {
-          // Get number of intermediate points from definition (default: 3)
-          const numIntermediatePoints = def?.intermediatePoints || 0;
+          // Start with 0 intermediate points (just start and end)
+          const numIntermediatePoints = 0;
           const totalPoints = numIntermediatePoints + 2; // +2 for start and end
           const step = length / (totalPoints - 1);
 

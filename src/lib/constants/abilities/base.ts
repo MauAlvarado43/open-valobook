@@ -16,7 +16,7 @@ export interface AbilityDefinition {
   defaultHeight?: number;
   maxDistance?: number; // For guided-path abilities
   isGlobal?: boolean; // For things like Astra Ult
-  intermediatePoints?: number; // For curved-wall: number of intermediate points (default: 3)
+  maxIntermediatePoints?: number; // For curved-wall: number of intermediate points (default: 10)
   tension?: number; // For curved-wall: 0 = straight lines, 0.3 = smooth curves (default: 0.3)
   stats?: Record<string, StatValue>;
 }

@@ -59,7 +59,7 @@ export const DeadlockAbilities: Record<string, AbilityDefinition> = {
     agent: 'Deadlock',
     ability: 'Annihilation',
     shape: 'curved-wall',
-    intermediatePoints: 1,
+    maxIntermediatePoints: 1,
     tension: 0,
     stats: {
       height: {
