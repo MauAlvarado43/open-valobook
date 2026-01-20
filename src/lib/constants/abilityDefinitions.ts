@@ -1,4 +1,5 @@
 import { AbilityDefinition, AbilityShape } from '@/lib/constants/abilities/base';
+import { slugifyAbilityName } from '@/lib/utils/stringUtils';
 import { AstraAbilities } from '@/lib/constants/abilities/agents/astra';
 import { BreachAbilities } from '@/lib/constants/abilities/agents/breach';
 import { BrimstoneAbilities } from '@/lib/constants/abilities/agents/brimstone';
@@ -64,7 +65,11 @@ export const ABILITY_DEFINITIONS: Record<string, AbilityDefinition> = {
 export function getAbilityDefinition(key: string): AbilityDefinition | undefined {
   if (!key) return undefined;
 
-  // Direct lookup
+  // Slugified lookup (normalized)
+  const slug = slugifyAbilityName(key);
+  if (ABILITY_DEFINITIONS[slug]) return ABILITY_DEFINITIONS[slug];
+
+  // Direct lookup (legacy or manual)
   if (ABILITY_DEFINITIONS[key]) return ABILITY_DEFINITIONS[key];
 
   // Icon path lookup (legacy support)
@@ -79,8 +84,8 @@ export const getAbilityShape = (name: string, description: string): AbilityShape
   const def = getAbilityDefinition(name);
   if (def) return def.shape;
 
-  const desc = description.toLowerCase();
-  const n = name.toLowerCase();
+  const desc = (description || '').toLowerCase();
+  const n = (name || '').toLowerCase();
 
   // Wall/Divide priority to avoid Astra Ult description (which mentions stars making Nebulas) triggering 'smoke'
   if (

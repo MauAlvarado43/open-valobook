@@ -9,7 +9,7 @@ export function toTitleCase(str: string): string {
   return str
     .toLowerCase()
     .split(' ')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ');
 }
 
@@ -28,4 +28,19 @@ export function normalizeAbilityName(name: string): string {
   if (customMapping[upperName]) return customMapping[upperName];
 
   return toTitleCase(name);
+}
+/**
+ * Slugifies an ability name for use as a key.
+ * Example: "Gravity Well" -> "gravity_well"
+ * Example: "Nebula  / Dissipate" -> "nebula_dissipate"
+ */
+export function slugifyAbilityName(name: string): string {
+  if (!name) return '';
+  return name
+    .toLowerCase()
+    .replace(/\//g, '') // remove /
+    .replace(/\s+/g, '_') // replace spaces with _
+    .replace(/[^a-z0-9_]/g, '') // remove other special chars
+    .replace(/_+/g, '_') // ensure no double underscores
+    .replace(/^_|_$/g, ''); // remove leading/trailing underscores
 }

@@ -1,7 +1,7 @@
 import { AbilityDefinition } from '@/lib/constants/abilities/base';
 
 export const BreachAbilities: Record<string, AbilityDefinition> = {
-  Aftershock: {
+  aftershock: {
     agent: 'Breach',
     ability: 'Aftershock',
     shape: 'path',
@@ -22,7 +22,7 @@ export const BreachAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  'Fault Line': {
+  fault_line: {
     agent: 'Breach',
     ability: 'Fault Line',
     shape: 'path',
@@ -43,7 +43,7 @@ export const BreachAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  Flashpoint: {
+  flashpoint: {
     agent: 'Breach',
     ability: 'Flashpoint',
     shape: 'icon',
@@ -54,7 +54,7 @@ export const BreachAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  'Rolling Thunder': {
+  rolling_thunder: {
     agent: 'Breach',
     ability: 'Rolling Thunder',
     shape: 'path',

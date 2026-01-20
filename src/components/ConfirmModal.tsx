@@ -1,10 +1,12 @@
 'use client';
 
 import { useEditorStore } from '@/lib/store/editorStore';
+import { useTranslation } from '@/hooks/useTranslation';
 import { AlertTriangle, X } from 'lucide-react';
 
 export function ConfirmModal() {
   const { confirmModal, setConfirmModal } = useEditorStore();
+  const { t } = useTranslation();
 
   if (!confirmModal) return null;
 
@@ -37,7 +39,7 @@ export function ConfirmModal() {
           <button
             onClick={() => setConfirmModal(null)}
             className="text-white/20 hover:text-white transition-colors"
-            title="Close"
+            title={t('common', 'close')}
           >
             <X size={20} />
           </button>
@@ -49,7 +51,7 @@ export function ConfirmModal() {
             onClick={() => setConfirmModal(null)}
             className="flex-1 h-11 bg-white/5 hover:bg-white/10 text-white text-[10px] font-black uppercase italic tracking-[0.2em] transition-all border border-white/5 active:scale-95"
           >
-            Cancel
+            {t('common', 'cancel')}
           </button>
           <button
             onClick={() => {
@@ -58,7 +60,7 @@ export function ConfirmModal() {
             }}
             className="flex-1 h-11 bg-[#FF4655] hover:bg-[#FF4655]/90 text-white text-[10px] font-black uppercase italic tracking-[0.2em] transition-all active:scale-95 shadow-lg shadow-[#FF4655]/20"
           >
-            Confirm
+            {t('common', 'confirm')}
           </button>
         </div>
 

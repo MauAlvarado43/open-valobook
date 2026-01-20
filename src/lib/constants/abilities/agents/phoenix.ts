@@ -1,7 +1,7 @@
 import { AbilityDefinition } from '@/lib/constants/abilities/base';
 
 export const PhoenixAbilities: Record<string, AbilityDefinition> = {
-  Blaze: {
+  blaze: {
     agent: 'Phoenix',
     ability: 'Blaze',
     shape: 'curved-wall',
@@ -21,7 +21,7 @@ export const PhoenixAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  'Hot Hands': {
+  hot_hands: {
     agent: 'Phoenix',
     ability: 'Hot Hands',
     shape: 'area',
@@ -37,7 +37,7 @@ export const PhoenixAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  Curveball: {
+  curveball: {
     agent: 'Phoenix',
     ability: 'Curveball',
     shape: 'icon',
@@ -48,7 +48,7 @@ export const PhoenixAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  'Run it Back': {
+  run_it_back: {
     agent: 'Phoenix',
     ability: 'Run it Back',
     shape: 'curved-wall',

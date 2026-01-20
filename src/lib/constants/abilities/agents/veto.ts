@@ -1,7 +1,7 @@
 import { AbilityDefinition } from '@/lib/constants/abilities/base';
 
 export const VetoAbilities: Record<string, AbilityDefinition> = {
-  Crosscut: {
+  crosscut: {
     agent: 'Veto',
     ability: 'Crosscut',
     shape: 'area',
@@ -13,7 +13,7 @@ export const VetoAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  Chokehold: {
+  chokehold: {
     agent: 'Veto',
     ability: 'Chokehold',
     shape: 'area',
@@ -29,7 +29,7 @@ export const VetoAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  Interceptor: {
+  interceptor: {
     agent: 'Veto',
     ability: 'Interceptor',
     shape: 'area',
@@ -45,7 +45,7 @@ export const VetoAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  Evolution: {
+  evolution: {
     agent: 'Veto',
     ability: 'Evolution',
     shape: 'icon',

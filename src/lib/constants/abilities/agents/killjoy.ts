@@ -1,7 +1,7 @@
 import { AbilityDefinition } from '@/lib/constants/abilities/base';
 
 export const KilljoyAbilities: Record<string, AbilityDefinition> = {
-  Nanoswarm: {
+  nanoswarm: {
     agent: 'Killjoy',
     ability: 'Nanoswarm',
     shape: 'area',
@@ -17,7 +17,7 @@ export const KilljoyAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  ALARMBOT: {
+  alarmbot: {
     agent: 'Killjoy',
     ability: 'Alarmbot',
     shape: 'area',
@@ -34,7 +34,7 @@ export const KilljoyAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  TURRET: {
+  turret: {
     agent: 'Killjoy',
     ability: 'Turret',
     shape: 'area',
@@ -46,7 +46,7 @@ export const KilljoyAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  Lockdown: {
+  lockdown: {
     agent: 'Killjoy',
     ability: 'Lockdown',
     shape: 'area',

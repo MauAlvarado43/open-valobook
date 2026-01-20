@@ -1,7 +1,7 @@
 import { AbilityDefinition } from '@/lib/constants/abilities/base';
 
 export const WaylayAbilities: Record<string, AbilityDefinition> = {
-  Saturate: {
+  saturate: {
     agent: 'Waylay',
     ability: 'Saturate',
     shape: 'area',
@@ -17,7 +17,7 @@ export const WaylayAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  Lightspeed: {
+  lightspeed: {
     agent: 'Waylay',
     ability: 'Lightspeed',
     shape: 'curved-wall',
@@ -31,7 +31,7 @@ export const WaylayAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  Refract: {
+  refract: {
     agent: 'Waylay',
     ability: 'Refract',
     shape: 'curved-wall',
@@ -50,7 +50,7 @@ export const WaylayAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  'Convergent Paths': {
+  convergent_paths: {
     agent: 'Waylay',
     ability: 'Convergent Paths',
     shape: 'path',

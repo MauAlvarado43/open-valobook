@@ -1,7 +1,7 @@
 import { AbilityDefinition } from '@/lib/constants/abilities/base';
 
 export const SovaAbilities: Record<string, AbilityDefinition> = {
-  'Owl Drone': {
+  owl_drone: {
     agent: 'Sova',
     ability: 'Owl Drone',
     shape: 'curved-wall',
@@ -22,7 +22,7 @@ export const SovaAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  'Shock Bolt': {
+  shock_bolt: {
     agent: 'Sova',
     ability: 'Shock Bolt',
     shape: 'area',
@@ -34,7 +34,7 @@ export const SovaAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  'Recon Bolt': {
+  recon_bolt: {
     agent: 'Sova',
     ability: 'Recon Bolt',
     shape: 'area',
@@ -50,7 +50,7 @@ export const SovaAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  "Hunter's Fury": {
+  hunters_fury: {
     agent: 'Sova',
     ability: "Hunter's Fury",
     shape: 'path',

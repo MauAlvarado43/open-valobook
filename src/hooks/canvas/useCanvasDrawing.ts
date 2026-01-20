@@ -2,6 +2,7 @@ import { useState } from 'react';
 import type Konva from 'konva';
 import { useEditorStore } from '@/lib/store/editorStore';
 import type { DrawingElement, AgentPlacement, AbilityPlacement } from '@/types/strategy';
+import { useTranslation } from '@/hooks/useTranslation';
 import {
   getAbilityDefinition,
   getAbilityDimension,
@@ -34,6 +35,7 @@ export function useCanvasDrawing(
     clearSelection,
     toggleElementSelection,
   } = useEditorStore();
+  const { t } = useTranslation();
 
   const [isDrawing, setIsDrawing] = useState(false);
   const [currentShape, setCurrentShape] = useState<CanvasElement | null>(null);
@@ -265,7 +267,7 @@ export function useCanvasDrawing(
         newShape.height = 0;
         break;
       case 'text':
-        newShape.text = 'Text';
+        newShape.text = t('editor', 'text');
         newShape.fontSize = 16;
         break;
       case 'vision-cone':

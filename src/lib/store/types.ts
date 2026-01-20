@@ -50,6 +50,7 @@ export interface EditorState {
   currentColor: string;
   strategyName: string;
   strategyId: string;
+  language: 'en' | 'es';
 
   // History
   history: CanvasData[];
@@ -115,4 +116,5 @@ export interface EditorState {
   saveToLibrary: () => Promise<void>;
   loadProject: (data: CanvasData) => void;
   resetProject: () => void;
+  setLanguage: (lang: 'en' | 'es') => void;
 }

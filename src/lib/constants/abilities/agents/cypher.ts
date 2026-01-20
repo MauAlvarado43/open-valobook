@@ -1,7 +1,7 @@
 import { AbilityDefinition } from '@/lib/constants/abilities/base';
 
 export const CypherAbilities: Record<string, AbilityDefinition> = {
-  Trapwire: {
+  trapwire: {
     agent: 'Cypher',
     ability: 'Trapwire',
     shape: 'wall',
@@ -22,7 +22,7 @@ export const CypherAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  'Cyber Cage': {
+  cyber_cage: {
     agent: 'Cypher',
     ability: 'Cyber Cage',
     shape: 'smoke',
@@ -38,12 +38,12 @@ export const CypherAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  Spycam: {
+  spycam: {
     agent: 'Cypher',
     ability: 'Spycam',
     shape: 'icon',
   },
-  'Neural Theft': {
+  neural_theft: {
     agent: 'Cypher',
     ability: 'Neural Theft',
     shape: 'icon',

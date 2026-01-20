@@ -1,7 +1,7 @@
 import { AbilityDefinition } from '@/lib/constants/abilities/base';
 
 export const HarborAbilities: Record<string, AbilityDefinition> = {
-  'Storm Surge': {
+  storm_surge: {
     agent: 'Harbor',
     ability: 'Storm Surge',
     shape: 'area',
@@ -17,7 +17,7 @@ export const HarborAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  'High Tide': {
+  high_tide: {
     agent: 'Harbor',
     ability: 'High Tide',
     shape: 'curved-wall',
@@ -39,7 +39,7 @@ export const HarborAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  Cove: {
+  cove: {
     agent: 'Harbor',
     ability: 'Cove',
     shape: 'smoke',
@@ -51,7 +51,7 @@ export const HarborAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  Reckoning: {
+  reckoning: {
     agent: 'Harbor',
     ability: 'Reckoning',
     shape: 'path',

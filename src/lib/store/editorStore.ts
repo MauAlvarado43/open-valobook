@@ -5,37 +5,67 @@ import { createCanvasSlice } from '@/lib/store/slices/canvasSlice';
 import { createUISlice } from '@/lib/store/slices/uiSlice';
 import { createHistorySlice } from '@/lib/store/slices/historySlice';
 import { createPersistenceSlice } from '@/lib/store/slices/persistenceSlice';
+import { persist, createJSONStorage } from 'zustand/middleware';
 
-export const useEditorStore = create<EditorState>(
-  (set, get, store) =>
-    ({
-      // Initial state
-      selectedMap: null,
-      strategySide: 'attack',
-      canvasData: initialCanvasData,
-      tool: 'select',
-      selectedElementId: null,
-      selectedElementIds: [],
-      selectedAgentId: null,
-      selectedAbilityIcon: null,
-      selectedAbilityName: null,
-      selectedAbilitySubType: 'default',
-      selectedAbilityColor: null,
-      selectedAbilityIsGlobal: false,
-      currentColor: '#FF4655',
-      strategyName: initialCanvasData.name,
-      strategyId: initialCanvasData.id,
-      status: null,
-      confirmModal: null,
-      history: [initialCanvasData],
-      historyIndex: 0,
+// Custom storage to use Electron local file instead of localStorage
+const electronStorage = {
+  getItem: async (name: string) => {
+    const config = await window.electron?.getConfig();
+    return config ? JSON.stringify(config[name]) : null;
+  },
+  setItem: async (name: string, value: string) => {
+    const currentConfig = (await window.electron?.getConfig()) || {};
+    currentConfig[name] = JSON.parse(value);
+    await window.electron?.saveConfig(currentConfig);
+  },
+  removeItem: async (name: string) => {
+    const currentConfig = (await window.electron?.getConfig()) || {};
+    delete currentConfig[name];
+    await window.electron?.saveConfig(currentConfig);
+  },
+};
 
-      // Slices
-      ...createCanvasSlice(set, get, store),
-      ...createUISlice(set, get, store),
-      ...createHistorySlice(set, get, store),
-      ...createPersistenceSlice(set, get, store),
-    }) as EditorState
+export const useEditorStore = create<EditorState>()(
+  persist(
+    (set, get, store) =>
+      ({
+        // Initial state
+        selectedMap: null,
+        strategySide: 'attack',
+        canvasData: initialCanvasData,
+        tool: 'select',
+        selectedElementId: null,
+        selectedElementIds: [],
+        selectedAgentId: null,
+        selectedAbilityIcon: null,
+        selectedAbilityName: null,
+        selectedAbilitySubType: 'default',
+        selectedAbilityColor: null,
+        selectedAbilityIsGlobal: false,
+        currentColor: '#FF4655',
+        strategyName: initialCanvasData.name,
+        strategyId: initialCanvasData.id,
+        language: 'en',
+        status: null,
+        confirmModal: null,
+        history: [initialCanvasData],
+        historyIndex: 0,
+
+        // Slices
+        ...createCanvasSlice(set, get, store),
+        ...createUISlice(set, get, store),
+        ...createHistorySlice(set, get, store),
+        ...createPersistenceSlice(set, get, store),
+      }) as EditorState,
+    {
+      name: 'openvalobook-store',
+      storage: createJSONStorage(() => electronStorage),
+      partialize: (state) => ({
+        language: state.language,
+        // Any other settings we want to persist go here
+      }),
+    }
+  )
 );
 
 export type { EditorState };

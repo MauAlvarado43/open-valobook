@@ -1,7 +1,7 @@
 import { AbilityDefinition } from '@/lib/constants/abilities/base';
 
 export const AstraAbilities: Record<string, AbilityDefinition> = {
-  'Gravity Well': {
+  gravity_well: {
     agent: 'Astra',
     ability: 'Gravity Well',
     shape: 'area',
@@ -17,7 +17,7 @@ export const AstraAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  'Nova Pulse': {
+  nova_pulse: {
     agent: 'Astra',
     ability: 'Nova Pulse',
     shape: 'area',
@@ -33,7 +33,7 @@ export const AstraAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  'Nebula  / Dissipate': {
+  nebula_dissipate: {
     agent: 'Astra',
     ability: 'Nebula',
     shape: 'smoke',
@@ -49,7 +49,7 @@ export const AstraAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  'Astral Form / Cosmic Divide': {
+  astral_form_cosmic_divide: {
     agent: 'Astra',
     ability: 'Cosmic Divide',
     shape: 'wall',

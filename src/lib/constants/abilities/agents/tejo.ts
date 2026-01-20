@@ -1,7 +1,7 @@
 import { AbilityDefinition } from '@/lib/constants/abilities/base';
 
 export const TejoAbilities: Record<string, AbilityDefinition> = {
-  'Stealth Drone': {
+  stealth_drone: {
     agent: 'Tejo',
     ability: 'Stealth Drone',
     shape: 'curved-wall',
@@ -22,7 +22,7 @@ export const TejoAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  'Special Delivery': {
+  special_delivery: {
     agent: 'Tejo',
     ability: 'Special Delivery',
     shape: 'area',
@@ -38,7 +38,7 @@ export const TejoAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  'Guided Salvo': {
+  guided_salvo: {
     agent: 'Tejo',
     ability: 'Guided Salvo',
     shape: 'area',
@@ -50,7 +50,7 @@ export const TejoAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  Armageddon: {
+  armageddon: {
     agent: 'Tejo',
     ability: 'Armageddon',
     shape: 'path',

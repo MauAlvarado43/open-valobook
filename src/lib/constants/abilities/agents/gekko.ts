@@ -1,7 +1,7 @@
 import { AbilityDefinition } from '@/lib/constants/abilities/base';
 
 export const GekkoAbilities: Record<string, AbilityDefinition> = {
-  'Mosh Pit': {
+  mosh_pit: {
     agent: 'Gekko',
     ability: 'Mosh Pit',
     shape: 'area',
@@ -17,7 +17,7 @@ export const GekkoAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  Wingman: {
+  wingman: {
     agent: 'Gekko',
     ability: 'Wingman',
     shape: 'curved-wall',
@@ -35,7 +35,7 @@ export const GekkoAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  Dizzy: {
+  dizzy: {
     agent: 'Gekko',
     ability: 'Dizzy',
     shape: 'curved-wall',
@@ -57,7 +57,7 @@ export const GekkoAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  Thrash: {
+  thrash: {
     agent: 'Gekko',
     ability: 'Thrash',
     shape: 'curved-wall',

@@ -1,7 +1,7 @@
 import { AbilityDefinition } from '@/lib/constants/abilities/base';
 
 export const ViperAbilities: Record<string, AbilityDefinition> = {
-  'Snake Bite': {
+  snake_bite: {
     agent: 'Viper',
     ability: 'Snake Bite',
     shape: 'area',
@@ -17,7 +17,7 @@ export const ViperAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  'Poison Cloud': {
+  poison_cloud: {
     agent: 'Viper',
     ability: 'Poison Cloud',
     shape: 'smoke',
@@ -29,7 +29,7 @@ export const ViperAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  'Toxic Screen': {
+  toxic_screen: {
     agent: 'Viper',
     ability: 'Toxic Screen',
     shape: 'wall',
@@ -46,7 +46,7 @@ export const ViperAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  "Viper's Pit": {
+  vipers_pit: {
     agent: 'Viper',
     ability: "Viper's Pit",
     shape: 'area',

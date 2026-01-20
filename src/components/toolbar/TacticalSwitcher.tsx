@@ -1,4 +1,5 @@
 import { Swords, Shield } from 'lucide-react';
+import { useTranslation } from '@/hooks/useTranslation';
 import type { StrategySide } from '@/types/strategy';
 
 interface TacticalSwitcherProps {
@@ -16,6 +17,8 @@ export function TacticalSwitcher({
   bgModule,
   hClassBottom,
 }: TacticalSwitcherProps) {
+  const { t } = useTranslation();
+
   return (
     <div className="flex justify-start overflow-hidden">
       <div className={`flex p-1 gap-1 rounded-lg ${hClassBottom} ${bgModule} shrink-0`}>
@@ -31,7 +34,7 @@ export function TacticalSwitcher({
           }`}
         >
           <Swords size={16} />
-          <span className="hidden 2xl:inline">ATTACK</span>
+          <span className="hidden 2xl:inline">{t('toolbar', 'attack')}</span>
         </button>
         <button
           onClick={() => {
@@ -45,7 +48,7 @@ export function TacticalSwitcher({
           }`}
         >
           <Shield size={16} />
-          <span className="hidden 2xl:inline">DEFENSE</span>
+          <span className="hidden 2xl:inline">{t('toolbar', 'defense')}</span>
         </button>
       </div>
     </div>

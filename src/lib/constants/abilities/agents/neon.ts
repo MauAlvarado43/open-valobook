@@ -1,7 +1,7 @@
 import { AbilityDefinition } from '@/lib/constants/abilities/base';
 
 export const NeonAbilities: Record<string, AbilityDefinition> = {
-  'Fast Lane': {
+  fast_lane: {
     agent: 'Neon',
     ability: 'Fast Lane',
     shape: 'wall',
@@ -22,7 +22,7 @@ export const NeonAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  'Relay Bolt': {
+  relay_bolt: {
     agent: 'Neon',
     ability: 'Relay Bolt',
     shape: 'area',
@@ -38,7 +38,7 @@ export const NeonAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  'High Gear': {
+  high_gear: {
     agent: 'Neon',
     ability: 'High Gear',
     shape: 'icon',
@@ -57,7 +57,7 @@ export const NeonAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  Overdrive: {
+  overdrive: {
     agent: 'Neon',
     ability: 'Overdrive',
     shape: 'icon',

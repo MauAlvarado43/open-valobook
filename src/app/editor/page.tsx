@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useTranslation } from '@/hooks/useTranslation';
 import { MapSelector } from '@/components/MapSelector';
 import { Toolbar } from '@/components/Toolbar';
 import { StrategyCanvas } from '@/components/StrategyCanvas';
@@ -10,6 +11,7 @@ import { Map, Users, ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
 
 export default function EditorPage() {
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<'maps' | 'agents'>('maps');
 
   return (
@@ -18,11 +20,13 @@ export default function EditorPage() {
         <Link
           href="/"
           className="p-1.5 hover:bg-gray-700 rounded-full text-gray-400 hover:text-white transition-colors"
-          title="Back to Main Menu"
+          title={t('editor', 'backToMainMenu')}
         >
           <ChevronLeft size={20} />
         </Link>
-        <h1 className="text-lg font-black uppercase italic tracking-wider">Strategy Editor</h1>
+        <h1 className="text-lg font-black uppercase italic tracking-wider">
+          {t('editor', 'strategyEditor')}
+        </h1>
       </header>
 
       <div className="flex h-[calc(100vh-53px)]">
@@ -39,7 +43,7 @@ export default function EditorPage() {
               }`}
             >
               <Map size={14} />
-              Maps
+              {t('editor', 'maps')}
             </button>
             <button
               onClick={() => setActiveTab('agents')}
@@ -50,7 +54,7 @@ export default function EditorPage() {
               }`}
             >
               <Users size={14} />
-              Agents
+              {t('editor', 'agents')}
             </button>
           </div>
 

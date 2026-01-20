@@ -3,6 +3,7 @@
 import { Stage, Layer, Image as KonvaImage, Rect, Group } from 'react-konva';
 import { memo, useRef, useState, useEffect } from 'react';
 import { useEditorStore } from '@/lib/store/editorStore';
+import { useTranslation } from '@/hooks/useTranslation';
 import useImage from 'use-image';
 import { DrawingElementRenderer } from '@/components/DrawingElementRenderer';
 import { AgentIcon } from '@/components/AgentIcon';
@@ -40,6 +41,7 @@ const MapImage = memo(function MapImage({ src, rotation }: { src: string; rotati
 });
 
 export function StrategyCanvas({}: StrategyCanvasProps) {
+  const { t } = useTranslation();
   const stageRef = useRef<Konva.Stage>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerSize, setContainerSize] = useState({ width: 1024, height: 1024 });
@@ -291,7 +293,7 @@ export function StrategyCanvas({}: StrategyCanvasProps) {
 
       {!selectedMap && (
         <div className="absolute inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
-          <p className="text-white text-lg">Select a map to begin</p>
+          <p className="text-white text-lg">{t('editor', 'selectMapToBegin')}</p>
         </div>
       )}
 
@@ -300,11 +302,13 @@ export function StrategyCanvas({}: StrategyCanvasProps) {
           <div
             className={`absolute top-4 right-4 px-4 py-2 rounded-md font-bold text-white shadow-lg ${strategySide === 'attack' ? 'bg-red-600' : 'bg-blue-600'}`}
           >
-            {strategySide === 'attack' ? '⚔️ ATTACK' : '🛡️ DEFENSE'}
+            {strategySide === 'attack'
+              ? `⚔️ ${t('editor', 'attack')}`
+              : `🛡️ ${t('editor', 'defense')}`}
           </div>
 
           <div className="absolute bottom-4 right-4 px-3 py-1 rounded-md bg-gray-800 bg-opacity-90 text-white text-sm">
-            Zoom: {Math.round(scale * 100)}%
+            {t('editor', 'zoom')}: {Math.round(scale * 100)}%
           </div>
 
           <ElementPropertiesPanel />

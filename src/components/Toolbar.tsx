@@ -5,6 +5,7 @@ import { ToolbarActions } from '@/components/toolbar/ToolbarActions';
 import { TacticalSwitcher } from '@/components/toolbar/TacticalSwitcher';
 import { ToolSelector } from '@/components/toolbar/ToolSelector';
 import { ColorControl } from '@/components/toolbar/ColorControl';
+import { useTranslation } from '@/hooks/useTranslation';
 
 export function Toolbar() {
   const {
@@ -27,18 +28,20 @@ export function Toolbar() {
     setConfirmModal,
   } = useEditorStore();
 
+  const { t } = useTranslation();
+
   const [exportFormat, setExportFormat] = useState<'png' | 'pdf'>('png');
   const [showExportOptions, setShowExportOptions] = useState(false);
   const [showMoreTools, setShowMoreTools] = useState(false);
 
   const handleAction = async (action: () => Promise<unknown>, successMsg: string) => {
-    setStatus({ type: 'loading', msg: 'Processing...' });
+    setStatus({ type: 'loading', msg: t('common', 'loading') });
     try {
       await action();
       setStatus({ type: 'success', msg: successMsg });
     } catch (err) {
       console.error(err);
-      setStatus({ type: 'error', msg: 'Action failed' });
+      setStatus({ type: 'error', msg: t('common', 'error') });
     }
   };
 
@@ -48,7 +51,10 @@ export function Toolbar() {
     } else {
       exportAsImage();
     }
-    setStatus({ type: 'loading', msg: `Exporting ${exportFormat.toUpperCase()}...` });
+    setStatus({
+      type: 'loading',
+      msg: t('toolbar', 'exporting', { format: exportFormat.toUpperCase() }),
+    });
   };
 
   const debounceTimer = useRef<NodeJS.Timeout | null>(null);
@@ -71,7 +77,7 @@ export function Toolbar() {
         <ToolbarBranding
           strategyName={strategyName}
           setStrategyName={setStrategyName}
-          onSaveToLibrary={() => handleAction(() => saveToLibrary(), 'Save Successful')}
+          onSaveToLibrary={() => handleAction(() => saveToLibrary(), t('common', 'success'))}
           bgModule={bgModule}
           hClassTop={hClassTop}
         />
@@ -133,9 +139,8 @@ export function Toolbar() {
           handleCustomColorChange={handleCustomColorChange}
           onClearCanvas={() => {
             setConfirmModal({
-              title: 'Wipe Canvas',
-              message:
-                'Are you sure you want to delete all elements? This action cannot be undone unless you have history points.',
+              title: t('toolbar', 'wipeCanvasTitle'),
+              message: t('toolbar', 'wipeCanvasMsg'),
               onConfirm: clearCanvas,
             });
           }}

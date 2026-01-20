@@ -1,7 +1,7 @@
 import { AbilityDefinition } from '@/lib/constants/abilities/base';
 
 export const VyseAbilities: Record<string, AbilityDefinition> = {
-  Razorvine: {
+  razorvine: {
     agent: 'Vyse',
     ability: 'Razorvine',
     shape: 'area',
@@ -17,7 +17,7 @@ export const VyseAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  Shear: {
+  shear: {
     agent: 'Vyse',
     ability: 'Shear',
     shape: 'wall',
@@ -38,7 +38,7 @@ export const VyseAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  'Arc Rose': {
+  arc_rose: {
     agent: 'Vyse',
     ability: 'Arc Rose',
     shape: 'area',
@@ -58,7 +58,7 @@ export const VyseAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  'Steel Garden': {
+  steel_garden: {
     agent: 'Vyse',
     ability: 'Steel Garden',
     shape: 'area',

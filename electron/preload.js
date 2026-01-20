@@ -10,4 +10,6 @@ contextBridge.exposeInMainWorld('electron', {
   saveToLibrary: (filename, data) => ipcRenderer.invoke('library:save', filename, data),
   listLibrary: () => ipcRenderer.invoke('library:list'),
   deleteFromLibrary: (filename) => ipcRenderer.invoke('library:delete', filename),
+  getConfig: () => ipcRenderer.invoke('config:get'),
+  saveConfig: (data) => ipcRenderer.invoke('config:save', data),
 });

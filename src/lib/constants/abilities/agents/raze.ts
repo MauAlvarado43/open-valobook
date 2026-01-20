@@ -1,7 +1,7 @@
 import { AbilityDefinition } from '@/lib/constants/abilities/base';
 
 export const RazeAbilities: Record<string, AbilityDefinition> = {
-  'Boom Bot': {
+  boom_bot: {
     agent: 'Raze',
     ability: 'Boom Bot',
     shape: 'curved-wall',
@@ -18,7 +18,7 @@ export const RazeAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  'Blast Pack': {
+  blast_pack: {
     agent: 'Raze',
     ability: 'Blast Pack',
     shape: 'area',
@@ -34,7 +34,7 @@ export const RazeAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  'Paint Shells': {
+  paint_shells: {
     agent: 'Raze',
     ability: 'Paint Shells',
     shape: 'area',
@@ -46,7 +46,7 @@ export const RazeAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  Showstopper: {
+  showstopper: {
     agent: 'Raze',
     ability: 'Showstopper',
     shape: 'area',

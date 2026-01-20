@@ -1,7 +1,7 @@
 import { AbilityDefinition } from '@/lib/constants/abilities/base';
 
 export const SageAbilities: Record<string, AbilityDefinition> = {
-  'Barrier Orb': {
+  barrier_orb: {
     agent: 'Sage',
     ability: 'Barrier Orb',
     shape: 'wall',
@@ -22,7 +22,7 @@ export const SageAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  'Slow Orb': {
+  slow_orb: {
     agent: 'Sage',
     ability: 'Slow Orb',
     shape: 'area',
@@ -38,7 +38,7 @@ export const SageAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  'Healing Orb': {
+  healing_orb: {
     agent: 'Sage',
     ability: 'Healing Orb',
     shape: 'area',
@@ -54,7 +54,7 @@ export const SageAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  Resurrection: {
+  resurrection: {
     agent: 'Sage',
     ability: 'Resurrection',
     shape: 'area',

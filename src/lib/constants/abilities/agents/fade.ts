@@ -1,7 +1,7 @@
 import { AbilityDefinition } from '@/lib/constants/abilities/base';
 
 export const FadeAbilities: Record<string, AbilityDefinition> = {
-  Prowler: {
+  prowler: {
     agent: 'Fade',
     ability: 'Prowler',
     shape: 'curved-wall',
@@ -27,7 +27,7 @@ export const FadeAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  Seize: {
+  seize: {
     agent: 'Fade',
     ability: 'Seize',
     shape: 'area',
@@ -43,7 +43,7 @@ export const FadeAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  Haunt: {
+  haunt: {
     agent: 'Fade',
     ability: 'Haunt',
     shape: 'area',
@@ -59,7 +59,7 @@ export const FadeAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  Nightfall: {
+  nightfall: {
     agent: 'Fade',
     ability: 'Nightfall',
     shape: 'path',

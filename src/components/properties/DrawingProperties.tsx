@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
+import { useTranslation } from '@/hooks/useTranslation';
 
 const colors = [
   { name: 'Valorant Red', value: '#FF4655' },
@@ -27,6 +28,7 @@ export function DrawingProperties({
   strokeWidth,
   onStrokeWidthChange,
 }: DrawingPropertiesProps) {
+  const { t } = useTranslation();
   const [localColor, setLocalColor] = useState(color || '#FF4655');
   const debounceTimer = useRef<NodeJS.Timeout | null>(null);
 
@@ -45,7 +47,9 @@ export function DrawingProperties({
   return (
     <div className="space-y-4">
       <div>
-        <label className="text-gray-300 text-xs font-medium mb-2 block">Color</label>
+        <label className="text-gray-300 text-xs font-medium mb-2 block">
+          {t('editor', 'color')}
+        </label>
         <div className="flex gap-2 flex-wrap">
           {colors.map((c) => (
             <button
@@ -67,7 +71,7 @@ export function DrawingProperties({
               value={localColor}
               onChange={(e) => handleColorChange(e.target.value)}
               className="absolute inset-0 w-8 h-8 opacity-0 cursor-pointer z-10"
-              title="Custom color"
+              title={t('editor', 'customColor')}
             />
             <div
               className={`w-8 h-8 rounded border-2 flex items-center justify-center transition-all ${
@@ -84,7 +88,8 @@ export function DrawingProperties({
 
       <div>
         <label className="text-gray-300 text-xs font-medium mb-2 block">
-          Stroke Width {strokeWidth ? `(${strokeWidth}px)` : '(Mixed)'}
+          {t('editor', 'strokeWidth')}{' '}
+          {strokeWidth ? `(${strokeWidth}px)` : `(${t('common', 'mixed')})`}
         </label>
         <div className="flex gap-1 flex-wrap">
           {strokeWidths.map((w) => (

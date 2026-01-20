@@ -1,5 +1,6 @@
 import { memo } from 'react';
 import { Group, Line, Rect, Text as KonvaText } from 'react-konva';
+import { useTranslation } from '@/hooks/useTranslation';
 import type { DrawingElement } from '@/types/strategy';
 
 import { CanvasCommonProps } from '@/types/canvas';
@@ -21,8 +22,9 @@ const getPathDistance = (points: number[]): number => {
 
 export const TimerPathRenderer = memo(function TimerPathRenderer({
   element,
-  commonProps
+  commonProps,
 }: TimerPathRendererProps) {
+  const { t } = useTranslation();
   const points = element.points || [0, 0];
   const distPx = getPathDistance(points);
 
@@ -44,13 +46,7 @@ export const TimerPathRenderer = memo(function TimerPathRenderer({
 
   return (
     <Group>
-      <Line
-        {...commonProps}
-        points={points}
-        lineCap="round"
-        lineJoin="round"
-        tension={0.5}
-      />
+      <Line {...commonProps} points={points} lineCap="round" lineJoin="round" tension={0.5} />
       {points.length >= 4 && (
         <Group x={lastX} y={lastY + 10}>
           <Rect
@@ -62,7 +58,7 @@ export const TimerPathRenderer = memo(function TimerPathRenderer({
             offsetX={55}
           />
           <KonvaText
-            text={`Run: ${runTime.toFixed(1)}s\nWalk: ${walkTime.toFixed(1)}s\nCrouch: ${crouchTime.toFixed(1)}s`}
+            text={`${t('editor', 'run')}: ${runTime.toFixed(1)}s\n${t('editor', 'walk')}: ${walkTime.toFixed(1)}s\n${t('editor', 'crouch')}: ${crouchTime.toFixed(1)}s`}
             fontSize={11}
             fill="#FFFFFF"
             align="center"

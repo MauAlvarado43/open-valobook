@@ -10,6 +10,8 @@ export interface IElectronAPI {
   saveToLibrary: (name: string, data: string) => Promise<boolean>;
   listLibrary: () => Promise<import('./strategy').LibraryStrategy[]>;
   deleteFromLibrary: (name: string) => Promise<boolean>;
+  getConfig: () => Promise<Record<string, any>>;
+  saveConfig: (data: Record<string, any>) => Promise<boolean>;
 }
 
 declare global {

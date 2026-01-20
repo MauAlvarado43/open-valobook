@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import { useTranslation } from '@/hooks/useTranslation';
 import { Flag, TriangleAlert, Info, Target } from 'lucide-react';
 import type { DrawingElement } from '@/types/strategy';
 
@@ -9,33 +10,53 @@ interface GraphicPropertiesProps {
 }
 
 export function GraphicProperties({ element, onUpdate }: GraphicPropertiesProps) {
+  const { t } = useTranslation();
+
   return (
     <div className="space-y-4 pt-2 border-t border-gray-800">
       {element.type === 'icon' && (
         <div>
-          <label className="text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-1.5 block">Icon Type</label>
+          <label className="text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-1.5 block">
+            {t('editor', 'iconType')}
+          </label>
           <div className="grid grid-cols-4 gap-2">
             {(['spike', 'flag', 'danger', 'warning'] as const).map((type) => {
               let Icon;
               switch (type) {
-                case 'spike': Icon = Target; break;
-                case 'flag': Icon = Flag; break;
-                case 'danger': Icon = TriangleAlert; break;
-                case 'warning': Icon = Info; break;
-                default: Icon = Flag;
+                case 'spike':
+                  Icon = Target;
+                  break;
+                case 'flag':
+                  Icon = Flag;
+                  break;
+                case 'danger':
+                  Icon = TriangleAlert;
+                  break;
+                case 'warning':
+                  Icon = Info;
+                  break;
+                default:
+                  Icon = Flag;
               }
               return (
                 <button
                   key={type}
                   onClick={() => onUpdate({ iconType: type })}
-                  className={`py-2 rounded flex flex-col items-center gap-1 transition-colors ${element.iconType === type
-                    ? 'bg-blue-600 text-white shadow-inner'
-                    : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
-                    }`}
-                  title={type.charAt(0).toUpperCase() + type.slice(1)}
+                  className={`py-2 rounded flex flex-col items-center gap-1 transition-colors ${
+                    element.iconType === type
+                      ? 'bg-blue-600 text-white shadow-inner'
+                      : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
+                  }`}
+                  title={t('editor', 'iconType')}
                 >
                   {type === 'spike' ? (
-                    <Image src="/assets/icons/spike.png" alt="Spike" width={16} height={16} className="object-contain" />
+                    <Image
+                      src="/assets/icons/spike.png"
+                      alt="Spike"
+                      width={16}
+                      height={16}
+                      className="object-contain"
+                    />
                   ) : (
                     <Icon size={16} />
                   )}
@@ -49,13 +70,15 @@ export function GraphicProperties({ element, onUpdate }: GraphicPropertiesProps)
 
       {element.type === 'image' && (
         <div>
-          <label className="text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-1.5 block">Custom Image</label>
+          <label className="text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-1.5 block">
+            {t('editor', 'customImage')}
+          </label>
           <div className="space-y-2">
             <input
               type="file"
               accept="image/*"
-              title="Upload file"
-              aria-label="Upload custom image file"
+              title={t('editor', 'uploadFile')}
+              aria-label={t('editor', 'uploadFile')}
               onChange={(e) => {
                 const file = e.target.files?.[0];
                 if (file) {
@@ -70,9 +93,9 @@ export function GraphicProperties({ element, onUpdate }: GraphicPropertiesProps)
             />
             <input
               type="text"
-              placeholder="or enter URL..."
-              title="Enter URL"
-              aria-label="Custom image URL"
+              placeholder={t('editor', 'enterUrl')}
+              title={t('editor', 'enterUrl')}
+              aria-label={t('editor', 'enterUrl')}
               value={element.imageUrl || ''}
               onChange={(e) => onUpdate({ imageUrl: e.target.value })}
               className="w-full px-3 py-2 bg-gray-800 text-white rounded border border-gray-600 focus:border-blue-500 focus:outline-none text-xs"
@@ -83,22 +106,26 @@ export function GraphicProperties({ element, onUpdate }: GraphicPropertiesProps)
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-1.5 block">Width</label>
+          <label className="text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-1.5 block">
+            {t('editor', 'width')}
+          </label>
           <input
             type="number"
-            title="Width"
-            aria-label="Element Width"
+            title={t('editor', 'width')}
+            aria-label={t('editor', 'width')}
             value={element.width || 40}
             onChange={(e) => onUpdate({ width: parseInt(e.target.value) })}
             className="w-full px-2 py-1 bg-gray-800 text-white rounded border border-gray-600 text-xs"
           />
         </div>
         <div>
-          <label className="text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-1.5 block">Height</label>
+          <label className="text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-1.5 block">
+            {t('editor', 'height')}
+          </label>
           <input
             type="number"
-            title="Height"
-            aria-label="Element Height"
+            title={t('editor', 'height')}
+            aria-label={t('editor', 'height')}
             value={element.height || 40}
             onChange={(e) => onUpdate({ height: parseInt(e.target.value) })}
             className="w-full px-2 py-1 bg-gray-800 text-white rounded border border-gray-600 text-xs"

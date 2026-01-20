@@ -1,7 +1,7 @@
 import { AbilityDefinition } from '@/lib/constants/abilities/base';
 
 export const YoruAbilities: Record<string, AbilityDefinition> = {
-  FAKEOUT: {
+  fakeout: {
     agent: 'Yoru',
     ability: 'Fakeout',
     shape: 'path',
@@ -20,7 +20,7 @@ export const YoruAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  BLINDSIDE: {
+  blindside: {
     agent: 'Yoru',
     ability: 'Blindside',
     shape: 'icon',
@@ -31,7 +31,7 @@ export const YoruAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  GATECRASH: {
+  gatecrash: {
     agent: 'Yoru',
     ability: 'Gatecrash',
     shape: 'icon',
@@ -42,7 +42,7 @@ export const YoruAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  'DIMENSIONAL DRIFT': {
+  dimensional_drift: {
     agent: 'Yoru',
     ability: 'Dimensional Drift',
     shape: 'curved-wall',

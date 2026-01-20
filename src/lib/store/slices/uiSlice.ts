@@ -60,4 +60,6 @@ export const createUISlice: StateCreator<EditorState, [], [], Partial<EditorStat
   },
 
   setConfirmModal: (modal) => set({ confirmModal: modal }),
+
+  setLanguage: (language) => set({ language }),
 });

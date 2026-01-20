@@ -1,7 +1,7 @@
 import { AbilityDefinition } from '@/lib/constants/abilities/base';
 
 export const KAYOAbilities: Record<string, AbilityDefinition> = {
-  'FRAG/ment': {
+  fragment: {
     agent: 'KAY/O',
     ability: 'FRAG/ment',
     shape: 'area',
@@ -17,7 +17,7 @@ export const KAYOAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  'FLASH/drive': {
+  flashdrive: {
     agent: 'KAY/O',
     ability: 'FLASH/drive',
     shape: 'icon',
@@ -28,7 +28,7 @@ export const KAYOAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  'ZERO/point': {
+  zeropoint: {
     agent: 'KAY/O',
     ability: 'ZERO/point',
     shape: 'area',
@@ -44,7 +44,7 @@ export const KAYOAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  'NULL/cmd': {
+  nullcmd: {
     agent: 'KAY/O',
     ability: 'NULL/cmd',
     shape: 'area',

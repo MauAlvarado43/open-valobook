@@ -16,12 +16,15 @@ import {
   Calendar,
   ChevronRight,
   Search,
+  Settings,
 } from 'lucide-react';
 import packageJson from '../../package.json';
+import { useTranslation } from '@/hooks/useTranslation';
+import { LanguageSwitcher } from '@/components/settings/LanguageSwitcher';
 
 export default function HomePage() {
   const router = useRouter();
-  const { loadProject, resetProject, setConfirmModal } = useEditorStore();
+  const { loadProject, resetProject, setConfirmModal, language } = useEditorStore();
   const [showSettings, setShowSettings] = useState(false);
   const [strategies, setStrategies] = useState<import('@/types/strategy').LibraryStrategy[]>([]);
   const [loading, setLoading] = useState(true);
@@ -58,6 +61,8 @@ export default function HomePage() {
     fetchLibrary();
   }, []);
 
+  const { t } = useTranslation();
+
   const handleExit = () => {
     if (typeof window !== 'undefined' && window.electron?.quitApp) {
       window.electron.quitApp();
@@ -88,8 +93,8 @@ export default function HomePage() {
     e.stopPropagation();
     if (typeof window !== 'undefined' && window.electron?.deleteFromLibrary) {
       setConfirmModal({
-        title: 'Delete Strategy',
-        message: `Are you sure you want to permanently delete "${strategyName}"? This action cannot be undone.`,
+        title: t('homepage', 'deleteStrategyTitle'),
+        message: t('homepage', 'deleteStrategyMsg', { name: strategyName }),
         onConfirm: async () => {
           await window.electron.deleteFromLibrary(filename);
           fetchLibrary();
@@ -110,7 +115,7 @@ export default function HomePage() {
             <div className="flex items-center gap-3 mb-2">
               <div className="w-10 h-1 bg-[#FF4655]" />
               <span className="text-[#FF4655] font-black tracking-widest text-[10px] uppercase">
-                Tactical Strategy Planner
+                {t('homepage', 'subtitle')}
               </span>
             </div>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black italic uppercase tracking-tighter leading-[0.8] mb-1">
@@ -126,13 +131,13 @@ export default function HomePage() {
               href="/editor"
               onClick={() => resetProject()}
               className="group relative flex items-center justify-between p-3 sm:p-4 bg-transparent border border-white/10 hover:border-[#FF4655] transition-all duration-300 overflow-hidden"
-              title="Start a new strategy from scratch"
+              title={t('homepage', 'newStrategyDesc')}
             >
               <div className="absolute inset-0 bg-[#FF4655] translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-300" />
               <div className="flex items-center gap-3 relative z-10">
                 <Plus className="text-white group-hover:text-black transition-colors" size={20} />
                 <span className="text-base sm:text-lg lg:text-xl font-black uppercase italic text-white group-hover:text-black transition-colors whitespace-nowrap">
-                  New Strategy
+                  {t('homepage', 'newStrategy')}
                 </span>
               </div>
               <ChevronRight
@@ -144,7 +149,7 @@ export default function HomePage() {
             <button
               className="group relative flex items-center justify-between p-3 sm:p-4 bg-transparent border border-white/10 hover:border-blue-400 transition-all duration-300 overflow-hidden text-left"
               onClick={handleLoadFile}
-              title="Load an .ovb file from your computer"
+              title={t('homepage', 'importFileDesc')}
             >
               <div className="absolute inset-0 bg-blue-400 translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-300" />
               <div className="flex items-center gap-3 relative z-10">
@@ -153,7 +158,7 @@ export default function HomePage() {
                   size={20}
                 />
                 <span className="text-base sm:text-lg lg:text-xl font-black uppercase italic text-white group-hover:text-black transition-colors whitespace-nowrap">
-                  Import File
+                  {t('homepage', 'importFile')}
                 </span>
               </div>
               <ChevronRight
@@ -162,10 +167,10 @@ export default function HomePage() {
               />
             </button>
 
-            {/* <button
+            <button
               className="group relative flex items-center justify-between p-3 sm:p-4 bg-transparent border border-white/10 hover:border-gray-400 transition-all duration-300 overflow-hidden text-left"
               onClick={() => setShowSettings(true)}
-              title="Adjust application settings"
+              title={t('homepage', 'settingsDesc')}
             >
               <div className="absolute inset-0 bg-gray-400 translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-300" />
               <div className="flex items-center gap-3 relative z-10">
@@ -174,19 +179,19 @@ export default function HomePage() {
                   size={20}
                 />
                 <span className="text-base sm:text-lg lg:text-xl font-black uppercase italic text-white group-hover:text-black transition-colors whitespace-nowrap">
-                  Settings
+                  {t('homepage', 'settings')}
                 </span>
               </div>
               <ChevronRight
                 className="relative z-10 text-white/30 group-hover:text-black/50"
                 size={16}
               />
-            </button> */}
+            </button>
 
             <button
               onClick={handleExit}
               className="group relative flex items-center gap-3 p-3 sm:p-4 bg-transparent border border-white/10 hover:border-red-900 transition-all duration-300 overflow-hidden mt-2 text-left"
-              title="Close the application"
+              title={t('homepage', 'quitDesc')}
             >
               <div className="absolute inset-0 bg-red-900 translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-300" />
               <LogOut
@@ -194,13 +199,13 @@ export default function HomePage() {
                 size={20}
               />
               <span className="relative z-10 text-base sm:text-lg lg:text-xl font-black uppercase italic text-white group-hover:text-red-200 transition-colors whitespace-nowrap">
-                Quit
+                {t('homepage', 'quit')}
               </span>
             </button>
           </nav>
 
           <footer className="mt-8 text-gray-600 text-[9px] uppercase tracking-widest leading-relaxed">
-            <p>OpenValoBook isn&apos;t endorsed by Riot Games.</p>
+            <p>{t('homepage', 'disclaimer')}</p>
           </footer>
         </div>
 
@@ -213,10 +218,10 @@ export default function HomePage() {
               </div>
               <div>
                 <h2 className="text-2xl font-black italic uppercase tracking-tighter leading-none">
-                  My Library
+                  {t('homepage', 'myLibrary')}
                 </h2>
                 <div className="text-[9px] font-bold text-gray-500 uppercase tracking-[0.2em] mt-1">
-                  {strategies.length} Saved Strategies
+                  {t('homepage', 'savedStrategies', { count: strategies.length })}
                 </div>
               </div>
             </div>
@@ -230,7 +235,7 @@ export default function HomePage() {
               </div>
               <input
                 type="text"
-                placeholder="SEARCH STRATEGY..."
+                placeholder={t('homepage', 'searchPlaceholder')}
                 value={searchLibrary}
                 onChange={(e) => setSearchLibrary(e.target.value)}
                 className="block w-full bg-white/[0.03] border border-white/10 rounded-sm py-2 pl-10 pr-4 text-white text-[10px] font-black uppercase tracking-widest placeholder:text-white/10 focus:outline-none focus:border-[#FF4655]/50 focus:bg-white/[0.05] transition-all"
@@ -241,18 +246,16 @@ export default function HomePage() {
           <div className="flex-1 overflow-y-auto pr-4 custom-scrollbar">
             {loading ? (
               <div className="flex items-center justify-center h-full text-gray-600 font-bold uppercase tracking-widest animate-pulse">
-                Synchronizing Data...
+                {t('homepage', 'synchronizing')}
               </div>
             ) : strategies.length === 0 ? (
               <div className="flex flex-col items-center justify-center h-full text-gray-600 text-center gap-4">
                 <FolderOpen size={48} className="opacity-20" />
                 <div>
                   <p className="font-bold uppercase tracking-widest text-sm mb-1">
-                    Your library is empty
+                    {t('homepage', 'emptyLibrary')}
                   </p>
-                  <p className="text-xs opacity-50">
-                    Saved strategies will appear here for quick access.
-                  </p>
+                  <p className="text-xs opacity-50">{t('homepage', 'emptyLibrarySub')}</p>
                 </div>
               </div>
             ) : (
@@ -299,12 +302,12 @@ export default function HomePage() {
                                     : 'bg-blue-600 text-white'
                                 }`}
                               >
-                                {s.side}
+                                {t('toolbar', s.side as any)}
                               </div>
                             </div>
                             <div className="flex justify-between items-center">
                               <h3 className="text-2xl font-black uppercase italic tracking-tighter drop-shadow-xl text-white truncate flex-1 min-w-0 pr-4">
-                                {s.data?.name || s.name || 'Untitled Strategy'}
+                                {s.data?.name || s.name || t('homepage', 'untitledStrategy')}
                               </h3>
                               <div className="text-[#FF4655] opacity-0 group-hover:opacity-100 transition-all translate-x-2 group-hover:translate-x-0 shrink-0">
                                 <ChevronRight size={24} />
@@ -315,16 +318,19 @@ export default function HomePage() {
                           <div className="flex items-center justify-between mt-auto">
                             <div className="flex items-center gap-2 text-white/40 text-[10px] font-bold">
                               <Calendar size={12} className="text-[#FF4655]" />
-                              {new Date(s.updatedAt).toLocaleDateString(undefined, {
-                                year: 'numeric',
-                                month: 'short',
-                                day: 'numeric',
-                              })}
+                              {new Date(s.updatedAt).toLocaleDateString(
+                                language === 'es' ? 'es-ES' : 'en-US',
+                                {
+                                  year: 'numeric',
+                                  month: 'short',
+                                  day: 'numeric',
+                                }
+                              )}
                             </div>
                             <button
                               onClick={(e) => handleDelete(e, s.id, s.name)}
                               className="p-2 text-white/20 hover:text-red-500 hover:bg-red-500/10 rounded-full transition-all"
-                              title="Delete from library"
+                              title={t('homepage', 'deleteFromLibrary')}
                             >
                               <Trash2 size={16} />
                             </button>
@@ -346,19 +352,22 @@ export default function HomePage() {
             <button
               onClick={() => setShowSettings(false)}
               className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
-              title="Close settings"
+              title={t('common', 'cancel')}
             >
               <X size={24} />
             </button>
-            <h2 className="text-3xl font-black uppercase italic mb-6">Settings</h2>
-            <div className="space-y-4">
-              <p className="text-gray-400 text-sm">
-                Application settings will be available in the next update.
-              </p>
-              <div className="flex items-center justify-between p-4 bg-white/5 rounded-lg border border-white/5">
-                <span className="font-bold uppercase text-xs">Developer Mode</span>
-                <div className="w-10 h-5 bg-gray-600 rounded-full relative">
-                  <div className="absolute top-1 left-1 w-3 h-3 bg-white rounded-full" />
+            <h2 className="text-3xl font-black uppercase italic mb-6">{t('common', 'settings')}</h2>
+            <div className="space-y-6">
+              <LanguageSwitcher />
+
+              <div className="pt-4 border-t border-white/10">
+                <div className="flex items-center justify-between p-4 bg-white/5 rounded-lg border border-white/5 opacity-50">
+                  <span className="font-bold uppercase text-xs">
+                    {t('common', 'developerMode')}
+                  </span>
+                  <div className="w-10 h-5 bg-gray-600 rounded-full relative">
+                    <div className="absolute top-1 left-1 w-3 h-3 bg-white rounded-full" />
+                  </div>
                 </div>
               </div>
             </div>
@@ -366,7 +375,7 @@ export default function HomePage() {
               onClick={() => setShowSettings(false)}
               className="w-full mt-8 py-4 bg-[#FF4655] text-black font-black uppercase italic tracking-widest hover:bg-[#FF4655]/90 transition-colors"
             >
-              Apply Changes
+              {t('common', 'applyChanges')}
             </button>
           </div>
         </div>

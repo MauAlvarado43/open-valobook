@@ -1,7 +1,7 @@
 import { AbilityDefinition } from '@/lib/constants/abilities/base';
 
 export const BrimstoneAbilities: Record<string, AbilityDefinition> = {
-  'Stim Beacon': {
+  stim_beacon: {
     agent: 'Brimstone',
     ability: 'Stim Beacon',
     shape: 'area',
@@ -17,7 +17,7 @@ export const BrimstoneAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  Incendiary: {
+  incendiary: {
     agent: 'Brimstone',
     ability: 'Incendiary',
     shape: 'area',
@@ -33,7 +33,7 @@ export const BrimstoneAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  'Sky Smoke': {
+  sky_smoke: {
     agent: 'Brimstone',
     ability: 'Sky Smoke',
     shape: 'smoke',
@@ -49,7 +49,7 @@ export const BrimstoneAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  'Orbital Strike': {
+  orbital_strike: {
     agent: 'Brimstone',
     ability: 'Orbital Strike',
     shape: 'area',

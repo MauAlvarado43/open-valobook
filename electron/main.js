@@ -24,11 +24,36 @@ ipcMain.on('app:quit', () => {
 });
 
 const STRATEGIES_PATH = path.join(app.getPath('userData'), 'strategies');
+const CONFIG_PATH = path.join(app.getPath('userData'), 'settings.json');
 
 // Ensure strategies directory exists
 if (!fs.existsSync(STRATEGIES_PATH)) {
   fs.mkdirSync(STRATEGIES_PATH, { recursive: true });
 }
+
+// Config handlers
+ipcMain.handle('config:get', async () => {
+  if (fs.existsSync(CONFIG_PATH)) {
+    try {
+      const content = fs.readFileSync(CONFIG_PATH, 'utf-8');
+      return JSON.parse(content);
+    } catch (e) {
+      console.error('Failed to parse config file', e);
+      return {};
+    }
+  }
+  return {};
+});
+
+ipcMain.handle('config:save', async (event, data) => {
+  try {
+    fs.writeFileSync(CONFIG_PATH, JSON.stringify(data, null, 2));
+    return true;
+  } catch (e) {
+    console.error('Failed to save config file', e);
+    return false;
+  }
+});
 
 ipcMain.handle('library:save', async (event, filename, data) => {
   const filePath = path.join(STRATEGIES_PATH, filename.endsWith('.ovb') ? filename : `${filename}.ovb`);

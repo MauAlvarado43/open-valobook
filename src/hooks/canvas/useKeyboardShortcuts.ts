@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useEditorStore } from '@/lib/store/editorStore';
 import type { EditorState } from '@/lib/store/editorStore';
+import { useTranslation } from '@/hooks/useTranslation';
 
 export function useKeyboardShortcuts() {
   const {
@@ -19,6 +20,7 @@ export function useKeyboardShortcuts() {
     setStatus,
     setConfirmModal,
   } = useEditorStore();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -38,10 +40,10 @@ export function useKeyboardShortcuts() {
         e.preventDefault();
         if (e.shiftKey || e.altKey) {
           redo();
-          setStatus({ type: 'success', msg: 'Redo' }, 1000);
+          setStatus({ type: 'success', msg: t('common', 'redo') }, 1000);
         } else {
           undo();
-          setStatus({ type: 'success', msg: 'Undo' }, 1000);
+          setStatus({ type: 'success', msg: t('common', 'undo') }, 1000);
         }
       } else if (e.ctrlKey && e.key.toLowerCase() === 'y') {
         e.preventDefault();
@@ -55,11 +57,11 @@ export function useKeyboardShortcuts() {
       } else if (e.ctrlKey && e.key.toLowerCase() === 's') {
         e.preventDefault();
         saveToLibrary();
-        setStatus({ type: 'success', msg: 'Strategy Saved' });
+        setStatus({ type: 'success', msg: t('common', 'saveSuccess') });
       } else if (e.ctrlKey && e.key.toLowerCase() === 'e') {
         e.preventDefault();
         exportAsImage();
-        setStatus({ type: 'loading', msg: 'Exporting...' });
+        setStatus({ type: 'loading', msg: t('common', 'exporting') });
       } else if (e.key === 'Delete') {
         e.preventDefault();
         if (selectedElementIds.length > 0 || selectedElementId) {
@@ -68,13 +70,13 @@ export function useKeyboardShortcuts() {
           } else if (selectedElementId) {
             removeElement(selectedElementId);
           }
-          setStatus({ type: 'success', msg: 'Elements Deleted' }, 1000);
+          setStatus({ type: 'success', msg: t('common', 'elementsDeleted') }, 1000);
         }
       } else if (e.shiftKey && e.key === 'Escape') {
         e.preventDefault();
         setConfirmModal({
-          title: 'Clear Canvas',
-          message: 'Are you sure you want to clear all strategy elements?',
+          title: t('common', 'clearCanvasTitle'),
+          message: t('common', 'clearCanvasMessage'),
           onConfirm: clearCanvas,
         });
       } else if (e.key === 'Tab') {
@@ -99,10 +101,10 @@ export function useKeyboardShortcuts() {
       const key = e.key.toLowerCase();
       if (keyMap[key] && !e.ctrlKey && !e.altKey && !e.metaKey) {
         setTool(keyMap[key]);
-        setStatus({ type: 'success', msg: `${keyMap[key].toUpperCase()} Active` }, 800);
-      } else if (key === 's' && !e.ctrlKey) {
-        saveToLibrary();
-        setStatus({ type: 'success', msg: 'Strategy Saved' });
+        setStatus(
+          { type: 'success', msg: `${t('toolbar', keyMap[key] as any)} ${t('common', 'active')}` },
+          800
+        );
       }
     };
 
@@ -123,5 +125,6 @@ export function useKeyboardShortcuts() {
     clearCanvas,
     setStatus,
     setConfirmModal,
+    t,
   ]);
 }

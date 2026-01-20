@@ -1,6 +1,7 @@
 'use client';
 
 import { useEditorStore } from '@/lib/store/editorStore';
+import { useTranslation } from '@/hooks/useTranslation';
 import type { DrawingElement, AgentPlacement, AbilityPlacement } from '@/types/strategy';
 
 // Sub-components
@@ -14,6 +15,7 @@ import { GraphicProperties } from '@/components/properties/GraphicProperties';
 
 export function ElementPropertiesPanel() {
   const { selectedElementIds, canvasData, updateElement, removeElement } = useEditorStore();
+  const { t } = useTranslation();
 
   if (selectedElementIds.length === 0) return null;
 
@@ -198,7 +200,7 @@ export function ElementPropertiesPanel() {
           firstElement.type !== 'timer-path' && (
             <div className="pt-2 border-t border-gray-800">
               <label className="text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-1.5 block">
-                Global Rotation ({(firstElement as DrawingElement).rotation || 0}°)
+                {t('editor', 'globalRotation')} ({(firstElement as DrawingElement).rotation || 0}°)
               </label>
               <div className="flex gap-2">
                 <input
@@ -206,7 +208,7 @@ export function ElementPropertiesPanel() {
                   min="0"
                   max="360"
                   step="1"
-                  title="Rotate"
+                  title={t('editor', 'rotation')}
                   value={(firstElement as DrawingElement).rotation || 0}
                   onChange={(e) => handleUpdateMany({ rotation: parseInt(e.target.value) })}
                   className="flex-1 h-1.5 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-orange-500 my-auto"
@@ -215,7 +217,7 @@ export function ElementPropertiesPanel() {
                   type="number"
                   min="0"
                   max="360"
-                  title="Rotation value"
+                  title={t('editor', 'rotation')}
                   value={(firstElement as DrawingElement).rotation || 0}
                   onChange={(e) => handleUpdateMany({ rotation: parseInt(e.target.value) || 0 })}
                   className="w-12 bg-gray-800 text-white text-[10px] rounded border border-gray-600 px-1 py-0.5 text-center"

@@ -1,7 +1,7 @@
 import { AbilityDefinition } from '@/lib/constants/abilities/base';
 
 export const IsoAbilities: Record<string, AbilityDefinition> = {
-  Contingency: {
+  contingency: {
     agent: 'Iso',
     ability: 'Contingency',
     shape: 'path',
@@ -22,7 +22,7 @@ export const IsoAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  Undercut: {
+  undercut: {
     agent: 'Iso',
     ability: 'Undercut',
     shape: 'path',
@@ -43,7 +43,7 @@ export const IsoAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  'Double Tap': {
+  double_tap: {
     agent: 'Iso',
     ability: 'Double Tap',
     shape: 'icon',
@@ -58,7 +58,7 @@ export const IsoAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  'Kill Contract': {
+  kill_contract: {
     agent: 'Iso',
     ability: 'Kill Contract',
     shape: 'path',

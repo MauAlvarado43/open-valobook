@@ -1,4 +1,5 @@
 import { DropdownTools } from '@/components/toolbar/DropdownTools';
+import { useTranslation } from '@/hooks/useTranslation';
 import type { EditorState } from '@/lib/store/editorStore';
 import { TOOLS } from '@/lib/constants/toolbar';
 
@@ -21,6 +22,8 @@ export function ToolSelector({
   bgModule,
   hClassBottom,
 }: ToolSelectorProps) {
+  const { t } = useTranslation();
+
   return (
     <div className="flex justify-center min-w-0">
       <div
@@ -28,42 +31,42 @@ export function ToolSelector({
       >
         {/* Ultra High Res (>1536px): All tools */}
         <div className="hidden 2xl:flex items-center gap-0.5">
-          {TOOLS.map((t) => (
+          {TOOLS.map((toolItem) => (
             <button
-              key={t.id}
+              key={toolItem.id}
               onClick={() => {
                 clearSelection();
-                setTool(t.id as EditorState['tool']);
+                setTool(toolItem.id as EditorState['tool']);
               }}
               className={`h-9 w-10 flex items-center justify-center rounded transition-all active:scale-75 ${
-                tool === t.id
+                tool === toolItem.id
                   ? 'bg-blue-600 text-white shadow-lg'
                   : 'text-white/20 hover:text-white/60 hover:bg-white/5'
               }`}
-              title={t.label}
+              title={t('toolbar', toolItem.id as any)}
             >
-              <t.Icon size={18} />
+              <toolItem.Icon size={18} />
             </button>
           ))}
         </div>
 
         {/* Medium Res (LG): 6 tools + Dropdown */}
         <div className="hidden xl:flex 2xl:hidden items-center gap-0.5">
-          {TOOLS.slice(0, 6).map((t) => (
+          {TOOLS.slice(0, 6).map((toolItem) => (
             <button
-              key={t.id}
+              key={toolItem.id}
               onClick={() => {
                 clearSelection();
-                setTool(t.id as EditorState['tool']);
+                setTool(toolItem.id as EditorState['tool']);
               }}
               className={`h-9 w-10 flex items-center justify-center rounded transition-all active:scale-75 ${
-                tool === t.id
+                tool === toolItem.id
                   ? 'bg-blue-600 text-white shadow-lg'
                   : 'text-white/20 hover:text-white/60 hover:bg-white/5'
               }`}
-              title={t.label}
+              title={t('toolbar', toolItem.id as any)}
             >
-              <t.Icon size={18} />
+              <toolItem.Icon size={18} />
             </button>
           ))}
           <div className="w-px h-6 bg-white/5 mx-1" />
@@ -79,21 +82,21 @@ export function ToolSelector({
 
         {/* Small Res (<LG): 5 tools + Dropdown */}
         <div className="flex xl:hidden items-center gap-0.5">
-          {TOOLS.slice(0, 5).map((t) => (
+          {TOOLS.slice(0, 5).map((toolItem) => (
             <button
-              key={t.id}
+              key={toolItem.id}
               onClick={() => {
                 clearSelection();
-                setTool(t.id as EditorState['tool']);
+                setTool(toolItem.id as EditorState['tool']);
               }}
               className={`h-9 w-10 flex items-center justify-center rounded transition-all active:scale-75 shrink-0 ${
-                tool === t.id
+                tool === toolItem.id
                   ? 'bg-blue-600 text-white shadow-lg'
                   : 'text-white/20 hover:text-white/60 hover:bg-white/5'
               }`}
-              title={t.label}
+              title={t('toolbar', toolItem.id as any)}
             >
-              <t.Icon size={18} />
+              <toolItem.Icon size={18} />
             </button>
           ))}
           <div className="w-px h-6 bg-white/5 mx-1" />

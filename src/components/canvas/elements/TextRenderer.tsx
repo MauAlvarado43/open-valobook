@@ -1,5 +1,6 @@
 import { memo } from 'react';
 import { Group, Rect, Text as KonvaText } from 'react-konva';
+import { useTranslation } from '@/hooks/useTranslation';
 import type { DrawingElement } from '@/types/strategy';
 
 import { CanvasCommonProps } from '@/types/canvas';
@@ -13,7 +14,9 @@ export const TextRenderer = memo(function TextRenderer({
   element,
   commonProps,
 }: TextRendererProps) {
-  const textWidth = (element.text || 'Text').length * (element.fontSize || 16) * 0.6;
+  const { t } = useTranslation();
+  const fallbackText = t('editor', 'text');
+  const textWidth = (element.text || fallbackText).length * (element.fontSize || 16) * 0.6;
   const textHeight = (element.fontSize || 16) * 1.2;
 
   return (
@@ -30,7 +33,7 @@ export const TextRenderer = memo(function TextRenderer({
       />
       <KonvaText
         {...commonProps}
-        text={element.text || 'Text'}
+        text={element.text || fallbackText}
         fontSize={element.fontSize || 16}
         fill={element.color || '#FFFFFF'}
         stroke={undefined}

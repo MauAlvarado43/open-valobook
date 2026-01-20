@@ -1,7 +1,7 @@
 import { AbilityDefinition } from '@/lib/constants/abilities/base';
 
 export const OmenAbilities: Record<string, AbilityDefinition> = {
-  'Shrouded Step': {
+  shrouded_step: {
     agent: 'Omen',
     ability: 'Shrouded Step',
     shape: 'path',
@@ -22,7 +22,7 @@ export const OmenAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  Paranoia: {
+  paranoia: {
     agent: 'Omen',
     ability: 'Paranoia',
     shape: 'path',
@@ -47,7 +47,7 @@ export const OmenAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  'Dark Cover': {
+  dark_cover: {
     agent: 'Omen',
     ability: 'Dark Cover',
     shape: 'smoke',
@@ -63,7 +63,7 @@ export const OmenAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  'From the Shadows': {
+  from_the_shadows: {
     agent: 'Omen',
     ability: 'From the Shadows',
     shape: 'icon',

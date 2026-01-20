@@ -1,7 +1,7 @@
 import { AbilityDefinition } from '@/lib/constants/abilities/base';
 
 export const DeadlockAbilities: Record<string, AbilityDefinition> = {
-  'Barrier Mesh': {
+  barrier_mesh: {
     agent: 'Deadlock',
     ability: 'Barrier Mesh',
     shape: 'wall',
@@ -22,7 +22,7 @@ export const DeadlockAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  'Sonic Sensor': {
+  sonic_sensor: {
     agent: 'Deadlock',
     ability: 'Sonic Sensor',
     shape: 'path',
@@ -43,7 +43,7 @@ export const DeadlockAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  GravNet: {
+  gravnet: {
     agent: 'Deadlock',
     ability: 'GravNet',
     shape: 'area',
@@ -55,7 +55,7 @@ export const DeadlockAbilities: Record<string, AbilityDefinition> = {
       },
     },
   },
-  Annihilation: {
+  annihilation: {
     agent: 'Deadlock',
     ability: 'Annihilation',
     shape: 'curved-wall',
