@@ -32,7 +32,15 @@ export function AgentSelector() {
   const [agents, setAgents] = useState<Agent[]>([]);
   const [search, setSearch] = useState('');
   const [expandedAgentId, setExpandedAgentId] = useState<string | null>(null);
-  const { tool, setTool, selectedAgentId, setSelectedAgentId, setSelectedAbilityIcon, selectedAbilityIcon, clearSelection } = useEditorStore();
+  const {
+    tool,
+    setTool,
+    selectedAgentId,
+    setSelectedAgentId,
+    setSelectedAbilityIcon,
+    selectedAbilityIcon,
+    clearSelection,
+  } = useEditorStore();
 
   useEffect(() => {
     fetch('/assets/agents-metadata.json')
@@ -46,7 +54,9 @@ export function AgentSelector() {
 
   const filteredAgents = agents.filter((agent) => {
     const nameMatch = agent.name.toLowerCase().includes(search.toLowerCase());
-    const abilityMatch = agent.abilities.some(a => a.name.toLowerCase().includes(search.toLowerCase()));
+    const abilityMatch = agent.abilities.some((a) =>
+      a.name.toLowerCase().includes(search.toLowerCase())
+    );
     return nameMatch || abilityMatch;
   });
 
@@ -106,7 +116,11 @@ export function AgentSelector() {
                   <div className="text-[10px] text-gray-400">{agent.role.name}</div>
                 </div>
               </div>
-              {expandedAgentId === agent.id ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
+              {expandedAgentId === agent.id ? (
+                <ChevronDown size={16} />
+              ) : (
+                <ChevronRight size={16} />
+              )}
             </button>
 
             {expandedAgentId === agent.id && (
@@ -117,14 +131,27 @@ export function AgentSelector() {
                     handleSelectAgent(agent);
                     setSelectedAbilityIcon(null, '', 'default', '', false);
                   }}
-                  className={`w-full flex items-center gap-2 p-1.5 rounded-md transition-all group text-left ${tool === 'agent' && selectedAgentId === agent.icon.replace('.png', '')
-                    ? 'bg-blue-600/30 ring-1 ring-blue-500/50 text-blue-200'
-                    : 'hover:bg-gray-700 text-gray-300'
-                    }`}
+                  className={`w-full flex items-center gap-2 p-1.5 rounded-md transition-all group text-left ${
+                    tool === 'agent' && selectedAgentId === agent.icon.replace('.png', '')
+                      ? 'bg-blue-600/30 ring-1 ring-blue-500/50 text-blue-200'
+                      : 'hover:bg-gray-700 text-gray-300'
+                  }`}
                 >
-                  <div className={`relative w-6 h-6 rounded bg-black/40 p-1 border flex-shrink-0 transition-colors ${tool === 'agent' && selectedAgentId === agent.icon.replace('.png', '') ? 'border-blue-400' : 'border-gray-700 group-hover:border-gray-500'
-                    }`}>
-                    <User size={14} className={tool === 'agent' && selectedAgentId === agent.icon.replace('.png', '') ? 'text-blue-400' : ''} />
+                  <div
+                    className={`relative w-6 h-6 rounded bg-black/40 p-1 border flex-shrink-0 transition-colors ${
+                      tool === 'agent' && selectedAgentId === agent.icon.replace('.png', '')
+                        ? 'border-blue-400'
+                        : 'border-gray-700 group-hover:border-gray-500'
+                    }`}
+                  >
+                    <User
+                      size={14}
+                      className={
+                        tool === 'agent' && selectedAgentId === agent.icon.replace('.png', '')
+                          ? 'text-blue-400'
+                          : ''
+                      }
+                    />
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="text-[11px] font-medium truncate">Place Agent Icon</div>
@@ -136,11 +163,27 @@ export function AgentSelector() {
 
                 {/* Abilities */}
                 <div className="pt-2 border-t border-gray-700/50 space-y-1">
-                  <div className="text-[10px] uppercase tracking-wider text-gray-500 font-bold px-1 mb-1">Abilities</div>
+                  <div className="text-[10px] uppercase tracking-wider text-gray-500 font-bold px-1 mb-1">
+                    Abilities
+                  </div>
                   {agent.abilities
-                    .filter(ability => !IGNORED_ABILITIES.some(ignored =>
-                      ability.name.toLowerCase().trim() === ignored.toLowerCase().trim()
-                    ))
+                    .filter(
+                      (ability) =>
+                        !IGNORED_ABILITIES.some(
+                          (ignored) =>
+                            ability.name.toLowerCase().trim() === ignored.toLowerCase().trim()
+                        )
+                    )
+                    .sort((a, b) => {
+                      const order: Record<string, number> = {
+                        Ability1: 1,
+                        Ability2: 2,
+                        Grenade: 3,
+                        Ultimate: 4,
+                        Passive: 5,
+                      };
+                      return (order[a.slot] || 99) - (order[b.slot] || 99);
+                    })
                     .map((ability) => {
                       const isSelected = selectedAbilityIcon === ability.icon;
                       const displayName = normalizeAbilityName(ability.name);
@@ -148,13 +191,19 @@ export function AgentSelector() {
                         <button
                           key={ability.slot}
                           onClick={() => handleSelectAbility(agent, ability)}
-                          className={`w-full flex items-center gap-2 p-1.5 rounded-md transition-all group text-left ${isSelected
-                            ? 'bg-blue-600/30 ring-1 ring-blue-500/50 text-blue-200'
-                            : 'hover:bg-gray-700 text-gray-300'
-                            }`}
+                          className={`w-full flex items-center gap-2 p-1.5 rounded-md transition-all group text-left ${
+                            isSelected
+                              ? 'bg-blue-600/30 ring-1 ring-blue-500/50 text-blue-200'
+                              : 'hover:bg-gray-700 text-gray-300'
+                          }`}
                         >
-                          <div className={`relative w-6 h-6 rounded bg-black/40 p-0.5 border flex-shrink-0 transition-colors ${isSelected ? 'border-blue-400' : 'border-gray-700 group-hover:border-gray-500'
-                            }`}>
+                          <div
+                            className={`relative w-6 h-6 rounded bg-black/40 p-0.5 border flex-shrink-0 transition-colors ${
+                              isSelected
+                                ? 'border-blue-400'
+                                : 'border-gray-700 group-hover:border-gray-500'
+                            }`}
+                          >
                             <Image
                               src={`/assets/${ability.icon}`}
                               alt={ability.name}

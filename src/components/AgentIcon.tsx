@@ -10,9 +10,17 @@ interface AgentIconProps {
   isDraggable: boolean;
   onSelect: () => void;
   onDragEnd: (e: Konva.KonvaEventObject<DragEvent>) => void;
+  rotationOffset?: number;
 }
 
-export const AgentIcon = memo(function AgentIcon({ element, isSelected, isDraggable, onSelect, onDragEnd }: AgentIconProps) {
+export const AgentIcon = memo(function AgentIcon({
+  element,
+  isSelected,
+  isDraggable,
+  onSelect,
+  onDragEnd,
+  rotationOffset = 0,
+}: AgentIconProps) {
   // Agent icon path: /assets/agents/{agentName}.png
   const iconUrl = `/assets/${element.agentId}.png`;
   const [image, status] = useImage(iconUrl);
@@ -27,21 +35,33 @@ export const AgentIcon = memo(function AgentIcon({ element, isSelected, isDragga
     <Group
       x={element.x}
       y={element.y}
+      rotation={-rotationOffset}
       draggable={isDraggable}
       dragButtons={[0]}
       onClick={onSelect}
       onTap={onSelect}
       onDragEnd={onDragEnd}
+      onDragStart={(e) => {
+        if (e.evt.button !== 0) {
+          e.target.stopDrag();
+        }
+      }}
+      onContextMenu={(e) => {
+        e.evt.preventDefault();
+        onSelect();
+      }}
       id={element.id}
       onMouseEnter={(e) => {
-        if (isDraggable) {
+        if (isDraggable && e.evt.buttons === 0) {
           const stage = e.target.getStage();
           if (stage) stage.container().style.cursor = 'move';
         }
       }}
       onMouseLeave={(e) => {
-        const stage = e.target.getStage();
-        if (stage) stage.container().style.cursor = 'default';
+        if (e.evt.buttons === 0) {
+          const stage = e.target.getStage();
+          if (stage) stage.container().style.cursor = 'default';
+        }
       }}
     >
       {/* Background/Shadow */}
@@ -79,19 +99,16 @@ export const AgentIcon = memo(function AgentIcon({ element, isSelected, isDragga
 
       {/* Agent Icon */}
       {status === 'loaded' && (
-        <Group clipFunc={(ctx) => {
-          ctx.beginPath();
-          ctx.arc(0, 0, radius, 0, Math.PI * 2, false);
-          ctx.closePath();
-          ctx.clip();
-        }} listening={false}>
-          <KonvaImage
-            image={image}
-            width={size}
-            height={size}
-            x={-radius}
-            y={-radius}
-          />
+        <Group
+          clipFunc={(ctx) => {
+            ctx.beginPath();
+            ctx.arc(0, 0, radius, 0, Math.PI * 2, false);
+            ctx.closePath();
+            ctx.clip();
+          }}
+          listening={false}
+        >
+          <KonvaImage image={image} width={size} height={size} x={-radius} y={-radius} />
         </Group>
       )}
 

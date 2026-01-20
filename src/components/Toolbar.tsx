@@ -128,17 +128,17 @@ export function Toolbar() {
   };
 
   const tools = [
-    { id: 'select', label: 'Select [V]', Icon: MousePointer2 },
-    { id: 'pen', label: 'Pen [P]', Icon: Pencil },
-    { id: 'timer-path', label: 'Rotation', Icon: Timer },
-    { id: 'line', label: 'Line [L]', Icon: Minus },
-    { id: 'arrow', label: 'Arrow [A]', Icon: ArrowRight },
-    { id: 'circle', label: 'Circle [C]', Icon: Circle },
-    { id: 'rectangle', label: 'Rectangle [R]', Icon: Square },
-    { id: 'vision-cone', label: 'Vision', Icon: Eye },
-    { id: 'icon', label: 'Marker [I]', Icon: MapPin },
-    { id: 'image', label: 'Image', Icon: ImageIcon },
-    { id: 'text', label: 'Text [T]', Icon: Type },
+    { id: 'select', label: 'Select [Ctrl]', Icon: MousePointer2 },
+    { id: 'pen', label: 'Pen [1]', Icon: Pencil },
+    { id: 'timer-path', label: 'Rotation [2]', Icon: Timer },
+    { id: 'line', label: 'Line [3]', Icon: Minus },
+    { id: 'arrow', label: 'Arrow [4]', Icon: ArrowRight },
+    { id: 'circle', label: 'Circle [5]', Icon: Circle },
+    { id: 'rectangle', label: 'Rectangle [6]', Icon: Square },
+    { id: 'vision-cone', label: 'Vision [7]', Icon: Eye },
+    { id: 'icon', label: 'Marker [8]', Icon: MapPin },
+    { id: 'image', label: 'Image [9]', Icon: ImageIcon },
+    { id: 'text', label: 'Text [0]', Icon: Type },
   ] as const;
 
   const colors = [
@@ -167,14 +167,14 @@ export function Toolbar() {
   return (
     <div className="p-4 border-b border-white/5 bg-[#0F1922] flex flex-col gap-3 select-none relative z-[1000]">
       {/* Meta Row: Identity & System */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 relative z-10">
         {/* Left: Project Branding */}
         <div
           className={`flex items-center rounded-lg overflow-hidden group focus-within:ring-1 focus-within:ring-[#FF4655]/50 ${bgModule} ${hClassTop} w-full sm:w-auto`}
         >
           <div className="px-3 flex flex-col justify-center flex-1 sm:min-w-[200px]">
             <span className="text-[6px] font-black text-white/30 uppercase tracking-[0.2em] leading-none mb-0.5">
-              STRATEGY_NAME
+              STRATEGY NAME
             </span>
             <input
               type="text"
@@ -250,26 +250,34 @@ export function Toolbar() {
             </button>
 
             {showExportOptions && (
-              <div className="absolute top-full right-0 mt-2 w-48 bg-[#1A2530] border border-white/10 rounded-lg shadow-2xl z-[100] overflow-hidden p-1 animate-in fade-in slide-in-from-top-1">
+              <div className="absolute top-full right-0 mt-2 w-48 bg-[#1A2530] border border-white/10 rounded-lg shadow-2xl z-[2000] overflow-hidden p-1 animate-in fade-in slide-in-from-top-1">
                 <button
                   onClick={() => {
                     setExportFormat('png');
                     setShowExportOptions(false);
                   }}
-                  className={`w-full text-left px-4 py-2.5 rounded text-[9px] font-black uppercase italic transition flex items-center gap-3 ${exportFormat === 'png' ? 'bg-[#FF4655] text-white' : 'text-white/40 hover:text-white hover:bg-white/5'}`}
+                  className={`w-full text-left px-4 py-2.5 rounded text-[10px] font-black uppercase italic transition flex items-center gap-3 ${
+                    exportFormat === 'png'
+                      ? 'bg-[#FF4655] text-white'
+                      : 'text-white/40 hover:text-white hover:bg-white/5'
+                  }`}
                 >
                   <ImageIcon size={14} />
-                  PNG_IMAGE
+                  PNG Image
                 </button>
                 <button
                   onClick={() => {
                     setExportFormat('pdf');
                     setShowExportOptions(false);
                   }}
-                  className={`w-full text-left px-4 py-2.5 rounded text-[9px] font-black uppercase italic transition flex items-center gap-3 ${exportFormat === 'pdf' ? 'bg-[#FF4655] text-white' : 'text-white/40 hover:text-white hover:bg-white/5'}`}
+                  className={`w-full text-left px-4 py-2.5 rounded text-[10px] font-black uppercase italic transition flex items-center gap-3 ${
+                    exportFormat === 'pdf'
+                      ? 'bg-[#FF4655] text-white'
+                      : 'text-white/40 hover:text-white hover:bg-white/5'
+                  }`}
                 >
                   <FileText size={14} />
-                  PDF_PACKAGE
+                  PDF Document
                 </button>
               </div>
             )}
@@ -278,7 +286,7 @@ export function Toolbar() {
       </div>
 
       {/* Main Creation Row: Tools & Tactical */}
-      <div className="grid grid-cols-[minmax(120px,1fr)_auto_minmax(120px,1fr)] items-center w-full gap-4 shrink-0 h-12">
+      <div className="grid grid-cols-[minmax(120px,1fr)_auto_minmax(120px,1fr)] items-center w-full gap-4 shrink-0 h-12 relative z-0">
         {/* Left: Tactical Side */}
         <div className="flex justify-start overflow-hidden">
           <div className={`flex p-1 gap-1 rounded-lg ${hClassBottom} ${bgModule} shrink-0`}>

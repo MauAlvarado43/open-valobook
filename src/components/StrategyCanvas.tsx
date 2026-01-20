@@ -1,6 +1,6 @@
 'use client';
 
-import { Stage, Layer, Image as KonvaImage, Rect } from 'react-konva';
+import { Stage, Layer, Image as KonvaImage, Rect, Group } from 'react-konva';
 import { memo, useRef, useState, useEffect } from 'react';
 import { useEditorStore } from '@/lib/store/editorStore';
 import useImage from 'use-image';
@@ -27,10 +27,10 @@ const MapImage = memo(function MapImage({ src, rotation }: { src: string; rotati
       width={1024}
       height={1024}
       rotation={rotation}
-      offsetX={rotation !== 0 ? 1024 / 2 : 0}
-      offsetY={rotation !== 0 ? 1024 / 2 : 0}
-      x={rotation !== 0 ? 1024 / 2 : 0}
-      y={rotation !== 0 ? 1024 / 2 : 0}
+      offsetX={512}
+      offsetY={512}
+      x={512}
+      y={512}
       name="map-image"
       listening={false}
       perfectDrawEnabled={false}
@@ -45,6 +45,7 @@ export function StrategyCanvas({}: StrategyCanvasProps) {
   const [autoScale, setAutoScale] = useState(1);
   const [stageOffset, setStageOffset] = useState({ x: 0, y: 0 });
   const [scale, setScale] = useState(1);
+  const [isPanning, setIsPanning] = useState(false);
 
   const {
     selectedMap,
@@ -55,6 +56,7 @@ export function StrategyCanvas({}: StrategyCanvasProps) {
     selectedAgentId,
     selectedAbilityIcon,
     strategySide,
+    setStrategySide,
     updateElement,
     removeElement,
     undo,
@@ -70,7 +72,7 @@ export function StrategyCanvas({}: StrategyCanvasProps) {
   } = useEditorStore();
 
   const { currentShape, selectionBox, handleMouseDown, handleMouseMove, handleMouseUp } =
-    useCanvasDrawing(scale, autoScale, stageRef);
+    useCanvasDrawing(scale, autoScale, stageRef, isPanning);
 
   // Maps that need rotation to be displayed correctly
   const mapRotations: Record<string, number> = {
@@ -90,7 +92,7 @@ export function StrategyCanvas({}: StrategyCanvasProps) {
 
   const mapImageSrc = selectedMap ? `/assets/maps/${selectedMap}.png` : null;
   const baseRotation = selectedMap ? mapRotations[selectedMap] || 0 : 0;
-  const mapRotation = baseRotation + (strategySide === 'defense' ? 180 : 0);
+  const sideRotation = strategySide === 'defense' ? 180 : 0;
 
   // Responsive scaling
   useEffect(() => {
@@ -110,6 +112,13 @@ export function StrategyCanvas({}: StrategyCanvasProps) {
     updateSize();
     return () => window.removeEventListener('resize', updateSize);
   }, []);
+
+  // Force cursor update when isPanning changes
+  useEffect(() => {
+    if (containerRef.current) {
+      containerRef.current.style.cursor = isPanning ? 'grabbing' : 'default';
+    }
+  }, [isPanning]);
 
   // Keyboard shortcuts
   useEffect(() => {
@@ -146,7 +155,7 @@ export function StrategyCanvas({}: StrategyCanvasProps) {
         setStatus({ type: 'success', msg: 'Redo' }, 1000);
       } else if (e.ctrlKey && e.key.toLowerCase() === 's') {
         e.preventDefault();
-        saveToLibrary(strategyName);
+        saveToLibrary();
         setStatus({ type: 'success', msg: 'Strategy Saved' });
       } else if (e.ctrlKey && e.key.toLowerCase() === 'e') {
         e.preventDefault();
@@ -169,28 +178,37 @@ export function StrategyCanvas({}: StrategyCanvasProps) {
           message: 'Are you sure you want to clear all strategy elements?',
           onConfirm: clearCanvas,
         });
+      } else if (e.key === 'Tab') {
+        e.preventDefault();
+        setStrategySide(strategySide === 'attack' ? 'defense' : 'attack');
+      } else if (e.key === 'Control') {
+        setTool('select');
+        setStatus({ type: 'success', msg: 'SELECT Tool Active' }, 800);
       }
 
       // Tool Selection
-      if (!e.ctrlKey && !e.altKey && !e.metaKey) {
-        const keyMap: Record<string, EditorState['tool']> = {
-          v: 'select',
-          p: 'pen',
-          l: 'line',
-          a: 'arrow',
-          c: 'circle',
-          r: 'rectangle',
-          t: 'text',
-          i: 'icon',
-        };
-        const key = e.key.toLowerCase();
-        if (keyMap[key]) {
-          setTool(keyMap[key]);
-          setStatus({ type: 'success', msg: `${keyMap[key].toUpperCase()} Active` }, 800);
-        } else if (key === 's') {
-          saveToLibrary(strategyName);
-          setStatus({ type: 'success', msg: 'Strategy Saved' });
-        }
+      const keyMap: Record<string, EditorState['tool']> = {
+        '1': 'pen',
+        '2': 'timer-path',
+        '3': 'line',
+        '4': 'arrow',
+        '5': 'circle',
+        '6': 'rectangle',
+        '7': 'vision-cone',
+        '8': 'icon',
+        '9': 'image',
+        '0': 'text',
+      };
+      const key = e.key.toLowerCase();
+      if (keyMap[key] && !e.ctrlKey && !e.altKey && !e.metaKey) {
+        setTool(keyMap[key]);
+        setStatus({ type: 'success', msg: `${keyMap[key].toUpperCase()} Active` }, 800);
+      } else if (key === 's' && !e.ctrlKey) {
+        // Checking for 's' without modifiers just in case, though usually ctrl+s is save.
+        // Actually user didn't ask to remove 's'. But let's keep previous logic if possible, or simple.
+        // Previous logic had 'v' for select, etc. replacing with numbers.
+        saveToLibrary();
+        setStatus({ type: 'success', msg: 'Strategy Saved' });
       }
     };
     window.addEventListener('keydown', handleKeyDown);
@@ -219,28 +237,37 @@ export function StrategyCanvas({}: StrategyCanvasProps) {
 
       const dataUrl = stageRef.current.toDataURL({ pixelRatio: 2 });
 
-      if (type === 'pdf') {
-        const { jsPDF } = await import('jspdf');
-        const pdf = new jsPDF({
-          orientation: 'landscape',
-          unit: 'px',
-          format: [stageRef.current.width() * 2, stageRef.current.height() * 2],
-        });
-        pdf.addImage(
-          dataUrl,
-          'PNG',
-          0,
-          0,
-          stageRef.current.width() * 2,
-          stageRef.current.height() * 2
-        );
-        const pdfBase64 = pdf.output('datauristring').split(',')[1];
-        if (window.electron?.saveFileDialog) {
-          await window.electron.saveFileDialog(pdfBase64, true, 'pdf');
-        }
-      } else {
-        if (window.electron?.saveFileDialog) {
-          await window.electron.saveFileDialog(dataUrl, true, 'png');
+      if (window.electron?.saveFileDialog) {
+        try {
+          let exportData = dataUrl;
+
+          if (type === 'pdf') {
+            const { jsPDF } = await import('jspdf');
+            const pdf = new jsPDF({
+              orientation: 'landscape',
+              unit: 'px',
+              format: [stageRef.current.width() * 2, stageRef.current.height() * 2],
+            });
+            pdf.addImage(
+              dataUrl,
+              'PNG',
+              0,
+              0,
+              stageRef.current.width() * 2,
+              stageRef.current.height() * 2
+            );
+            exportData = pdf.output('datauristring').split(',')[1];
+          }
+
+          const result = await window.electron.saveFileDialog(exportData, true, type);
+          if (result) {
+            setStatus({ type: 'success', msg: `${type.toUpperCase()} Saved Successfully` });
+          } else {
+            setStatus(null);
+          }
+        } catch (error) {
+          console.error('Export failed:', error);
+          setStatus({ type: 'error', msg: 'Export Failed' });
         }
       }
     };
@@ -266,11 +293,20 @@ export function StrategyCanvas({}: StrategyCanvasProps) {
   };
 
   const getCursorStyle = () => {
+    if (isPanning) return 'cursor-grabbing';
+    if (tool === 'select') return 'cursor-default';
     if (
       (tool === 'ability' && selectedAbilityIcon) ||
       (tool === 'agent' && selectedAgentId) ||
       tool === 'pen' ||
-      tool === 'timer-path'
+      tool === 'timer-path' ||
+      tool === 'line' ||
+      tool === 'arrow' ||
+      tool === 'circle' ||
+      tool === 'rectangle' ||
+      tool === 'vision-cone' ||
+      tool === 'icon' ||
+      tool === 'image'
     )
       return 'cursor-crosshair';
     if (tool === 'text') return 'cursor-text';
@@ -281,6 +317,7 @@ export function StrategyCanvas({}: StrategyCanvasProps) {
     <div
       ref={containerRef}
       className="relative w-full h-full overflow-hidden bg-gray-900 shadow-2xl rounded-lg border border-gray-700"
+      style={{ cursor: isPanning ? 'grabbing' : 'default' }}
     >
       <Stage
         ref={stageRef}
@@ -292,91 +329,114 @@ export function StrategyCanvas({}: StrategyCanvasProps) {
         y={stageOffset.y}
         draggable={true}
         dragButtons={[1]}
-        onMouseDown={handleMouseDown}
+        onMouseDown={(e) => {
+          if (e.evt.button === 1) setIsPanning(true);
+          handleMouseDown(e);
+        }}
         onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}
+        onMouseUp={(e) => {
+          if (e.evt.button === 1) setIsPanning(false);
+          handleMouseUp();
+        }}
         onWheel={handleWheel}
-        className={`bg-gray-800 ${getCursorStyle()}`}
+        onDragStart={(e) => {
+          if (e.target === stageRef.current) setIsPanning(true);
+        }}
+        onDragEnd={(e) => {
+          if (e.target === stageRef.current) setIsPanning(false);
+        }}
+        onContextMenu={(e) => {
+          e.evt.preventDefault();
+        }}
+        className={`bg-gray-800 transition-colors ${getCursorStyle()}`}
       >
         <Layer>
-          {mapImageSrc && <MapImage src={mapImageSrc} rotation={mapRotation} />}
+          <Group x={512} y={512} offsetX={512} offsetY={512} rotation={sideRotation}>
+            {mapImageSrc && <MapImage src={mapImageSrc} rotation={baseRotation} />}
 
-          {canvasData.elements.map((element) => {
-            const isSelected =
-              element.id === selectedElementId || selectedElementIds.includes(element.id);
-            const isDraggable = tool === 'select' || isSelected;
+            {canvasData.elements.map((element) => {
+              const isSelected =
+                element.id === selectedElementId || selectedElementIds.includes(element.id);
+              const isDraggable = (tool === 'select' || isSelected) && !isPanning;
 
-            if (element.type === 'agent') {
+              if (element.type === 'agent') {
+                return (
+                  <AgentIcon
+                    key={element.id}
+                    element={element as AgentPlacement}
+                    isSelected={isSelected}
+                    isDraggable={isDraggable}
+                    onSelect={() => selectElement(element.id)}
+                    onDragEnd={handleElementDragEnd(element.id)}
+                    rotationOffset={sideRotation}
+                  />
+                );
+              }
+
+              if (element.type === 'ability') {
+                return (
+                  <AbilityIcon
+                    key={element.id}
+                    element={element as AbilityPlacement}
+                    isSelected={isSelected}
+                    isDraggable={isDraggable}
+                    onSelect={() => selectElement(element.id)}
+                    onDragEnd={handleElementDragEnd(element.id)}
+                    rotationOffset={sideRotation}
+                  />
+                );
+              }
+
               return (
-                <AgentIcon
-                  key={element.id}
-                  element={element as AgentPlacement}
-                  isSelected={isSelected}
-                  isDraggable={isDraggable}
-                  onSelect={() => selectElement(element.id)}
-                  onDragEnd={handleElementDragEnd(element.id)}
-                />
-              );
-            }
-
-            if (element.type === 'ability') {
-              return (
-                <AbilityIcon
-                  key={element.id}
-                  element={element as AbilityPlacement}
-                  isSelected={isSelected}
-                  isDraggable={isDraggable}
-                  onSelect={() => selectElement(element.id)}
-                  onDragEnd={handleElementDragEnd(element.id)}
-                />
-              );
-            }
-
-            return (
-              <DrawingElementRenderer
-                key={element.id}
-                element={element as DrawingElement}
-                isSelected={isSelected}
-                isDraggable={isDraggable}
-                showHover={tool === 'select'}
-                onSelect={() => selectElement(element.id)}
-                onDragEnd={handleElementDragEnd(element.id)}
-                onTextEdit={(newText) => updateElement(element.id, { text: newText })}
-              />
-            );
-          })}
-
-          {currentShape && (
-            <>
-              {currentShape.type === 'agent' && (
-                <AgentIcon
-                  element={currentShape as AgentPlacement}
-                  isSelected={false}
-                  isDraggable={false}
-                  onSelect={() => {}}
-                  onDragEnd={() => {}}
-                />
-              )}
-              {currentShape.type === 'ability' && (
-                <AbilityIcon
-                  element={currentShape as AbilityPlacement}
-                  isSelected={false}
-                  isDraggable={false}
-                  onSelect={() => {}}
-                  onDragEnd={() => {}}
-                />
-              )}
-              {currentShape.type !== 'agent' && currentShape.type !== 'ability' && (
                 <DrawingElementRenderer
-                  element={currentShape as DrawingElement}
-                  isSelected={false}
-                  isDraggable={false}
-                  onSelect={() => {}}
-                  onDragEnd={() => {}}
+                  key={element.id}
+                  element={element as DrawingElement}
+                  isSelected={isSelected}
+                  isDraggable={isDraggable}
+                  showHover={tool === 'select'}
+                  onSelect={() => selectElement(element.id)}
+                  onDragEnd={handleElementDragEnd(element.id)}
+                  onTextEdit={(newText) => updateElement(element.id, { text: newText })}
+                  rotationOffset={sideRotation}
                 />
-              )}
-            </>
-          )}
+              );
+            })}
+
+            {currentShape && (
+              <>
+                {currentShape.type === 'agent' && (
+                  <AgentIcon
+                    element={currentShape as AgentPlacement}
+                    isSelected={false}
+                    isDraggable={false}
+                    onSelect={() => {}}
+                    onDragEnd={() => {}}
+                    rotationOffset={sideRotation}
+                  />
+                )}
+                {currentShape.type === 'ability' && (
+                  <AbilityIcon
+                    element={currentShape as AbilityPlacement}
+                    isSelected={false}
+                    isDraggable={false}
+                    onSelect={() => {}}
+                    onDragEnd={() => {}}
+                    rotationOffset={sideRotation}
+                  />
+                )}
+                {currentShape.type !== 'agent' && currentShape.type !== 'ability' && (
+                  <DrawingElementRenderer
+                    element={currentShape as DrawingElement}
+                    isSelected={false}
+                    isDraggable={false}
+                    onSelect={() => {}}
+                    onDragEnd={() => {}}
+                    rotationOffset={sideRotation}
+                  />
+                )}
+              </>
+            )}
+          </Group>
 
           {selectionBox && (
             <Rect

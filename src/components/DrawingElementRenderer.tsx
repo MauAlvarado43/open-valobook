@@ -21,6 +21,7 @@ interface DrawingElementRendererProps {
   onSelect: () => void;
   onDragEnd: (e: Konva.KonvaEventObject<DragEvent>) => void;
   onTextEdit?: (newText: string) => void;
+  rotationOffset?: number;
 }
 
 export const DrawingElementRenderer = memo(function DrawingElementRenderer({
@@ -30,6 +31,7 @@ export const DrawingElementRenderer = memo(function DrawingElementRenderer({
   showHover = true,
   onSelect,
   onDragEnd,
+  rotationOffset = 0,
 }: DrawingElementRendererProps) {
   const [isHovered, setIsHovered] = useState(false);
   const { tool } = useEditorStore();
@@ -44,7 +46,8 @@ export const DrawingElementRenderer = memo(function DrawingElementRenderer({
     draggable: false,
     stroke: element.color || '#FF4655',
     strokeWidth: element.strokeWidth || 2,
-    opacity: (element.opacity !== undefined ? element.opacity : 1) * (showHover && isHovered ? 0.8 : 1),
+    opacity:
+      (element.opacity !== undefined ? element.opacity : 1) * (showHover && isHovered ? 0.8 : 1),
     perfectDrawEnabled: false,
     shadowForStrokeEnabled: false,
   };
@@ -88,13 +91,7 @@ export const DrawingElementRenderer = memo(function DrawingElementRenderer({
         );
 
       case 'circle':
-        return (
-          <KonvaCircle
-            {...commonProps}
-            radius={element.radius || 30}
-            fill="transparent"
-          />
-        );
+        return <KonvaCircle {...commonProps} radius={element.radius || 30} fill="transparent" />;
 
       case 'vision-cone':
         return (
@@ -107,10 +104,18 @@ export const DrawingElementRenderer = memo(function DrawingElementRenderer({
         );
 
       case 'icon':
-        return <IconRenderer element={element} commonProps={commonProps} />;
+        return (
+          <Group rotation={-rotationOffset}>
+            <IconRenderer element={element} commonProps={commonProps} />
+          </Group>
+        );
 
       case 'image':
-        return <ImageRenderer element={element} commonProps={commonProps} />;
+        return (
+          <Group rotation={-rotationOffset}>
+            <ImageRenderer element={element} commonProps={commonProps} />
+          </Group>
+        );
 
       case 'rectangle':
         return (
@@ -125,7 +130,11 @@ export const DrawingElementRenderer = memo(function DrawingElementRenderer({
         );
 
       case 'text':
-        return <TextRenderer element={element} commonProps={commonProps} />;
+        return (
+          <Group rotation={-rotationOffset}>
+            <TextRenderer element={element} commonProps={commonProps} />
+          </Group>
+        );
 
       default:
         return null;
@@ -141,21 +150,36 @@ export const DrawingElementRenderer = memo(function DrawingElementRenderer({
       rotation={element.rotation || 0}
       scaleX={element.scaleX || 1}
       scaleY={element.scaleY || 1}
-      draggable={isSelectTool}
+      draggable={isDraggable}
+      dragButtons={[0]}
       onClick={onSelect}
       onTap={onSelect}
       onDragEnd={onDragEnd}
+      onDragStart={(e) => {
+        if (e.evt.button !== 0) {
+          e.target.stopDrag();
+          // We intentionally do NOT cancel bubble here so the stage can pick up the pan event
+        }
+      }}
+      onContextMenu={(e) => {
+        e.evt.preventDefault();
+        onSelect();
+      }}
       onMouseEnter={(e: Konva.KonvaEventObject<MouseEvent>) => {
         setIsHovered(true);
-        if (isDraggable && isSelectTool) {
+        // Only change cursor if no mouse button is pressed (to avoid overriding panning cursor)
+        if (isDraggable && isSelectTool && e.evt.buttons === 0) {
           const container = e.target.getStage()?.container();
           if (container) container.style.cursor = 'move';
         }
       }}
       onMouseLeave={(e: Konva.KonvaEventObject<MouseEvent>) => {
         setIsHovered(false);
-        const container = e.target.getStage()?.container();
-        if (container) container.style.cursor = 'default';
+        // Only reset cursor if no buttons are pressed
+        if (e.evt.buttons === 0) {
+          const container = e.target.getStage()?.container();
+          if (container) container.style.cursor = 'default';
+        }
       }}
     >
       {renderShape()}
@@ -169,11 +193,13 @@ export const DrawingElementRenderer = memo(function DrawingElementRenderer({
               <TransformHandle
                 x={element.points[0]}
                 y={element.points[1]}
+                cursor="move"
                 onMouseDown={(e) => startDrag(e, 'start-point')}
               />
               <TransformHandle
                 x={element.points[2]}
                 y={element.points[3]}
+                cursor="move"
                 onMouseDown={(e) => startDrag(e, 'end-point')}
               />
             </>
@@ -193,11 +219,16 @@ export const DrawingElementRenderer = memo(function DrawingElementRenderer({
               <TransformHandle
                 x={element.radius || 150}
                 y={0}
+                cursor="ew-resize"
                 onMouseDown={(e) => startDrag(e, 'vision-radius')}
               />
               <TransformHandle
-                x={(element.radius || 150) * Math.cos(((element.angle || 90) / 2) * Math.PI / 180)}
-                y={(element.radius || 150) * Math.sin(((element.angle || 90) / 2) * Math.PI / 180)}
+                x={
+                  (element.radius || 150) * Math.cos((((element.angle || 90) / 2) * Math.PI) / 180)
+                }
+                y={
+                  (element.radius || 150) * Math.sin((((element.angle || 90) / 2) * Math.PI) / 180)
+                }
                 radius={6}
                 stroke="#A855F7"
                 cursor="crosshair"
@@ -207,33 +238,62 @@ export const DrawingElementRenderer = memo(function DrawingElementRenderer({
           )}
 
           {/* Generic handles for Rect/Icon/Image/Text */}
-          {(element.type === 'rectangle' || element.type === 'icon' || element.type === 'image' || element.type === 'text') && (
+          {(element.type === 'rectangle' ||
+            element.type === 'icon' ||
+            element.type === 'image' ||
+            element.type === 'text') && (
             <TransformHandle
-              x={element.type === 'text'
-                ? ((element.text || 'Text').length * (element.fontSize || 16) * 0.6) / 2 + 4
-                : (element.type === 'rectangle' ? (element.width || 100) / 2 : (element.width || 40) / 2)}
-              y={element.type === 'text'
-                ? ((element.fontSize || 16) * 1.2) / 2 + 4
-                : (element.type === 'rectangle' ? (element.height || 60) / 2 : (element.height || 40) / 2)}
+              x={
+                element.type === 'text'
+                  ? ((element.text || 'Text').length * (element.fontSize || 16) * 0.6) / 2 + 4
+                  : element.type === 'rectangle'
+                    ? (element.width || 100) / 2
+                    : (element.width || 40) / 2
+              }
+              y={
+                element.type === 'text'
+                  ? ((element.fontSize || 16) * 1.2) / 2 + 4
+                  : element.type === 'rectangle'
+                    ? (element.height || 60) / 2
+                    : (element.height || 40) / 2
+              }
               cursor="nwse-resize"
-              onMouseDown={(e) => startDrag(e, element.type === 'rectangle' ? 'rect-size' : (element.type === 'text' ? 'text-size' : 'icon-size'))}
+              onMouseDown={(e) =>
+                startDrag(
+                  e,
+                  element.type === 'rectangle'
+                    ? 'rect-size'
+                    : element.type === 'text'
+                      ? 'text-size'
+                      : 'icon-size'
+                )
+              }
             />
           )}
 
           {/* Rotation Handle */}
-          {element.type !== 'vision-cone' && element.type !== 'freehand' && element.type !== 'line' && element.type !== 'arrow' && element.type !== 'circle' && element.type !== 'timer-path' && (
-            <TransformHandle
-              x={0}
-              y={element.type === 'text'
-                ? -((element.fontSize || 16) * 1.2 / 2 + 25)
-                : (element.height ? -(element.height / 2 + 25) : -40)}
-              radius={6}
-              fill="#A855F7"
-              stroke="white"
-              cursor="crosshair"
-              onMouseDown={(e) => startDrag(e, 'rotation')}
-            />
-          )}
+          {element.type !== 'vision-cone' &&
+            element.type !== 'freehand' &&
+            element.type !== 'line' &&
+            element.type !== 'arrow' &&
+            element.type !== 'circle' &&
+            element.type !== 'timer-path' && (
+              <TransformHandle
+                x={0}
+                y={
+                  element.type === 'text'
+                    ? -(((element.fontSize || 16) * 1.2) / 2 + 25)
+                    : element.height
+                      ? -(element.height / 2 + 25)
+                      : -40
+                }
+                radius={6}
+                fill="#A855F7"
+                stroke="white"
+                cursor="grab"
+                onMouseDown={(e) => startDrag(e, 'rotation')}
+              />
+            )}
         </Group>
       )}
     </Group>

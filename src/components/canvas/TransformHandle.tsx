@@ -18,7 +18,7 @@ export function TransformHandle({
   fill = 'white',
   stroke = '#3b82f6',
   cursor = 'move',
-  onMouseDown
+  onMouseDown,
 }: TransformHandleProps) {
   return (
     <Circle
@@ -32,12 +32,16 @@ export function TransformHandle({
       draggable={false}
       onMouseDown={onMouseDown}
       onMouseEnter={(e) => {
-        const stage = e.target.getStage();
-        if (stage) stage.container().style.cursor = cursor;
+        if (e.evt.buttons === 0) {
+          const stage = e.target.getStage();
+          if (stage) stage.container().style.cursor = cursor;
+        }
       }}
       onMouseLeave={(e) => {
-        const stage = e.target.getStage();
-        if (stage) stage.container().style.cursor = 'default';
+        if (e.evt.buttons === 0) {
+          const stage = e.target.getStage();
+          if (stage) stage.container().style.cursor = 'default';
+        }
       }}
       perfectDrawEnabled={false}
     />

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEditorStore } from '@/lib/store/editorStore';
+import { ConfirmModal } from '@/components/ConfirmModal';
 import {
   Settings,
   LogOut,
@@ -16,10 +17,11 @@ import {
   ChevronRight,
   Search,
 } from 'lucide-react';
+import packageJson from '../../package.json';
 
 export default function HomePage() {
   const router = useRouter();
-  const { loadProject, resetProject } = useEditorStore();
+  const { loadProject, resetProject, setConfirmModal } = useEditorStore();
   const [showSettings, setShowSettings] = useState(false);
   const [strategies, setStrategies] = useState<import('@/types/strategy').LibraryStrategy[]>([]);
   const [loading, setLoading] = useState(true);
@@ -85,11 +87,14 @@ export default function HomePage() {
   const handleDelete = async (e: React.MouseEvent, filename: string, strategyName: string) => {
     e.stopPropagation();
     if (typeof window !== 'undefined' && window.electron?.deleteFromLibrary) {
-      const confirmed = confirm(`Are you sure you want to delete "${strategyName}"?`);
-      if (confirmed) {
-        await window.electron.deleteFromLibrary(filename);
-        fetchLibrary();
-      }
+      setConfirmModal({
+        title: 'Delete Strategy',
+        message: `Are you sure you want to permanently delete "${strategyName}"? This action cannot be undone.`,
+        onConfirm: async () => {
+          await window.electron.deleteFromLibrary(filename);
+          fetchLibrary();
+        },
+      });
     }
   };
 
@@ -111,6 +116,9 @@ export default function HomePage() {
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black italic uppercase tracking-tighter leading-[0.8] mb-1">
               OPENVALO<span className="text-[#FF4655]">BOOK</span>
             </h1>
+            <div className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">
+              v{packageJson.version}
+            </div>
           </header>
 
           <nav className="flex flex-col gap-3">
@@ -154,7 +162,7 @@ export default function HomePage() {
               />
             </button>
 
-            <button
+            {/* <button
               className="group relative flex items-center justify-between p-3 sm:p-4 bg-transparent border border-white/10 hover:border-gray-400 transition-all duration-300 overflow-hidden text-left"
               onClick={() => setShowSettings(true)}
               title="Adjust application settings"
@@ -173,7 +181,7 @@ export default function HomePage() {
                 className="relative z-10 text-white/30 group-hover:text-black/50"
                 size={16}
               />
-            </button>
+            </button> */}
 
             <button
               onClick={handleExit}
@@ -367,6 +375,7 @@ export default function HomePage() {
       <div className="absolute -bottom-10 -right-10 text-[10rem] md:text-[15rem] lg:text-[20rem] font-black text-white opacity-[0.02] italic select-none pointer-events-none uppercase leading-[0.8] overflow-hidden">
         Tactical
       </div>
+      <ConfirmModal />
     </main>
   );
 }

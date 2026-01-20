@@ -50,16 +50,14 @@ export const IconRenderer = memo(function IconRenderer({
     const detailColor = iconConfig.isSolid ? getContrastColor(baseColor) : baseColor;
 
     return (
-      <Group
-        {...commonProps}
-        stroke={undefined}
-        strokeWidth={0}
-      >
+      <Group id={commonProps.id}>
         <Path
           data={iconConfig.outline}
           fill={iconConfig.isSolid ? baseColor : 'transparent'}
           stroke={baseColor}
           strokeWidth={2}
+          lineCap="round"
+          lineJoin="round"
           scaleX={scale}
           scaleY={scale}
           offset={{ x: 12, y: 12 }}

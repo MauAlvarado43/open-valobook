@@ -5,7 +5,7 @@ const { contextBridge, ipcRenderer } = require('electron');
 contextBridge.exposeInMainWorld('electron', {
   platform: process.platform,
   quitApp: () => ipcRenderer.send('app:quit'),
-  saveFileDialog: (data, isImage) => ipcRenderer.invoke('file:save-dialog', data, isImage),
+  saveFileDialog: (data, isImage, format) => ipcRenderer.invoke('file:save-dialog', data, isImage, format),
   openFileDialog: () => ipcRenderer.invoke('file:open-dialog'),
   saveToLibrary: (filename, data) => ipcRenderer.invoke('library:save', filename, data),
   listLibrary: () => ipcRenderer.invoke('library:list'),
