@@ -1,7 +1,7 @@
-import { AbilityDefinition } from '../base';
+import { AbilityDefinition } from '@/lib/constants/abilities/base';
 
 export const FadeAbilities: Record<string, AbilityDefinition> = {
-  'Prowler': {
+  Prowler: {
     agent: 'Fade',
     ability: 'Prowler',
     shape: 'curved-wall',
@@ -10,24 +10,24 @@ export const FadeAbilities: Record<string, AbilityDefinition> = {
       height: {
         max: 7,
         min: 7,
-        unit: 'm'
+        unit: 'm',
       },
       width: {
         max: 25,
         min: 10,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 2.5,
-        unit: 's'
+        unit: 's',
       },
       speed: {
         value: 10,
-        unit: 'm/s'
+        unit: 'm/s',
       },
-    }
+    },
   },
-  'Seize': {
+  Seize: {
     agent: 'Fade',
     ability: 'Seize',
     shape: 'area',
@@ -35,15 +35,15 @@ export const FadeAbilities: Record<string, AbilityDefinition> = {
       radius: {
         max: 6.58,
         min: 6.58,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 4.5,
-        unit: 's'
-      }
-    }
+        unit: 's',
+      },
+    },
   },
-  'Haunt': {
+  Haunt: {
     agent: 'Fade',
     ability: 'Haunt',
     shape: 'area',
@@ -51,15 +51,15 @@ export const FadeAbilities: Record<string, AbilityDefinition> = {
       radius: {
         max: 30,
         min: 30,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 1.5,
-        unit: 's'
-      }
-    }
+        unit: 's',
+      },
+    },
   },
-  'Nightfall': {
+  Nightfall: {
     agent: 'Fade',
     ability: 'Nightfall',
     shape: 'path',
@@ -67,17 +67,17 @@ export const FadeAbilities: Record<string, AbilityDefinition> = {
       height: {
         max: 40,
         min: 40,
-        unit: 'm'
+        unit: 'm',
       },
       width: {
         max: 20,
         min: 20,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 8,
-        unit: 's'
+        unit: 's',
       },
-    }
-  }
+    },
+  },
 };

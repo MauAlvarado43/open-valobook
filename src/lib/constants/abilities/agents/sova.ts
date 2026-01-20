@@ -1,4 +1,4 @@
-import { AbilityDefinition } from '../base';
+import { AbilityDefinition } from '@/lib/constants/abilities/base';
 
 export const SovaAbilities: Record<string, AbilityDefinition> = {
   'Owl Drone': {
@@ -9,18 +9,18 @@ export const SovaAbilities: Record<string, AbilityDefinition> = {
       width: {
         max: 40,
         min: 10,
-        unit: 'm'
+        unit: 'm',
       },
       height: {
         max: 2,
         min: 2,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 7,
-        unit: 's'
+        unit: 's',
       },
-    }
+    },
   },
   'Shock Bolt': {
     agent: 'Sova',
@@ -30,9 +30,9 @@ export const SovaAbilities: Record<string, AbilityDefinition> = {
       radius: {
         max: 4,
         min: 4,
-        unit: 'm'
+        unit: 'm',
       },
-    }
+    },
   },
   'Recon Bolt': {
     agent: 'Sova',
@@ -42,33 +42,33 @@ export const SovaAbilities: Record<string, AbilityDefinition> = {
       radius: {
         max: 30,
         min: 30,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 3.2,
-        unit: 's'
-      }
-    }
+        unit: 's',
+      },
+    },
   },
-  'Hunter\'s Fury': {
+  "Hunter's Fury": {
     agent: 'Sova',
-    ability: 'Hunter\'s Fury',
+    ability: "Hunter's Fury",
     shape: 'path',
     stats: {
       height: {
         max: 66,
         min: 66,
-        unit: 'm'
+        unit: 'm',
       },
       width: {
         max: 3.52,
         min: 3.52,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 6,
-        unit: 's'
+        unit: 's',
       },
-    }
+    },
   },
 };

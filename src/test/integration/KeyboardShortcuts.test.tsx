@@ -1,7 +1,7 @@
 import { render, fireEvent } from '@testing-library/react';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { StrategyCanvas } from '../../components/StrategyCanvas';
-import { useEditorStore } from '../../lib/store/editorStore';
+import { StrategyCanvas } from '@/components/StrategyCanvas';
+import { useEditorStore } from '@/lib/store/editorStore';
 import React from 'react';
 
 // Mock react-konva to avoid canvas rendering issues in JSDOM

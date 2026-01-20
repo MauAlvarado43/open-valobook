@@ -5,13 +5,13 @@ import type { DrawingElement } from '@/types/strategy';
 import type Konva from 'konva';
 
 // Sub-renderers
-import { TimerPathRenderer } from './canvas/elements/TimerPathRenderer';
-import { VisionConeRenderer } from './canvas/elements/VisionConeRenderer';
-import { IconRenderer } from './canvas/elements/IconRenderer';
-import { ImageRenderer } from './canvas/elements/ImageRenderer';
-import { TextRenderer } from './canvas/elements/TextRenderer';
-import { TransformHandle } from './canvas/TransformHandle';
-import { useElementDrag } from './canvas/useElementDrag';
+import { TimerPathRenderer } from '@/components/canvas/elements/TimerPathRenderer';
+import { VisionConeRenderer } from '@/components/canvas/elements/VisionConeRenderer';
+import { IconRenderer } from '@/components/canvas/elements/IconRenderer';
+import { ImageRenderer } from '@/components/canvas/elements/ImageRenderer';
+import { TextRenderer } from '@/components/canvas/elements/TextRenderer';
+import { TransformHandle } from '@/components/canvas/TransformHandle';
+import { useElementDrag } from '@/hooks/canvas/useElementDrag';
 
 interface DrawingElementRendererProps {
   element: DrawingElement;

@@ -1,4 +1,4 @@
-import { AbilityDefinition } from '../base';
+import { AbilityDefinition } from '@/lib/constants/abilities/base';
 
 export const AstraAbilities: Record<string, AbilityDefinition> = {
   'Gravity Well': {
@@ -9,26 +9,29 @@ export const AstraAbilities: Record<string, AbilityDefinition> = {
       radius: {
         max: 4.75,
         min: 4.75,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 2,
-        unit: 's'
-      }
-    }
+        unit: 's',
+      },
+    },
   },
   'Nova Pulse': {
-    agent: 'Astra', ability: 'Nova Pulse', shape: 'area', stats: {
+    agent: 'Astra',
+    ability: 'Nova Pulse',
+    shape: 'area',
+    stats: {
       radius: {
         max: 4.75,
         min: 4.75,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 2.5,
-        unit: 's'
-      }
-    }
+        unit: 's',
+      },
+    },
   },
   'Nebula  / Dissipate': {
     agent: 'Astra',
@@ -38,13 +41,13 @@ export const AstraAbilities: Record<string, AbilityDefinition> = {
       radius: {
         max: 4.75,
         min: 4.75,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 14.25,
-        unit: 's'
-      }
-    }
+        unit: 's',
+      },
+    },
   },
   'Astral Form / Cosmic Divide': {
     agent: 'Astra',
@@ -54,17 +57,17 @@ export const AstraAbilities: Record<string, AbilityDefinition> = {
       width: {
         max: 250,
         min: 25,
-        unit: 'm'
+        unit: 'm',
       },
       height: {
         max: 2,
         min: 2,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 21,
-        unit: 's'
-      }
-    }
+        unit: 's',
+      },
+    },
   },
 };

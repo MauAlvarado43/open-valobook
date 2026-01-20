@@ -1,4 +1,4 @@
-import { AbilityDefinition } from '../base';
+import { AbilityDefinition } from '@/lib/constants/abilities/base';
 
 export const TejoAbilities: Record<string, AbilityDefinition> = {
   'Stealth Drone': {
@@ -9,18 +9,18 @@ export const TejoAbilities: Record<string, AbilityDefinition> = {
       width: {
         max: 50,
         min: 50,
-        unit: 'm'
+        unit: 'm',
       },
       height: {
         max: 2,
         min: 2,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 6,
-        unit: 's'
+        unit: 's',
       },
-    }
+    },
   },
   'Special Delivery': {
     agent: 'Tejo',
@@ -29,14 +29,14 @@ export const TejoAbilities: Record<string, AbilityDefinition> = {
     stats: {
       duration: {
         value: 3,
-        unit: 's'
+        unit: 's',
       },
       radius: {
         max: 5.25,
         min: 5.25,
-        unit: 'm'
+        unit: 'm',
       },
-    }
+    },
   },
   'Guided Salvo': {
     agent: 'Tejo',
@@ -46,11 +46,11 @@ export const TejoAbilities: Record<string, AbilityDefinition> = {
       radius: {
         max: 4.5,
         min: 4.5,
-        unit: 'm'
+        unit: 'm',
       },
-    }
+    },
   },
-  'Armageddon': {
+  Armageddon: {
     agent: 'Tejo',
     ability: 'Armageddon',
     shape: 'path',
@@ -58,17 +58,17 @@ export const TejoAbilities: Record<string, AbilityDefinition> = {
       height: {
         max: 32,
         min: 32,
-        unit: 'm'
+        unit: 'm',
       },
       width: {
         max: 10,
         min: 10,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 3,
-        unit: 's'
+        unit: 's',
       },
-    }
-  }
+    },
+  },
 };

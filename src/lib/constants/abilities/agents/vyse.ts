@@ -1,7 +1,7 @@
-import { AbilityDefinition } from '../base';
+import { AbilityDefinition } from '@/lib/constants/abilities/base';
 
 export const VyseAbilities: Record<string, AbilityDefinition> = {
-  'Razorvine': {
+  Razorvine: {
     agent: 'Vyse',
     ability: 'Razorvine',
     shape: 'area',
@@ -9,15 +9,15 @@ export const VyseAbilities: Record<string, AbilityDefinition> = {
       radius: {
         max: 6.25,
         min: 6.25,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 6,
-        unit: 's'
-      }
-    }
+        unit: 's',
+      },
+    },
   },
-  'Shear': {
+  Shear: {
     agent: 'Vyse',
     ability: 'Shear',
     shape: 'wall',
@@ -25,18 +25,18 @@ export const VyseAbilities: Record<string, AbilityDefinition> = {
       width: {
         max: 12,
         min: 3,
-        unit: 'm'
+        unit: 'm',
       },
       height: {
         max: 2,
         min: 2,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 6,
-        unit: 's'
+        unit: 's',
       },
-    }
+    },
   },
   'Arc Rose': {
     agent: 'Vyse',
@@ -45,18 +45,18 @@ export const VyseAbilities: Record<string, AbilityDefinition> = {
     stats: {
       height: {
         value: 4.5,
-        unit: 'm'
+        unit: 'm',
       },
       radius: {
         max: 32.5,
         min: 32.5,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 2,
-        unit: 's'
-      }
-    }
+        unit: 's',
+      },
+    },
   },
   'Steel Garden': {
     agent: 'Vyse',
@@ -66,12 +66,12 @@ export const VyseAbilities: Record<string, AbilityDefinition> = {
       radius: {
         max: 28,
         min: 28,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 8,
-        unit: 's'
-      }
-    }
-  }
+        unit: 's',
+      },
+    },
+  },
 };

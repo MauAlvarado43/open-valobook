@@ -1,4 +1,4 @@
-import { AbilityDefinition } from '../base';
+import { AbilityDefinition } from '@/lib/constants/abilities/base';
 
 export const DeadlockAbilities: Record<string, AbilityDefinition> = {
   'Barrier Mesh': {
@@ -9,18 +9,18 @@ export const DeadlockAbilities: Record<string, AbilityDefinition> = {
       width: {
         max: 10,
         min: 10,
-        unit: 'm'
+        unit: 'm',
       },
       height: {
         max: 10,
         min: 10,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 30,
-        unit: 's'
-      }
-    }
+        unit: 's',
+      },
+    },
   },
   'Sonic Sensor': {
     agent: 'Deadlock',
@@ -30,20 +30,20 @@ export const DeadlockAbilities: Record<string, AbilityDefinition> = {
       height: {
         max: 9,
         min: 4.5,
-        unit: 'm'
+        unit: 'm',
       },
       width: {
         max: 8,
         min: 8,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 2.5,
-        unit: 's'
-      }
-    }
+        unit: 's',
+      },
+    },
   },
-  'GravNet': {
+  GravNet: {
     agent: 'Deadlock',
     ability: 'GravNet',
     shape: 'area',
@@ -51,11 +51,11 @@ export const DeadlockAbilities: Record<string, AbilityDefinition> = {
       radius: {
         max: 6.5,
         min: 6.5,
-        unit: 'm'
+        unit: 'm',
       },
-    }
+    },
   },
-  'Annihilation': {
+  Annihilation: {
     agent: 'Deadlock',
     ability: 'Annihilation',
     shape: 'curved-wall',
@@ -65,13 +65,13 @@ export const DeadlockAbilities: Record<string, AbilityDefinition> = {
       height: {
         max: 3,
         min: 3,
-        unit: 'm'
+        unit: 'm',
       },
       width: {
         max: 40,
         min: 5,
-        unit: 'm'
+        unit: 'm',
       },
-    }
-  }
+    },
+  },
 };

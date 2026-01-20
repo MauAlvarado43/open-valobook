@@ -2,11 +2,11 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEditorStore } from '@/lib/store/editorStore';
 import { ConfirmModal } from '@/components/ConfirmModal';
 import {
-  Settings,
   LogOut,
   Plus,
   FolderOpen,
@@ -276,10 +276,11 @@ export default function HomePage() {
                         {/* Background Map Splash */}
                         {splashPath && (
                           <div className="absolute inset-0 z-0">
-                            <img
+                            <Image
                               src={`/assets/${splashPath}`}
-                              alt={s.mapName}
-                              className="w-full h-full object-cover opacity-30 group-hover:scale-110 transition-transform duration-700 brightness-50"
+                              alt={s.mapName || 'Map Splash'}
+                              fill
+                              className="object-cover opacity-30 group-hover:scale-110 transition-transform duration-700 brightness-50"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-[#0F1923] via-[#0F1923]/60 to-transparent" />
                           </div>

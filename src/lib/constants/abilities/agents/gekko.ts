@@ -1,4 +1,4 @@
-import { AbilityDefinition } from '../base';
+import { AbilityDefinition } from '@/lib/constants/abilities/base';
 
 export const GekkoAbilities: Record<string, AbilityDefinition> = {
   'Mosh Pit': {
@@ -9,15 +9,15 @@ export const GekkoAbilities: Record<string, AbilityDefinition> = {
       radius: {
         max: 6.2,
         min: 6.2,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 3,
-        unit: 's'
-      }
-    }
+        unit: 's',
+      },
+    },
   },
-  'Wingman': {
+  Wingman: {
     agent: 'Gekko',
     ability: 'Wingman',
     shape: 'curved-wall',
@@ -26,16 +26,16 @@ export const GekkoAbilities: Record<string, AbilityDefinition> = {
       height: {
         max: 6,
         min: 6,
-        unit: 'm'
+        unit: 'm',
       },
       width: {
         max: 31.5,
         min: 5,
-        unit: 'm'
+        unit: 'm',
       },
-    }
+    },
   },
-  'Dizzy': {
+  Dizzy: {
     agent: 'Gekko',
     ability: 'Dizzy',
     shape: 'curved-wall',
@@ -44,20 +44,20 @@ export const GekkoAbilities: Record<string, AbilityDefinition> = {
       width: {
         max: 12.5,
         min: 5,
-        unit: 'm'
+        unit: 'm',
       },
       height: {
         max: 2.5,
         min: 2.5,
-        unit: 'm'
+        unit: 'm',
       },
       distance: {
         value: 45,
-        unit: 'm'
-      }
-    }
+        unit: 'm',
+      },
+    },
   },
-  'Thrash': {
+  Thrash: {
     agent: 'Gekko',
     ability: 'Thrash',
     shape: 'curved-wall',
@@ -66,17 +66,17 @@ export const GekkoAbilities: Record<string, AbilityDefinition> = {
       width: {
         max: 67.32,
         min: 10,
-        unit: 'm'
+        unit: 'm',
       },
       height: {
         max: 5,
         min: 5,
-        unit: 'm'
+        unit: 'm',
       },
       speed: {
         value: 11.22,
-        unit: 'm/s'
+        unit: 'm/s',
       },
-    }
-  }
+    },
+  },
 };

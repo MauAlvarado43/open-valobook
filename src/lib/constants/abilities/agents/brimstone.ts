@@ -1,4 +1,4 @@
-import { AbilityDefinition } from '../base';
+import { AbilityDefinition } from '@/lib/constants/abilities/base';
 
 export const BrimstoneAbilities: Record<string, AbilityDefinition> = {
   'Stim Beacon': {
@@ -9,15 +9,15 @@ export const BrimstoneAbilities: Record<string, AbilityDefinition> = {
       radius: {
         max: 6,
         min: 6,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 4,
-        unit: 's'
-      }
-    }
+        unit: 's',
+      },
+    },
   },
-  'Incendiary': {
+  Incendiary: {
     agent: 'Brimstone',
     ability: 'Incendiary',
     shape: 'area',
@@ -25,13 +25,13 @@ export const BrimstoneAbilities: Record<string, AbilityDefinition> = {
       radius: {
         max: 4.5,
         min: 4.5,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 8,
-        unit: 's'
-      }
-    }
+        unit: 's',
+      },
+    },
   },
   'Sky Smoke': {
     agent: 'Brimstone',
@@ -41,13 +41,13 @@ export const BrimstoneAbilities: Record<string, AbilityDefinition> = {
       radius: {
         max: 4.15,
         min: 4.15,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 19.25,
-        unit: 's'
-      }
-    }
+        unit: 's',
+      },
+    },
   },
   'Orbital Strike': {
     agent: 'Brimstone',
@@ -57,12 +57,12 @@ export const BrimstoneAbilities: Record<string, AbilityDefinition> = {
       radius: {
         max: 9,
         min: 9,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 3,
-        unit: 's'
-      }
-    }
+        unit: 's',
+      },
+    },
   },
 };

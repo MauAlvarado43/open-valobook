@@ -1,7 +1,7 @@
-import { AbilityDefinition } from '../base';
+import { AbilityDefinition } from '@/lib/constants/abilities/base';
 
 export const ChamberAbilities: Record<string, AbilityDefinition> = {
-  'Trademark': {
+  Trademark: {
     agent: 'Chamber',
     ability: 'Trademark',
     shape: 'area',
@@ -9,31 +9,34 @@ export const ChamberAbilities: Record<string, AbilityDefinition> = {
       radius: {
         max: 10,
         min: 10,
-        unit: 'm'
+        unit: 'm',
       },
-    }
+    },
   },
-  'Headhunter': {
+  Headhunter: {
     agent: 'Chamber',
     ability: 'Headhunter',
-    shape: 'icon'
+    shape: 'icon',
   },
-  'Rendezvous': {
-    agent: 'Chamber', ability: 'Rendezvous', shape: 'area', stats: {
+  Rendezvous: {
+    agent: 'Chamber',
+    ability: 'Rendezvous',
+    shape: 'area',
+    stats: {
       radius: {
         max: 18,
         min: 18,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 1.3,
-        unit: 's'
+        unit: 's',
       },
-    }
+    },
   },
   'Tour De Force': {
     agent: 'Chamber',
     ability: 'Tour De Force',
-    shape: 'icon'
+    shape: 'icon',
   },
 };

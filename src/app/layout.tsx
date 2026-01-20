@@ -1,16 +1,12 @@
 import type { Metadata } from 'next';
-import './globals.css';
+import '@/app/globals.css';
 
 export const metadata: Metadata = {
   title: 'OpenValoBook',
   description: 'Open-source Valorant strategy planner and sharing platform',
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body>{children}</body>

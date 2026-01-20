@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { toTitleCase, normalizeAbilityName } from '../../lib/utils/stringUtils';
+import { toTitleCase, normalizeAbilityName } from '@/lib/utils/stringUtils';
 
 describe('String Utils', () => {
   it('toTitleCase should format strings', () => {

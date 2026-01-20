@@ -1,4 +1,4 @@
-import { AbilityDefinition } from '../base';
+import { AbilityDefinition } from '@/lib/constants/abilities/base';
 
 export const RazeAbilities: Record<string, AbilityDefinition> = {
   'Boom Bot': {
@@ -9,14 +9,14 @@ export const RazeAbilities: Record<string, AbilityDefinition> = {
       height: {
         max: 2,
         min: 2,
-        unit: 'm'
+        unit: 'm',
       },
       width: {
         max: 30,
         min: 5,
-        unit: 'm'
+        unit: 'm',
       },
-    }
+    },
   },
   'Blast Pack': {
     agent: 'Raze',
@@ -25,14 +25,14 @@ export const RazeAbilities: Record<string, AbilityDefinition> = {
     stats: {
       duration: {
         value: 5,
-        unit: 's'
+        unit: 's',
       },
       radius: {
         max: 2,
         min: 2,
-        unit: 'm'
+        unit: 'm',
       },
-    }
+    },
   },
   'Paint Shells': {
     agent: 'Raze',
@@ -42,11 +42,11 @@ export const RazeAbilities: Record<string, AbilityDefinition> = {
       radius: {
         max: 5.25,
         min: 5.25,
-        unit: 'm'
+        unit: 'm',
       },
-    }
+    },
   },
-  'Showstopper': {
+  Showstopper: {
     agent: 'Raze',
     ability: 'Showstopper',
     shape: 'area',
@@ -54,12 +54,12 @@ export const RazeAbilities: Record<string, AbilityDefinition> = {
       radius: {
         max: 7,
         min: 7,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 10,
-        unit: 's'
+        unit: 's',
       },
-    }
+    },
   },
 };

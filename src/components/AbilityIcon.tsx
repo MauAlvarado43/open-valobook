@@ -11,7 +11,7 @@ import {
 } from '@/lib/constants/abilityDefinitions';
 import type { AbilityPlacement } from '@/types/strategy';
 import type Konva from 'konva';
-import { AbilityShapeRenderer } from './canvas/abilities/AbilityShapeRenderer';
+import { AbilityShapeRenderer } from '@/components/canvas/abilities/AbilityShapeRenderer';
 
 interface AbilityIconProps {
   element: AbilityPlacement;

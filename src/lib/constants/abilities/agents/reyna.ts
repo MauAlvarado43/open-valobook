@@ -1,7 +1,7 @@
-import { AbilityDefinition } from '../base';
+import { AbilityDefinition } from '@/lib/constants/abilities/base';
 
 export const ReynaAbilities: Record<string, AbilityDefinition> = {
-  'Leer': {
+  Leer: {
     agent: 'Reyna',
     ability: 'Leer',
     shape: 'area',
@@ -9,26 +9,26 @@ export const ReynaAbilities: Record<string, AbilityDefinition> = {
       radius: {
         max: 6,
         min: 6,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 1.6,
-        unit: 's'
+        unit: 's',
       },
-    }
+    },
   },
-  'Devour': {
+  Devour: {
     agent: 'Reyna',
     ability: 'Devour',
     shape: 'icon',
     stats: {
       duration: {
         value: 2,
-        unit: 's'
-      }
-    }
+        unit: 's',
+      },
+    },
   },
-  'Dismiss': {
+  Dismiss: {
     agent: 'Reyna',
     ability: 'Dismiss',
     shape: 'curved-wall',
@@ -36,22 +36,22 @@ export const ReynaAbilities: Record<string, AbilityDefinition> = {
       height: {
         max: 2,
         min: 2,
-        unit: 'm'
+        unit: 'm',
       },
       width: {
         max: 18,
         min: 5,
-        unit: 'm'
+        unit: 'm',
       },
       speed: {
         value: 12,
-        unit: 'm/s'
-      }
-    }
+        unit: 'm/s',
+      },
+    },
   },
-  'Empress': {
+  Empress: {
     agent: 'Reyna',
     ability: 'Empress',
     shape: 'icon',
-  }
+  },
 };

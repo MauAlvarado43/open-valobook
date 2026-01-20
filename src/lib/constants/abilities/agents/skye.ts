@@ -1,7 +1,7 @@
-import { AbilityDefinition } from '../base';
+import { AbilityDefinition } from '@/lib/constants/abilities/base';
 
 export const SkyeAbilities: Record<string, AbilityDefinition> = {
-  'Regrowth': {
+  Regrowth: {
     agent: 'Skye',
     ability: 'Regrowth',
     shape: 'area',
@@ -9,11 +9,11 @@ export const SkyeAbilities: Record<string, AbilityDefinition> = {
       radius: {
         max: 18,
         min: 18,
-        unit: 'm'
+        unit: 'm',
       },
-    }
+    },
   },
-  'Trailblazer': {
+  Trailblazer: {
     agent: 'Skye',
     ability: 'Trailblazer',
     shape: 'curved-wall',
@@ -21,9 +21,9 @@ export const SkyeAbilities: Record<string, AbilityDefinition> = {
       width: {
         max: 40,
         min: 10,
-        unit: 'm'
+        unit: 'm',
       },
-    }
+    },
   },
   'Guiding Light': {
     agent: 'Skye',
@@ -33,32 +33,32 @@ export const SkyeAbilities: Record<string, AbilityDefinition> = {
       height: {
         max: 2,
         min: 2,
-        unit: 'm'
+        unit: 'm',
       },
       width: {
         max: 36,
         min: 10,
-        unit: 'm'
+        unit: 'm',
       },
       speed: {
         value: 18,
-        unit: 'm/s'
+        unit: 'm/s',
       },
       duration: {
         value: 2,
-        unit: 's'
+        unit: 's',
       },
-    }
+    },
   },
-  'Seekers': {
+  Seekers: {
     agent: 'Skye',
     ability: 'Seekers',
     shape: 'icon',
     stats: {
       duration: {
         value: 15,
-        unit: 's'
+        unit: 's',
       },
-    }
-  }
+    },
+  },
 };

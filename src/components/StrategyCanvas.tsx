@@ -4,14 +4,15 @@ import { Stage, Layer, Image as KonvaImage, Rect, Group } from 'react-konva';
 import { memo, useRef, useState, useEffect } from 'react';
 import { useEditorStore } from '@/lib/store/editorStore';
 import useImage from 'use-image';
-import { DrawingElementRenderer } from './DrawingElementRenderer';
-import { AgentIcon } from './AgentIcon';
-import { AbilityIcon } from './AbilityIcon';
-import { ElementPropertiesPanel } from './ElementPropertiesPanel';
+import { DrawingElementRenderer } from '@/components/DrawingElementRenderer';
+import { AgentIcon } from '@/components/AgentIcon';
+import { AbilityIcon } from '@/components/AbilityIcon';
+import { ElementPropertiesPanel } from '@/components/ElementPropertiesPanel';
 import type { DrawingElement, AgentPlacement, AbilityPlacement } from '@/types/strategy';
 import type Konva from 'konva';
-import { useCanvasDrawing } from './canvas/useCanvasDrawing';
-import type { EditorState } from '@/lib/store/editorStore';
+import { useCanvasDrawing } from '@/hooks/canvas/useCanvasDrawing';
+import { useKeyboardShortcuts } from '@/hooks/canvas/useKeyboardShortcuts';
+import { useCanvasExport } from '@/hooks/canvas/useCanvasExport';
 
 interface StrategyCanvasProps {
   width?: number;
@@ -56,20 +57,12 @@ export function StrategyCanvas({}: StrategyCanvasProps) {
     selectedAgentId,
     selectedAbilityIcon,
     strategySide,
-    setStrategySide,
     updateElement,
-    removeElement,
-    undo,
-    redo,
     selectElement,
-    setTool,
-    saveToLibrary,
-    strategyName,
-    exportAsImage,
-    clearCanvas,
-    setStatus,
-    setConfirmModal,
   } = useEditorStore();
+
+  useKeyboardShortcuts();
+  useCanvasExport(stageRef);
 
   const { currentShape, selectionBox, handleMouseDown, handleMouseMove, handleMouseUp } =
     useCanvasDrawing(scale, autoScale, stageRef, isPanning);
@@ -120,166 +113,6 @@ export function StrategyCanvas({}: StrategyCanvasProps) {
     }
   }, [isPanning]);
 
-  // Keyboard shortcuts
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      // Don't trigger shortcuts if user is typing in an input or textarea
-      if (
-        document.activeElement instanceof HTMLInputElement ||
-        document.activeElement instanceof HTMLTextAreaElement
-      ) {
-        if (e.key === 'Escape') {
-          (document.activeElement as HTMLElement).blur();
-        }
-        return;
-      }
-
-      // System Actions
-      if (e.ctrlKey && e.key.toLowerCase() === 'z') {
-        e.preventDefault();
-        if (e.shiftKey || e.altKey) {
-          redo();
-          setStatus({ type: 'success', msg: 'Redo' }, 1000);
-        } else {
-          undo();
-          setStatus({ type: 'success', msg: 'Undo' }, 1000);
-        }
-      } else if (e.ctrlKey && e.key.toLowerCase() === 'y') {
-        e.preventDefault();
-        redo();
-        setStatus({ type: 'success', msg: 'Redo' }, 1000);
-      } else if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'z') {
-        // Explicitly handle Ctrl+Shift+Z for some layouts
-        e.preventDefault();
-        redo();
-        setStatus({ type: 'success', msg: 'Redo' }, 1000);
-      } else if (e.ctrlKey && e.key.toLowerCase() === 's') {
-        e.preventDefault();
-        saveToLibrary();
-        setStatus({ type: 'success', msg: 'Strategy Saved' });
-      } else if (e.ctrlKey && e.key.toLowerCase() === 'e') {
-        e.preventDefault();
-        exportAsImage();
-        setStatus({ type: 'loading', msg: 'Exporting...' });
-      } else if (e.key === 'Delete') {
-        e.preventDefault();
-        if (selectedElementIds.length > 0 || selectedElementId) {
-          if (selectedElementIds.length > 0) {
-            selectedElementIds.forEach((id) => removeElement(id));
-          } else if (selectedElementId) {
-            removeElement(selectedElementId);
-          }
-          setStatus({ type: 'success', msg: 'Elements Deleted' }, 1000);
-        }
-      } else if (e.shiftKey && e.key === 'Escape') {
-        e.preventDefault();
-        setConfirmModal({
-          title: 'Clear Canvas',
-          message: 'Are you sure you want to clear all strategy elements?',
-          onConfirm: clearCanvas,
-        });
-      } else if (e.key === 'Tab') {
-        e.preventDefault();
-        setStrategySide(strategySide === 'attack' ? 'defense' : 'attack');
-      } else if (e.key === 'Control') {
-        setTool('select');
-        setStatus({ type: 'success', msg: 'SELECT Tool Active' }, 800);
-      }
-
-      // Tool Selection
-      const keyMap: Record<string, EditorState['tool']> = {
-        '1': 'pen',
-        '2': 'timer-path',
-        '3': 'line',
-        '4': 'arrow',
-        '5': 'circle',
-        '6': 'rectangle',
-        '7': 'vision-cone',
-        '8': 'icon',
-        '9': 'image',
-        '0': 'text',
-      };
-      const key = e.key.toLowerCase();
-      if (keyMap[key] && !e.ctrlKey && !e.altKey && !e.metaKey) {
-        setTool(keyMap[key]);
-        setStatus({ type: 'success', msg: `${keyMap[key].toUpperCase()} Active` }, 800);
-      } else if (key === 's' && !e.ctrlKey) {
-        // Checking for 's' without modifiers just in case, though usually ctrl+s is save.
-        // Actually user didn't ask to remove 's'. But let's keep previous logic if possible, or simple.
-        // Previous logic had 'v' for select, etc. replacing with numbers.
-        saveToLibrary();
-        setStatus({ type: 'success', msg: 'Strategy Saved' });
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [
-    undo,
-    redo,
-    selectedElementId,
-    selectedElementIds,
-    removeElement,
-    setTool,
-    saveToLibrary,
-    strategyName,
-    exportAsImage,
-    clearCanvas,
-    setStatus,
-    setConfirmModal,
-  ]);
-
-  // Image Export Listener
-  useEffect(() => {
-    const handleExport = async (e: Event) => {
-      const type = e.type === 'canvas:export:pdf' ? 'pdf' : 'png';
-
-      if (!stageRef.current) return;
-
-      const dataUrl = stageRef.current.toDataURL({ pixelRatio: 2 });
-
-      if (window.electron?.saveFileDialog) {
-        try {
-          let exportData = dataUrl;
-
-          if (type === 'pdf') {
-            const { jsPDF } = await import('jspdf');
-            const pdf = new jsPDF({
-              orientation: 'landscape',
-              unit: 'px',
-              format: [stageRef.current.width() * 2, stageRef.current.height() * 2],
-            });
-            pdf.addImage(
-              dataUrl,
-              'PNG',
-              0,
-              0,
-              stageRef.current.width() * 2,
-              stageRef.current.height() * 2
-            );
-            exportData = pdf.output('datauristring').split(',')[1];
-          }
-
-          const result = await window.electron.saveFileDialog(exportData, true, type);
-          if (result) {
-            setStatus({ type: 'success', msg: `${type.toUpperCase()} Saved Successfully` });
-          } else {
-            setStatus(null);
-          }
-        } catch (error) {
-          console.error('Export failed:', error);
-          setStatus({ type: 'error', msg: 'Export Failed' });
-        }
-      }
-    };
-
-    window.addEventListener('canvas:export', handleExport);
-    window.addEventListener('canvas:export:pdf', handleExport);
-    return () => {
-      window.removeEventListener('canvas:export', handleExport);
-      window.removeEventListener('canvas:export:pdf', handleExport);
-    };
-  }, []);
-
   const handleElementDragEnd = (id: string) => (e: Konva.KonvaEventObject<DragEvent>) => {
     updateElement(id, { x: e.target.x(), y: e.target.y() });
   };
@@ -316,8 +149,9 @@ export function StrategyCanvas({}: StrategyCanvasProps) {
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-full overflow-hidden bg-gray-900 shadow-2xl rounded-lg border border-gray-700"
-      style={{ cursor: isPanning ? 'grabbing' : 'default' }}
+      className={`relative w-full h-full overflow-hidden bg-gray-900 shadow-2xl rounded-lg border border-gray-700 ${
+        isPanning ? 'cursor-grabbing' : 'cursor-default'
+      }`}
     >
       <Stage
         ref={stageRef}

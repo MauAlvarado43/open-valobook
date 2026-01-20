@@ -1,7 +1,7 @@
-import { AbilityDefinition } from '../base';
+import { AbilityDefinition } from '@/lib/constants/abilities/base';
 
 export const IsoAbilities: Record<string, AbilityDefinition> = {
-  'Contingency': {
+  Contingency: {
     agent: 'Iso',
     ability: 'Contingency',
     shape: 'path',
@@ -9,20 +9,20 @@ export const IsoAbilities: Record<string, AbilityDefinition> = {
       height: {
         max: 27.5,
         min: 13.75,
-        unit: 'm'
+        unit: 'm',
       },
       width: {
         max: 5,
         min: 5,
-        unit: 'm'
+        unit: 'm',
       },
       speed: {
         value: 5.4,
-        unit: 'm/s'
-      }
-    }
+        unit: 'm/s',
+      },
+    },
   },
-  'Undercut': {
+  Undercut: {
     agent: 'Iso',
     ability: 'Undercut',
     shape: 'path',
@@ -30,18 +30,18 @@ export const IsoAbilities: Record<string, AbilityDefinition> = {
       width: {
         max: 3,
         min: 3,
-        unit: 'm'
+        unit: 'm',
       },
       height: {
         max: 34.875,
         min: 34.875,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 1.55,
-        unit: 's'
+        unit: 's',
       },
-    }
+    },
   },
   'Double Tap': {
     agent: 'Iso',
@@ -50,13 +50,13 @@ export const IsoAbilities: Record<string, AbilityDefinition> = {
     stats: {
       width: {
         value: 1,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 12,
-        unit: 's'
+        unit: 's',
       },
-    }
+    },
   },
   'Kill Contract': {
     agent: 'Iso',
@@ -66,17 +66,17 @@ export const IsoAbilities: Record<string, AbilityDefinition> = {
       width: {
         max: 15,
         min: 15,
-        unit: 'm'
+        unit: 'm',
       },
       height: {
         max: 36,
         min: 36,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 13,
-        unit: 's'
+        unit: 's',
       },
-    }
+    },
   },
 };

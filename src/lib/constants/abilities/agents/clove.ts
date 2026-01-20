@@ -1,4 +1,4 @@
-import { AbilityDefinition } from '../base';
+import { AbilityDefinition } from '@/lib/constants/abilities/base';
 
 export const CloveAbilities: Record<string, AbilityDefinition> = {
   'Pick-me-up': {
@@ -6,7 +6,7 @@ export const CloveAbilities: Record<string, AbilityDefinition> = {
     ability: 'Pick-me-up',
     shape: 'icon',
   },
-  'Meddle': {
+  Meddle: {
     agent: 'Clove',
     ability: 'Meddle',
     shape: 'area',
@@ -14,30 +14,33 @@ export const CloveAbilities: Record<string, AbilityDefinition> = {
       radius: {
         max: 6,
         min: 6,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 5,
-        unit: 's'
-      }
-    }
+        unit: 's',
+      },
+    },
   },
-  'Ruse': {
-    agent: 'Clove', ability: 'Ruse', shape: 'smoke', stats: {
+  Ruse: {
+    agent: 'Clove',
+    ability: 'Ruse',
+    shape: 'smoke',
+    stats: {
       radius: {
         max: 4,
         min: 4,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 13.5,
-        unit: 's'
-      }
-    }
+        unit: 's',
+      },
+    },
   },
   'Not Dead Yet': {
     agent: 'Clove',
     ability: 'Not Dead Yet',
     shape: 'icon',
-  }
+  },
 };

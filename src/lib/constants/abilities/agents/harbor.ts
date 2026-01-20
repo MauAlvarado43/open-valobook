@@ -1,4 +1,4 @@
-import { AbilityDefinition } from '../base';
+import { AbilityDefinition } from '@/lib/constants/abilities/base';
 
 export const HarborAbilities: Record<string, AbilityDefinition> = {
   'Storm Surge': {
@@ -9,13 +9,13 @@ export const HarborAbilities: Record<string, AbilityDefinition> = {
       radius: {
         max: 6,
         min: 6,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 2,
-        unit: 's'
-      }
-    }
+        unit: 's',
+      },
+    },
   },
   'High Tide': {
     agent: 'Harbor',
@@ -26,20 +26,20 @@ export const HarborAbilities: Record<string, AbilityDefinition> = {
       width: {
         max: 50,
         min: 10,
-        unit: 'm'
+        unit: 'm',
       },
       height: {
         max: 5,
         min: 5,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 15,
-        unit: 's'
+        unit: 's',
       },
-    }
+    },
   },
-  'Cove': {
+  Cove: {
     agent: 'Harbor',
     ability: 'Cove',
     shape: 'smoke',
@@ -47,11 +47,11 @@ export const HarborAbilities: Record<string, AbilityDefinition> = {
       radius: {
         max: 4.6,
         min: 4.6,
-        unit: 'm'
+        unit: 'm',
       },
-    }
+    },
   },
-  'Reckoning': {
+  Reckoning: {
     agent: 'Harbor',
     ability: 'Reckoning',
     shape: 'path',
@@ -59,21 +59,21 @@ export const HarborAbilities: Record<string, AbilityDefinition> = {
       height: {
         max: 28,
         min: 28,
-        unit: 'm'
+        unit: 'm',
       },
       width: {
         max: 21,
         min: 21,
-        unit: 'm'
+        unit: 'm',
       },
       speed: {
         value: 8,
-        unit: 'm/s'
+        unit: 'm/s',
       },
       duration: {
         value: 3,
-        unit: 's'
-      }
-    }
+        unit: 's',
+      },
+    },
   },
 };

@@ -1,7 +1,7 @@
-import { AbilityDefinition } from '../base';
+import { AbilityDefinition } from '@/lib/constants/abilities/base';
 
 export const JettAbilities: Record<string, AbilityDefinition> = {
-  'Cloudburst': {
+  Cloudburst: {
     agent: 'Jett',
     ability: 'Cloudburst',
     shape: 'smoke',
@@ -9,30 +9,30 @@ export const JettAbilities: Record<string, AbilityDefinition> = {
       radius: {
         max: 3.35,
         min: 3.35,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 2.5,
-        unit: 's'
-      }
-    }
+        unit: 's',
+      },
+    },
   },
-  'Updraft': {
+  Updraft: {
     agent: 'Jett',
     ability: 'Updraft',
     shape: 'icon',
     stats: {
       distance: {
         value: 5,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 0.6,
-        unit: 's'
+        unit: 's',
       },
-    }
+    },
   },
-  'Tailwind': {
+  Tailwind: {
     agent: 'Jett',
     ability: 'Tailwind',
     shape: 'path',
@@ -40,14 +40,14 @@ export const JettAbilities: Record<string, AbilityDefinition> = {
       width: {
         max: 2,
         min: 2,
-        unit: 'm'
+        unit: 'm',
       },
       height: {
         max: 10,
         min: 2,
-        unit: 'm'
+        unit: 'm',
       },
-    }
+    },
   },
   'Blade Storm': {
     agent: 'Jett',

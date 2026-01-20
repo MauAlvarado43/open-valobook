@@ -1,7 +1,7 @@
-import { AbilityDefinition } from '../base';
+import { AbilityDefinition } from '@/lib/constants/abilities/base';
 
 export const WaylayAbilities: Record<string, AbilityDefinition> = {
-  'Saturate': {
+  Saturate: {
     agent: 'Waylay',
     ability: 'Saturate',
     shape: 'area',
@@ -9,15 +9,15 @@ export const WaylayAbilities: Record<string, AbilityDefinition> = {
       radius: {
         max: 6,
         min: 6,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 3,
-        unit: 's'
-      }
-    }
+        unit: 's',
+      },
+    },
   },
-  'Lightspeed': {
+  Lightspeed: {
     agent: 'Waylay',
     ability: 'Lightspeed',
     shape: 'curved-wall',
@@ -27,28 +27,28 @@ export const WaylayAbilities: Record<string, AbilityDefinition> = {
       distance: {
         max: 18,
         min: 9,
-        unit: 'm'
-      }
-    }
+        unit: 'm',
+      },
+    },
   },
-  'Refract': {
+  Refract: {
     agent: 'Waylay',
     ability: 'Refract',
     shape: 'curved-wall',
     stats: {
       height: {
         value: 2,
-        unit: 'm'
+        unit: 'm',
       },
       width: {
         value: 35,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 8,
-        unit: 's'
+        unit: 's',
       },
-    }
+    },
   },
   'Convergent Paths': {
     agent: 'Waylay',
@@ -58,17 +58,17 @@ export const WaylayAbilities: Record<string, AbilityDefinition> = {
       width: {
         max: 13.5,
         min: 13.5,
-        unit: 'm'
+        unit: 'm',
       },
       height: {
         max: 36,
         min: 36,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 7,
-        unit: 's'
-      }
-    }
+        unit: 's',
+      },
+    },
   },
 };

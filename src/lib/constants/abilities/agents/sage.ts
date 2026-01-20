@@ -1,4 +1,4 @@
-import { AbilityDefinition } from '../base';
+import { AbilityDefinition } from '@/lib/constants/abilities/base';
 
 export const SageAbilities: Record<string, AbilityDefinition> = {
   'Barrier Orb': {
@@ -9,18 +9,18 @@ export const SageAbilities: Record<string, AbilityDefinition> = {
       width: {
         max: 15,
         min: 5,
-        unit: 'm'
+        unit: 'm',
       },
       height: {
         max: 2,
         min: 2,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 40,
-        unit: 's'
-      }
-    }
+        unit: 's',
+      },
+    },
   },
   'Slow Orb': {
     agent: 'Sage',
@@ -30,13 +30,13 @@ export const SageAbilities: Record<string, AbilityDefinition> = {
       radius: {
         max: 10,
         min: 10,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 7,
-        unit: 's'
-      }
-    }
+        unit: 's',
+      },
+    },
   },
   'Healing Orb': {
     agent: 'Sage',
@@ -46,15 +46,15 @@ export const SageAbilities: Record<string, AbilityDefinition> = {
       radius: {
         max: 10,
         min: 3,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 5,
-        unit: 's'
-      }
-    }
+        unit: 's',
+      },
+    },
   },
-  'Resurrection': {
+  Resurrection: {
     agent: 'Sage',
     ability: 'Resurrection',
     shape: 'area',
@@ -62,12 +62,12 @@ export const SageAbilities: Record<string, AbilityDefinition> = {
       radius: {
         max: 12,
         min: 3,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 1.3,
-        unit: 's'
-      }
-    }
-  }
+        unit: 's',
+      },
+    },
+  },
 };

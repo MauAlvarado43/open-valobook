@@ -1,7 +1,7 @@
-import { AbilityDefinition } from '../base';
+import { AbilityDefinition } from '@/lib/constants/abilities/base';
 
 export const BreachAbilities: Record<string, AbilityDefinition> = {
-  'Aftershock': {
+  Aftershock: {
     agent: 'Breach',
     ability: 'Aftershock',
     shape: 'path',
@@ -9,18 +9,18 @@ export const BreachAbilities: Record<string, AbilityDefinition> = {
       height: {
         max: 10,
         min: 3,
-        unit: 'm'
+        unit: 'm',
       },
       width: {
         max: 3,
         min: 3,
-        unit: 'm'
+        unit: 'm',
       },
       damage: {
         value: 80,
-        unit: null
+        unit: null,
       },
-    }
+    },
   },
   'Fault Line': {
     agent: 'Breach',
@@ -30,29 +30,29 @@ export const BreachAbilities: Record<string, AbilityDefinition> = {
       height: {
         max: 56,
         min: 8,
-        unit: 'm'
+        unit: 'm',
       },
       width: {
         max: 8,
         min: 8,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 2.5,
-        unit: 's'
-      }
-    }
+        unit: 's',
+      },
+    },
   },
-  'Flashpoint': {
+  Flashpoint: {
     agent: 'Breach',
     ability: 'Flashpoint',
     shape: 'icon',
     stats: {
       duration: {
         value: 2.25,
-        unit: 's'
-      }
-    }
+        unit: 's',
+      },
+    },
   },
   'Rolling Thunder': {
     agent: 'Breach',
@@ -62,17 +62,17 @@ export const BreachAbilities: Record<string, AbilityDefinition> = {
       height: {
         max: 32,
         min: 32,
-        unit: 'm'
+        unit: 'm',
       },
       width: {
         max: 18,
         min: 18,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 4,
-        unit: 's'
-      }
-    }
-  }
+        unit: 's',
+      },
+    },
+  },
 };

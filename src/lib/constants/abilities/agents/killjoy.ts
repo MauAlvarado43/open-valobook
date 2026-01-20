@@ -1,7 +1,7 @@
-import { AbilityDefinition } from '../base';
+import { AbilityDefinition } from '@/lib/constants/abilities/base';
 
 export const KilljoyAbilities: Record<string, AbilityDefinition> = {
-  'Nanoswarm': {
+  Nanoswarm: {
     agent: 'Killjoy',
     ability: 'Nanoswarm',
     shape: 'area',
@@ -9,15 +9,15 @@ export const KilljoyAbilities: Record<string, AbilityDefinition> = {
       radius: {
         max: 4.5,
         min: 4.5,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 4,
-        unit: 's'
-      }
-    }
+        unit: 's',
+      },
+    },
   },
-  'ALARMBOT': {
+  ALARMBOT: {
     agent: 'Killjoy',
     ability: 'Alarmbot',
     shape: 'area',
@@ -25,16 +25,16 @@ export const KilljoyAbilities: Record<string, AbilityDefinition> = {
       radius: {
         max: 40,
         min: 40,
-        unit: 'm'
+        unit: 'm',
       },
       innerRadius: {
         max: 5.5,
         min: 5.5,
-        unit: 'm'
-      }
-    }
+        unit: 'm',
+      },
+    },
   },
-  'TURRET': {
+  TURRET: {
     agent: 'Killjoy',
     ability: 'Turret',
     shape: 'area',
@@ -42,11 +42,11 @@ export const KilljoyAbilities: Record<string, AbilityDefinition> = {
       radius: {
         max: 40,
         min: 40,
-        unit: 'm'
+        unit: 'm',
       },
-    }
+    },
   },
-  'Lockdown': {
+  Lockdown: {
     agent: 'Killjoy',
     ability: 'Lockdown',
     shape: 'area',
@@ -54,12 +54,12 @@ export const KilljoyAbilities: Record<string, AbilityDefinition> = {
       radius: {
         max: 32.5,
         min: 32.5,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 8,
-        unit: 's'
-      }
-    }
+        unit: 's',
+      },
+    },
   },
 };

@@ -1,4 +1,4 @@
-import { AbilityDefinition } from '../base';
+import { AbilityDefinition } from '@/lib/constants/abilities/base';
 
 export const KAYOAbilities: Record<string, AbilityDefinition> = {
   'FRAG/ment': {
@@ -9,13 +9,13 @@ export const KAYOAbilities: Record<string, AbilityDefinition> = {
       radius: {
         max: 4,
         min: 4,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 4,
-        unit: 's'
-      }
-    }
+        unit: 's',
+      },
+    },
   },
   'FLASH/drive': {
     agent: 'KAY/O',
@@ -24,9 +24,9 @@ export const KAYOAbilities: Record<string, AbilityDefinition> = {
     stats: {
       duration: {
         value: 2.25,
-        unit: 's'
-      }
-    }
+        unit: 's',
+      },
+    },
   },
   'ZERO/point': {
     agent: 'KAY/O',
@@ -36,13 +36,13 @@ export const KAYOAbilities: Record<string, AbilityDefinition> = {
       radius: {
         max: 15,
         min: 15,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 8,
-        unit: 's'
-      }
-    }
+        unit: 's',
+      },
+    },
   },
   'NULL/cmd': {
     agent: 'KAY/O',
@@ -52,12 +52,12 @@ export const KAYOAbilities: Record<string, AbilityDefinition> = {
       radius: {
         max: 42.5,
         min: 42.5,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 4,
-        unit: 's'
+        unit: 's',
       },
-    }
-  }
+    },
+  },
 };

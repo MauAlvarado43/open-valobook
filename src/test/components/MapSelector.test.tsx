@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
-import { MapSelector } from '../../components/MapSelector';
+import { MapSelector } from '@/components/MapSelector';
 
 const mockMapsMetadata = [
   { id: '1', name: 'Ascent', splash: 'ascent.jpg' },

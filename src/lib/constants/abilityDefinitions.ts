@@ -1,34 +1,34 @@
-import { AbilityDefinition, AbilityShape } from './abilities/base';
-import { AstraAbilities } from './abilities/agents/astra';
-import { BreachAbilities } from './abilities/agents/breach';
-import { BrimstoneAbilities } from './abilities/agents/brimstone';
-import { ChamberAbilities } from './abilities/agents/chamber';
-import { CloveAbilities } from './abilities/agents/clove';
-import { CypherAbilities } from './abilities/agents/cypher';
-import { DeadlockAbilities } from './abilities/agents/deadlock';
-import { FadeAbilities } from './abilities/agents/fade';
-import { GekkoAbilities } from './abilities/agents/gekko';
-import { HarborAbilities } from './abilities/agents/harbor';
-import { IsoAbilities } from './abilities/agents/iso';
-import { JettAbilities } from './abilities/agents/jett';
-import { KAYOAbilities } from './abilities/agents/kay-o';
-import { KilljoyAbilities } from './abilities/agents/killjoy';
-import { NeonAbilities } from './abilities/agents/neon';
-import { OmenAbilities } from './abilities/agents/omen';
-import { PhoenixAbilities } from './abilities/agents/phoenix';
-import { RazeAbilities } from './abilities/agents/raze';
-import { ReynaAbilities } from './abilities/agents/reyna';
-import { SageAbilities } from './abilities/agents/sage';
-import { SkyeAbilities } from './abilities/agents/skye';
-import { SovaAbilities } from './abilities/agents/sova';
-import { TejoAbilities } from './abilities/agents/tejo';
-import { VetoAbilities } from './abilities/agents/veto';
-import { ViperAbilities } from './abilities/agents/viper';
-import { VyseAbilities } from './abilities/agents/vyse';
-import { WaylayAbilities } from './abilities/agents/waylay';
-import { YoruAbilities } from './abilities/agents/yoru';
+import { AbilityDefinition, AbilityShape } from '@/lib/constants/abilities/base';
+import { AstraAbilities } from '@/lib/constants/abilities/agents/astra';
+import { BreachAbilities } from '@/lib/constants/abilities/agents/breach';
+import { BrimstoneAbilities } from '@/lib/constants/abilities/agents/brimstone';
+import { ChamberAbilities } from '@/lib/constants/abilities/agents/chamber';
+import { CloveAbilities } from '@/lib/constants/abilities/agents/clove';
+import { CypherAbilities } from '@/lib/constants/abilities/agents/cypher';
+import { DeadlockAbilities } from '@/lib/constants/abilities/agents/deadlock';
+import { FadeAbilities } from '@/lib/constants/abilities/agents/fade';
+import { GekkoAbilities } from '@/lib/constants/abilities/agents/gekko';
+import { HarborAbilities } from '@/lib/constants/abilities/agents/harbor';
+import { IsoAbilities } from '@/lib/constants/abilities/agents/iso';
+import { JettAbilities } from '@/lib/constants/abilities/agents/jett';
+import { KAYOAbilities } from '@/lib/constants/abilities/agents/kay-o';
+import { KilljoyAbilities } from '@/lib/constants/abilities/agents/killjoy';
+import { NeonAbilities } from '@/lib/constants/abilities/agents/neon';
+import { OmenAbilities } from '@/lib/constants/abilities/agents/omen';
+import { PhoenixAbilities } from '@/lib/constants/abilities/agents/phoenix';
+import { RazeAbilities } from '@/lib/constants/abilities/agents/raze';
+import { ReynaAbilities } from '@/lib/constants/abilities/agents/reyna';
+import { SageAbilities } from '@/lib/constants/abilities/agents/sage';
+import { SkyeAbilities } from '@/lib/constants/abilities/agents/skye';
+import { SovaAbilities } from '@/lib/constants/abilities/agents/sova';
+import { TejoAbilities } from '@/lib/constants/abilities/agents/tejo';
+import { VetoAbilities } from '@/lib/constants/abilities/agents/veto';
+import { ViperAbilities } from '@/lib/constants/abilities/agents/viper';
+import { VyseAbilities } from '@/lib/constants/abilities/agents/vyse';
+import { WaylayAbilities } from '@/lib/constants/abilities/agents/waylay';
+import { YoruAbilities } from '@/lib/constants/abilities/agents/yoru';
 
-export * from './abilities/base';
+export * from '@/lib/constants/abilities/base';
 
 export const ABILITY_DEFINITIONS: Record<string, AbilityDefinition> = {
   ...AstraAbilities,
@@ -58,7 +58,7 @@ export const ABILITY_DEFINITIONS: Record<string, AbilityDefinition> = {
   ...ViperAbilities,
   ...VyseAbilities,
   ...WaylayAbilities,
-  ...YoruAbilities
+  ...YoruAbilities,
 };
 
 export function getAbilityDefinition(key: string): AbilityDefinition | undefined {
@@ -69,7 +69,7 @@ export function getAbilityDefinition(key: string): AbilityDefinition | undefined
 
   // Icon path lookup (legacy support)
   if (key.includes('/') || key.includes('.png')) {
-    return Object.values(ABILITY_DEFINITIONS).find(def => def.ability === key);
+    return Object.values(ABILITY_DEFINITIONS).find((def) => def.ability === key);
   }
 
   return undefined;
@@ -83,11 +83,37 @@ export const getAbilityShape = (name: string, description: string): AbilityShape
   const n = name.toLowerCase();
 
   // Wall/Divide priority to avoid Astra Ult description (which mentions stars making Nebulas) triggering 'smoke'
-  if (desc.includes('wall') || n.includes('wall') || desc.includes('barrier') || n.includes('barrier') || desc.includes('divide') || n.includes('divide') || desc.includes('lane') || desc.includes('line') || desc.includes('muro')) return 'wall';
+  if (
+    desc.includes('wall') ||
+    n.includes('wall') ||
+    desc.includes('barrier') ||
+    n.includes('barrier') ||
+    desc.includes('divide') ||
+    n.includes('divide') ||
+    desc.includes('lane') ||
+    desc.includes('line') ||
+    desc.includes('muro')
+  )
+    return 'wall';
 
-  if (desc.includes('smoke') || n.includes('smoke') || desc.includes('nebula') || desc.includes('sphere') || desc.includes('cloud')) return 'smoke';
+  if (
+    desc.includes('smoke') ||
+    n.includes('smoke') ||
+    desc.includes('nebula') ||
+    desc.includes('sphere') ||
+    desc.includes('cloud')
+  )
+    return 'smoke';
 
-  if (desc.includes('puddle') || desc.includes('area') || desc.includes('zone') || desc.includes('field') || desc.includes('stun') || desc.includes('molly')) return 'area';
+  if (
+    desc.includes('puddle') ||
+    desc.includes('area') ||
+    desc.includes('zone') ||
+    desc.includes('field') ||
+    desc.includes('stun') ||
+    desc.includes('molly')
+  )
+    return 'area';
 
   return 'icon';
 };

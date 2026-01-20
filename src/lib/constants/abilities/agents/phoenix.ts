@@ -1,7 +1,7 @@
-import { AbilityDefinition } from '../base';
+import { AbilityDefinition } from '@/lib/constants/abilities/base';
 
 export const PhoenixAbilities: Record<string, AbilityDefinition> = {
-  'Blaze': {
+  Blaze: {
     agent: 'Phoenix',
     ability: 'Blaze',
     shape: 'curved-wall',
@@ -9,17 +9,17 @@ export const PhoenixAbilities: Record<string, AbilityDefinition> = {
       width: {
         max: 21,
         min: 3,
-        unit: 'm'
+        unit: 'm',
       },
       height: {
         value: 2,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 8,
-        unit: 's'
-      }
-    }
+        unit: 's',
+      },
+    },
   },
   'Hot Hands': {
     agent: 'Phoenix',
@@ -29,24 +29,24 @@ export const PhoenixAbilities: Record<string, AbilityDefinition> = {
       radius: {
         max: 4.5,
         min: 4.5,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 4,
-        unit: 's'
-      }
-    }
+        unit: 's',
+      },
+    },
   },
-  'Curveball': {
+  Curveball: {
     agent: 'Phoenix',
     ability: 'Curveball',
     shape: 'icon',
     stats: {
       duration: {
         value: 1.5,
-        unit: 's'
-      }
-    }
+        unit: 's',
+      },
+    },
   },
   'Run it Back': {
     agent: 'Phoenix',
@@ -56,16 +56,16 @@ export const PhoenixAbilities: Record<string, AbilityDefinition> = {
       width: {
         max: 40,
         min: 5,
-        unit: 'm'
+        unit: 'm',
       },
       height: {
         value: 2,
-        unit: 'm'
+        unit: 'm',
       },
       duration: {
         value: 10,
-        unit: 's'
-      }
-    }
-  }
+        unit: 's',
+      },
+    },
+  },
 };

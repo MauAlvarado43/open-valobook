@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { ConfirmModal } from '../../components/ConfirmModal';
-import { useEditorStore } from '../../lib/store/editorStore';
+import { ConfirmModal } from '@/components/ConfirmModal';
+import { useEditorStore } from '@/lib/store/editorStore';
 
 describe('ConfirmModal Component', () => {
   beforeEach(() => {
