@@ -1,6 +1,11 @@
 @echo off
-echo Building Next.js application...
+echo ========================================
+echo Building OpenValoBook Distribution (.exe)
+echo ========================================
+echo.
 npm run build
 echo.
-echo Build complete! Static files are in /out folder
+echo ========================================
+echo Build complete! Check the /dist folder.
+echo ========================================
 pause

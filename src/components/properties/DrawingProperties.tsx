@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect, useRef } from 'react';
 
 const colors = [
@@ -19,7 +21,12 @@ interface DrawingPropertiesProps {
   onStrokeWidthChange: (width: number) => void;
 }
 
-export function DrawingProperties({ color, onColorChange, strokeWidth, onStrokeWidthChange }: DrawingPropertiesProps) {
+export function DrawingProperties({
+  color,
+  onColorChange,
+  strokeWidth,
+  onStrokeWidthChange,
+}: DrawingPropertiesProps) {
   const [localColor, setLocalColor] = useState(color || '#FF4655');
   const debounceTimer = useRef<NodeJS.Timeout | null>(null);
 
@@ -44,10 +51,9 @@ export function DrawingProperties({ color, onColorChange, strokeWidth, onStrokeW
             <button
               key={c.value}
               onClick={() => onColorChange(c.value)}
-              className={`w-8 h-8 rounded border-2 transition-all hover:scale-110 ${color === c.value
-                ? 'border-white shadow-lg scale-110'
-                : 'border-gray-600'
-                }`}
+              className={`w-8 h-8 rounded border-2 transition-all hover:scale-110 ${
+                color === c.value ? 'border-white shadow-lg scale-110' : 'border-gray-600'
+              }`}
               /* eslint-disable-next-line react/forbid-component-props */
               style={{ backgroundColor: c.value }}
               title={c.name}
@@ -63,10 +69,13 @@ export function DrawingProperties({ color, onColorChange, strokeWidth, onStrokeW
               className="absolute inset-0 w-8 h-8 opacity-0 cursor-pointer z-10"
               title="Custom color"
             />
-            <div className={`w-8 h-8 rounded border-2 flex items-center justify-center transition-all ${color && !colors.some(c => c.value === color)
-              ? 'border-white shadow-lg scale-110 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500'
-              : 'border-gray-600 group-hover:border-gray-400 bg-gray-700'
-              }`}>
+            <div
+              className={`w-8 h-8 rounded border-2 flex items-center justify-center transition-all ${
+                color && !colors.some((c) => c.value === color)
+                  ? 'border-white shadow-lg scale-110 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500'
+                  : 'border-gray-600 group-hover:border-gray-400 bg-gray-700'
+              }`}
+            >
               <span className="text-white text-[10px] font-bold">HEX</span>
             </div>
           </div>
@@ -82,10 +91,11 @@ export function DrawingProperties({ color, onColorChange, strokeWidth, onStrokeW
             <button
               key={w}
               onClick={() => onStrokeWidthChange(w)}
-              className={`px-3 py-1 rounded text-xs font-medium transition-all ${strokeWidth === w
-                ? 'bg-blue-600 text-white'
-                : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-                }`}
+              className={`px-3 py-1 rounded text-xs font-medium transition-all ${
+                strokeWidth === w
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+              }`}
             >
               {w}px
             </button>

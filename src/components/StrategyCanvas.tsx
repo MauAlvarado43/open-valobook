@@ -11,6 +11,7 @@ import { ElementPropertiesPanel } from './ElementPropertiesPanel';
 import type { DrawingElement, AgentPlacement, AbilityPlacement } from '@/types/strategy';
 import type Konva from 'konva';
 import { useCanvasDrawing } from './canvas/useCanvasDrawing';
+import type { EditorState } from '@/lib/store/editorStore';
 
 interface StrategyCanvasProps {
   width?: number;
@@ -37,7 +38,7 @@ const MapImage = memo(function MapImage({ src, rotation }: { src: string; rotati
   );
 });
 
-export function StrategyCanvas({ }: StrategyCanvasProps) {
+export function StrategyCanvas({}: StrategyCanvasProps) {
   const stageRef = useRef<Konva.Stage>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerSize, setContainerSize] = useState({ width: 1024, height: 1024 });
@@ -58,35 +59,37 @@ export function StrategyCanvas({ }: StrategyCanvasProps) {
     removeElement,
     undo,
     redo,
-    selectElement
+    selectElement,
+    setTool,
+    saveToLibrary,
+    strategyName,
+    exportAsImage,
+    clearCanvas,
+    setStatus,
+    setConfirmModal,
   } = useEditorStore();
 
-  const {
-    currentShape,
-    selectionBox,
-    handleMouseDown,
-    handleMouseMove,
-    handleMouseUp
-  } = useCanvasDrawing(scale, autoScale, stageRef);
+  const { currentShape, selectionBox, handleMouseDown, handleMouseMove, handleMouseUp } =
+    useCanvasDrawing(scale, autoScale, stageRef);
 
   // Maps that need rotation to be displayed correctly
   const mapRotations: Record<string, number> = {
-    'abyss': 90,
-    'ascent': 90,
-    'bind': 0,
-    'breeze': 0,
-    'corrode': 90,
-    'fracture': 0,
-    'haven': 90,
-    'icebox': 270,
-    'lotus': 0,
-    'pearl': 0,
-    'split': 90,
-    'sunset': 0,
+    abyss: 90,
+    ascent: 90,
+    bind: 0,
+    breeze: 0,
+    corrode: 90,
+    fracture: 0,
+    haven: 90,
+    icebox: 270,
+    lotus: 0,
+    pearl: 0,
+    split: 90,
+    sunset: 0,
   };
 
   const mapImageSrc = selectedMap ? `/assets/maps/${selectedMap}.png` : null;
-  const baseRotation = selectedMap ? (mapRotations[selectedMap] || 0) : 0;
+  const baseRotation = selectedMap ? mapRotations[selectedMap] || 0 : 0;
   const mapRotation = baseRotation + (strategySide === 'defense' ? 180 : 0);
 
   // Responsive scaling
@@ -98,8 +101,8 @@ export function StrategyCanvas({ }: StrategyCanvasProps) {
         setAutoScale(s);
         setContainerSize({ width: cw, height: ch });
         setStageOffset({
-          x: (cw - (1024 * s)) / 2,
-          y: (ch - (1024 * s)) / 2
+          x: (cw - 1024 * s) / 2,
+          y: (ch - 1024 * s) / 2,
         });
       }
     };
@@ -111,24 +114,144 @@ export function StrategyCanvas({ }: StrategyCanvasProps) {
   // Keyboard shortcuts
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.ctrlKey && e.altKey && e.key === 'z') {
+      // Don't trigger shortcuts if user is typing in an input or textarea
+      if (
+        document.activeElement instanceof HTMLInputElement ||
+        document.activeElement instanceof HTMLTextAreaElement
+      ) {
+        if (e.key === 'Escape') {
+          (document.activeElement as HTMLElement).blur();
+        }
+        return;
+      }
+
+      // System Actions
+      if (e.ctrlKey && e.key.toLowerCase() === 'z') {
+        e.preventDefault();
+        if (e.shiftKey || e.altKey) {
+          redo();
+          setStatus({ type: 'success', msg: 'Redo' }, 1000);
+        } else {
+          undo();
+          setStatus({ type: 'success', msg: 'Undo' }, 1000);
+        }
+      } else if (e.ctrlKey && e.key.toLowerCase() === 'y') {
         e.preventDefault();
         redo();
-      } else if (e.ctrlKey && e.key === 'z') {
+        setStatus({ type: 'success', msg: 'Redo' }, 1000);
+      } else if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'z') {
+        // Explicitly handle Ctrl+Shift+Z for some layouts
         e.preventDefault();
-        undo();
+        redo();
+        setStatus({ type: 'success', msg: 'Redo' }, 1000);
+      } else if (e.ctrlKey && e.key.toLowerCase() === 's') {
+        e.preventDefault();
+        saveToLibrary(strategyName);
+        setStatus({ type: 'success', msg: 'Strategy Saved' });
+      } else if (e.ctrlKey && e.key.toLowerCase() === 'e') {
+        e.preventDefault();
+        exportAsImage();
+        setStatus({ type: 'loading', msg: 'Exporting...' });
       } else if (e.key === 'Delete') {
         e.preventDefault();
-        if (selectedElementIds.length > 0) {
-          selectedElementIds.forEach(id => removeElement(id));
-        } else if (selectedElementId) {
-          removeElement(selectedElementId);
+        if (selectedElementIds.length > 0 || selectedElementId) {
+          if (selectedElementIds.length > 0) {
+            selectedElementIds.forEach((id) => removeElement(id));
+          } else if (selectedElementId) {
+            removeElement(selectedElementId);
+          }
+          setStatus({ type: 'success', msg: 'Elements Deleted' }, 1000);
+        }
+      } else if (e.shiftKey && e.key === 'Escape') {
+        e.preventDefault();
+        setConfirmModal({
+          title: 'Clear Canvas',
+          message: 'Are you sure you want to clear all strategy elements?',
+          onConfirm: clearCanvas,
+        });
+      }
+
+      // Tool Selection
+      if (!e.ctrlKey && !e.altKey && !e.metaKey) {
+        const keyMap: Record<string, EditorState['tool']> = {
+          v: 'select',
+          p: 'pen',
+          l: 'line',
+          a: 'arrow',
+          c: 'circle',
+          r: 'rectangle',
+          t: 'text',
+          i: 'icon',
+        };
+        const key = e.key.toLowerCase();
+        if (keyMap[key]) {
+          setTool(keyMap[key]);
+          setStatus({ type: 'success', msg: `${keyMap[key].toUpperCase()} Active` }, 800);
+        } else if (key === 's') {
+          saveToLibrary(strategyName);
+          setStatus({ type: 'success', msg: 'Strategy Saved' });
         }
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [undo, redo, selectedElementId, selectedElementIds, removeElement]);
+  }, [
+    undo,
+    redo,
+    selectedElementId,
+    selectedElementIds,
+    removeElement,
+    setTool,
+    saveToLibrary,
+    strategyName,
+    exportAsImage,
+    clearCanvas,
+    setStatus,
+    setConfirmModal,
+  ]);
+
+  // Image Export Listener
+  useEffect(() => {
+    const handleExport = async (e: Event) => {
+      const type = e.type === 'canvas:export:pdf' ? 'pdf' : 'png';
+
+      if (!stageRef.current) return;
+
+      const dataUrl = stageRef.current.toDataURL({ pixelRatio: 2 });
+
+      if (type === 'pdf') {
+        const { jsPDF } = await import('jspdf');
+        const pdf = new jsPDF({
+          orientation: 'landscape',
+          unit: 'px',
+          format: [stageRef.current.width() * 2, stageRef.current.height() * 2],
+        });
+        pdf.addImage(
+          dataUrl,
+          'PNG',
+          0,
+          0,
+          stageRef.current.width() * 2,
+          stageRef.current.height() * 2
+        );
+        const pdfBase64 = pdf.output('datauristring').split(',')[1];
+        if (window.electron?.saveFileDialog) {
+          await window.electron.saveFileDialog(pdfBase64, true, 'pdf');
+        }
+      } else {
+        if (window.electron?.saveFileDialog) {
+          await window.electron.saveFileDialog(dataUrl, true, 'png');
+        }
+      }
+    };
+
+    window.addEventListener('canvas:export', handleExport);
+    window.addEventListener('canvas:export:pdf', handleExport);
+    return () => {
+      window.removeEventListener('canvas:export', handleExport);
+      window.removeEventListener('canvas:export:pdf', handleExport);
+    };
+  }, []);
 
   const handleElementDragEnd = (id: string) => (e: Konva.KonvaEventObject<DragEvent>) => {
     updateElement(id, { x: e.target.x(), y: e.target.y() });
@@ -143,13 +266,22 @@ export function StrategyCanvas({ }: StrategyCanvasProps) {
   };
 
   const getCursorStyle = () => {
-    if ((tool === 'ability' && selectedAbilityIcon) || (tool === 'agent' && selectedAgentId) || tool === 'pen' || tool === 'timer-path') return 'cursor-crosshair';
+    if (
+      (tool === 'ability' && selectedAbilityIcon) ||
+      (tool === 'agent' && selectedAgentId) ||
+      tool === 'pen' ||
+      tool === 'timer-path'
+    )
+      return 'cursor-crosshair';
     if (tool === 'text') return 'cursor-text';
     return 'cursor-default';
   };
 
   return (
-    <div ref={containerRef} className="relative w-full h-full overflow-hidden bg-gray-900 shadow-2xl rounded-lg border border-gray-700">
+    <div
+      ref={containerRef}
+      className="relative w-full h-full overflow-hidden bg-gray-900 shadow-2xl rounded-lg border border-gray-700"
+    >
       <Stage
         ref={stageRef}
         width={containerSize.width}
@@ -170,7 +302,8 @@ export function StrategyCanvas({ }: StrategyCanvasProps) {
           {mapImageSrc && <MapImage src={mapImageSrc} rotation={mapRotation} />}
 
           {canvasData.elements.map((element) => {
-            const isSelected = element.id === selectedElementId || selectedElementIds.includes(element.id);
+            const isSelected =
+              element.id === selectedElementId || selectedElementIds.includes(element.id);
             const isDraggable = tool === 'select' || isSelected;
 
             if (element.type === 'agent') {
@@ -220,8 +353,8 @@ export function StrategyCanvas({ }: StrategyCanvasProps) {
                   element={currentShape as AgentPlacement}
                   isSelected={false}
                   isDraggable={false}
-                  onSelect={() => { }}
-                  onDragEnd={() => { }}
+                  onSelect={() => {}}
+                  onDragEnd={() => {}}
                 />
               )}
               {currentShape.type === 'ability' && (
@@ -229,8 +362,8 @@ export function StrategyCanvas({ }: StrategyCanvasProps) {
                   element={currentShape as AbilityPlacement}
                   isSelected={false}
                   isDraggable={false}
-                  onSelect={() => { }}
-                  onDragEnd={() => { }}
+                  onSelect={() => {}}
+                  onDragEnd={() => {}}
                 />
               )}
               {currentShape.type !== 'agent' && currentShape.type !== 'ability' && (
@@ -238,8 +371,8 @@ export function StrategyCanvas({ }: StrategyCanvasProps) {
                   element={currentShape as DrawingElement}
                   isSelected={false}
                   isDraggable={false}
-                  onSelect={() => { }}
-                  onDragEnd={() => { }}
+                  onSelect={() => {}}
+                  onDragEnd={() => {}}
                 />
               )}
             </>
@@ -270,7 +403,9 @@ export function StrategyCanvas({ }: StrategyCanvasProps) {
 
       {selectedMap && (
         <>
-          <div className={`absolute top-4 right-4 px-4 py-2 rounded-md font-bold text-white shadow-lg ${strategySide === 'attack' ? 'bg-red-600' : 'bg-blue-600'}`}>
+          <div
+            className={`absolute top-4 right-4 px-4 py-2 rounded-md font-bold text-white shadow-lg ${strategySide === 'attack' ? 'bg-red-600' : 'bg-blue-600'}`}
+          >
             {strategySide === 'attack' ? '⚔️ ATTACK' : '🛡️ DEFENSE'}
           </div>
 

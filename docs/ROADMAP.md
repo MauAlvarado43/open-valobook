@@ -45,7 +45,6 @@ OpenValoBook is an open-source desktop application for creating and visualizing 
 - ✅ Customizable effect areas with editable handles
 - ✅ Curved-wall system with configurable tension and intermediate points
 - ✅ Guided-path system for free-form trajectories
-- Utility duration and timing
 
 **Advanced Layer System**
 - Timeline for strategy sequences
@@ -190,7 +189,7 @@ OpenValoBook/
 - [x] Place agent icons
 - [x] Place ability icons
 
-### Milestone 1.5: Advanced Ability System 🚧 WIP
+### Milestone 1.5: Advanced Ability System ✅ COMPLETED
 
 - [x] Agent icon placement with side indicators
 - [x] Agent selector UI with all 28 agents
@@ -202,15 +201,16 @@ OpenValoBook/
 - [x] Ability-specific configurations (Deadlock Annihilation, Harbor High Tide)
 - [x] Editable handles for all ability shapes
 - [x] Guided-path system for free-form trajectories
+- [x] Refined icon rendering (Spike, Danger, Warning contrast)
+- [x] Performance optimization for custom color pickers
 
-### Milestone 2: Agent & Ability System
+### Milestone 2: Agent & Ability System 🚧 WIP
 
 - [x] Agent icon placement on canvas
 - [x] Agent selector UI
 - [x] Ability icon placement
 - [x] Ability selector (filtered by agent)
 - [x] Visual effect indicators (smoke radius, wall placement, etc.)
-- [ ] Duration and timing indicators
 
 ### Milestone 3: File Management
 
@@ -342,11 +342,7 @@ interface AppSettings {
 
 ## Success Metrics
 
-- [ ] 1000+ downloads in first month
-- [ ] 5000+ strategies created
 - [ ] Average strategy creation time < 5 minutes
-- [ ] 80%+ user satisfaction
-- [ ] Active GitHub community with contributions
 - [ ] Multi-platform support (Windows, macOS, Linux)
 
 ## Next Steps
@@ -371,7 +367,3 @@ interface AppSettings {
    - Download Valorant maps
    - Create/collect agent icons
    - Organize assets in folders
-
----
-
-**Ready to begin? The next step would be to initialize the project with the chosen stack and create the first canvas editor prototype.**

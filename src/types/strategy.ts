@@ -61,7 +61,19 @@ export type StrategySide = 'attack' | 'defense';
 /**
  * Canvas element types
  */
-export type ElementType = 'agent' | 'ability' | 'line' | 'arrow' | 'circle' | 'rectangle' | 'text' | 'freehand' | 'timer-path' | 'vision-cone' | 'icon' | 'image';
+export type ElementType =
+  | 'agent'
+  | 'ability'
+  | 'line'
+  | 'arrow'
+  | 'circle'
+  | 'rectangle'
+  | 'text'
+  | 'freehand'
+  | 'timer-path'
+  | 'vision-cone'
+  | 'icon'
+  | 'image';
 
 /**
  * Base canvas element
@@ -94,7 +106,16 @@ export interface AbilityPlacement extends CanvasElement {
   abilityIcon: string;
   abilityName?: string;
   side: StrategySide;
-  subType?: 'default' | 'smoke' | 'wall' | 'curved-wall' | 'rect' | 'area' | 'path' | 'icon' | 'guided-path';
+  subType?:
+    | 'default'
+    | 'smoke'
+    | 'wall'
+    | 'curved-wall'
+    | 'rect'
+    | 'area'
+    | 'path'
+    | 'icon'
+    | 'guided-path';
   radius?: number;
   innerRadius?: number; // For area: inner detection radius (e.g., Alarmbot)
   opacity?: number;
@@ -112,7 +133,17 @@ export interface AbilityPlacement extends CanvasElement {
  * Drawing element (line, arrow, shape, text)
  */
 export interface DrawingElement extends CanvasElement {
-  type: 'line' | 'arrow' | 'circle' | 'rectangle' | 'text' | 'freehand' | 'timer-path' | 'vision-cone' | 'icon' | 'image';
+  type:
+    | 'line'
+    | 'arrow'
+    | 'circle'
+    | 'rectangle'
+    | 'text'
+    | 'freehand'
+    | 'timer-path'
+    | 'vision-cone'
+    | 'icon'
+    | 'image';
   color?: string;
   strokeWidth?: number;
   points?: number[];
@@ -153,6 +184,18 @@ export interface Strategy {
   canvasData: CanvasData;
   authorId?: string;
   likes: number;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
+}
+
+/**
+ * Strategy stored in local library
+ */
+export interface LibraryStrategy {
+  id: string;
+  name: string;
+  mapName: string;
+  side: string;
+  updatedAt: string | Date;
+  data: CanvasData;
 }
