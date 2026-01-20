@@ -245,7 +245,7 @@ OpenValoBook/
 - [x] Testing infrastructure (Unit, Integration with Vitest & RTL)
 - [ ] Language localization (i18n)
 - [ ] Complete documentation
-- [ ] Tutorials and guides
+- [ ] **Comprehensive Interactive Tutorial**: A high-quality, fully interactive walkthrough embedded in the app. It will guide distinct user flows (Drawing, Agent Placement, Site Execution planning) to ensure users can utilize 100% of the tool's power.
 
 ### Phase 7: The "Book" Experience (v2.0 Vision) 🚀
 *Beyond individual strategies, we focus on the "Book" concept.*

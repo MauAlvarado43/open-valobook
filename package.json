@@ -1,130 +1,134 @@
 {
-    "name":  "openvalobook",
-    "version":  "1.0.0",
-    "description":  "Open-source Valorant strategy planner and sharing platform",
-    "author":  "MauAlvarado43",
-    "private":  true,
-    "main":  "electron/main.js",
-    "scripts":  {
-                    "dev:web":  "next dev -p 3001",
-                    "dev:electron":  "wait-on http://localhost:3001 \u0026\u0026 cross-env NODE_ENV=development electron .",
-                    "dev":  "concurrently \"npm run dev:web\" \"npm run dev:electron\"",
-                    "build:web":  "next build",
-                    "build:exe":  "electron-builder",
-                    "build":  "npm run build:web \u0026\u0026 npm run build:exe",
-                    "release":  "npm run build:web \u0026\u0026 npm run build:exe -- --publish always",
-                    "start":  "electron .",
-                    "lint":  "next lint",
-                    "test":  "vitest run",
-                    "test:watch":  "vitest",
-                    "type-check":  "tsc --noEmit",
-                    "format":  "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
-                    "update:assets":  "node scripts/scrape-assets.mjs",
-                    "update:stats":  "node scripts/scrape-ability-stats.mjs",
-                    "update:all":  "npm run update:assets \u0026\u0026 npm run update:stats",
-                    "pack":  "electron-builder --dir",
-                    "dist":  "electron-builder",
-                    "prepare":  "husky"
-                },
-    "lint-staged":  {
-                        "src/**/*.{ts,tsx,js,jsx}":  [
-                                                         "eslint --fix",
-                                                         "prettier --write"
-                                                     ],
-                        "src/**/*.css":  [
-                                             "prettier --write"
-                                         ]
-                    },
-    "dependencies":  {
-                         "@dnd-kit/core":  "6.3.1",
-                         "@dnd-kit/sortable":  "10.0.0",
-                         "@dnd-kit/utilities":  "3.2.2",
-                         "jspdf":  "4.0.0",
-                         "konva":  "10.0.12",
-                         "lucide-react":  "0.562.0",
-                         "next":  "14.1.0",
-                         "react":  "18.2.0",
-                         "react-dom":  "18.2.0",
-                         "react-konva":  "18.2.14",
-                         "use-image":  "1.1.4",
-                         "zustand":  "5.0.9"
-                     },
-    "devDependencies":  {
-                            "@testing-library/jest-dom":  "6.9.1",
-                            "@testing-library/react":  "16.3.2",
-                            "@types/jsdom":  "27.0.0",
-                            "@types/node":  "20.11.0",
-                            "@types/react":  "18.2.48",
-                            "@types/react-dom":  "18.2.18",
-                            "@typescript-eslint/eslint-plugin":  "6.21.0",
-                            "@typescript-eslint/parser":  "6.21.0",
-                            "@vitejs/plugin-react":  "4.7.0",
-                            "autoprefixer":  "10.4.17",
-                            "concurrently":  "9.2.1",
-                            "cross-env":  "7.0.3",
-                            "electron":  "39.2.7",
-                            "electron-builder":  "26.4.0",
-                            "eslint":  "8.56.0",
-                            "eslint-config-next":  "14.1.0",
-                            "husky":  "9.1.7",
-                            "jsdom":  "26.1.0",
-                            "lint-staged":  "15.5.2",
-                            "postcss":  "8.4.33",
-                            "prettier":  "3.2.4",
-                            "tailwindcss":  "3.4.1",
-                            "typescript":  "5.3.3",
-                            "vitest":  "3.2.4",
-                            "wait-on":  "8.0.5"
-                        },
-    "engines":  {
-                    "node":  "\u003e=18.0.0",
-                    "npm":  "\u003e=9.0.0"
-                },
-    "build":  {
-                  "appId":  "com.openvalobook.app",
-                  "productName":  "OpenValoBook",
-                  "publish":  {
-                                  "provider":  "github",
-                                  "owner":  "MauAlvarado43",
-                                  "repo":  "open-valobook"
-                              },
-                  "directories":  {
-                                      "output":  "dist"
-                                  },
-                  "files":  [
-                                "out/**/*",
-                                "electron/**/*",
-                                "public/**/*",
-                                "package.json"
-                            ],
-                  "win":  {
-                              "target":  [
-                                             "nsis",
-                                             "portable"
-                                         ],
-                              "icon":  "public/icon.png"
-                          },
-                  "mac":  {
-                              "target":  [
-                                             "dmg",
-                                             "zip"
-                                         ],
-                              "icon":  "public/icon.png",
-                              "category":  "public.app-category.productivity"
-                          },
-                  "linux":  {
-                                "target":  [
-                                               "AppImage",
-                                               "deb"
-                                           ],
-                                "icon":  "public/icon.png",
-                                "category":  "Utility"
-                            },
-                  "nsis":  {
-                               "oneClick":  false,
-                               "allowToChangeInstallationDirectory":  true,
-                               "createDesktopShortcut":  true,
-                               "createStartMenuShortcut":  true
-                           }
-              }
+    "name": "openvalobook",
+    "version": "1.0.0",
+    "description": "Open-source Valorant strategy planner and sharing platform",
+    "author": {
+        "name": "MauAlvarado43",
+        "email": "maualvarado43@gmail.com"
+    },
+    "private": true,
+    "main": "electron/main.js",
+    "scripts": {
+        "dev:web": "next dev -p 3001",
+        "dev:electron": "wait-on http://localhost:3001 \u0026\u0026 cross-env NODE_ENV=development electron .",
+        "dev": "concurrently \"npm run dev:web\" \"npm run dev:electron\"",
+        "build:web": "next build",
+        "build:exe": "electron-builder",
+        "build": "npm run build:web \u0026\u0026 npm run build:exe",
+        "release": "npm run build:web \u0026\u0026 npm run build:exe -- --publish always",
+        "start": "electron .",
+        "lint": "next lint",
+        "test": "vitest run",
+        "test:watch": "vitest",
+        "type-check": "tsc --noEmit",
+        "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
+        "update:assets": "node scripts/scrape-assets.mjs",
+        "update:stats": "node scripts/scrape-ability-stats.mjs",
+        "update:all": "npm run update:assets \u0026\u0026 npm run update:stats",
+        "pack": "electron-builder --dir",
+        "dist": "electron-builder",
+        "prepare": "husky"
+    },
+    "lint-staged": {
+        "src/**/*.{ts,tsx,js,jsx}": [
+            "eslint --fix",
+            "prettier --write"
+        ],
+        "src/**/*.css": [
+            "prettier --write"
+        ]
+    },
+    "dependencies": {
+        "@dnd-kit/core": "6.3.1",
+        "@dnd-kit/sortable": "10.0.0",
+        "@dnd-kit/utilities": "3.2.2",
+        "jspdf": "4.0.0",
+        "konva": "10.0.12",
+        "lucide-react": "0.562.0",
+        "next": "14.1.0",
+        "react": "18.2.0",
+        "react-dom": "18.2.0",
+        "react-konva": "18.2.14",
+        "use-image": "1.1.4",
+        "zustand": "5.0.9"
+    },
+    "devDependencies": {
+        "@testing-library/jest-dom": "6.9.1",
+        "@testing-library/react": "16.3.2",
+        "@types/jsdom": "27.0.0",
+        "@types/node": "20.11.0",
+        "@types/react": "18.2.48",
+        "@types/react-dom": "18.2.18",
+        "@typescript-eslint/eslint-plugin": "6.21.0",
+        "@typescript-eslint/parser": "6.21.0",
+        "@vitejs/plugin-react": "4.7.0",
+        "autoprefixer": "10.4.17",
+        "concurrently": "9.2.1",
+        "cross-env": "7.0.3",
+        "electron": "39.2.7",
+        "electron-builder": "26.4.0",
+        "eslint": "8.56.0",
+        "eslint-config-next": "14.1.0",
+        "husky": "9.1.7",
+        "jsdom": "26.1.0",
+        "lint-staged": "15.5.2",
+        "postcss": "8.4.33",
+        "prettier": "3.2.4",
+        "tailwindcss": "3.4.1",
+        "typescript": "5.3.3",
+        "vitest": "3.2.4",
+        "wait-on": "8.0.5"
+    },
+    "engines": {
+        "node": "\u003e=18.0.0",
+        "npm": "\u003e=9.0.0"
+    },
+    "build": {
+        "appId": "com.openvalobook.app",
+        "productName": "OpenValoBook",
+        "publish": {
+            "provider": "github",
+            "owner": "MauAlvarado43",
+            "repo": "open-valobook"
+        },
+        "directories": {
+            "output": "dist"
+        },
+        "files": [
+            "out/**/*",
+            "electron/**/*",
+            "public/**/*",
+            "package.json"
+        ],
+        "win": {
+            "target": [
+                "nsis",
+                "portable"
+            ],
+            "icon": "public/icon.png"
+        },
+        "mac": {
+            "target": [
+                "dmg",
+                "zip"
+            ],
+            "icon": "public/icon.png",
+            "category": "public.app-category.productivity"
+        },
+        "linux": {
+            "target": [
+                "AppImage",
+                "deb"
+            ],
+            "icon": "public/icon.png",
+            "maintainer": "MauAlvarado43 <maualvarado43@gmail.com>",
+            "category": "Utility"
+        },
+        "nsis": {
+            "oneClick": false,
+            "allowToChangeInstallationDirectory": true,
+            "createDesktopShortcut": true,
+            "createStartMenuShortcut": true
+        }
+    }
 }
