@@ -14,14 +14,30 @@ import {
   Trash2,
   Calendar,
   ChevronRight,
+  Search,
 } from 'lucide-react';
 
 export default function HomePage() {
   const router = useRouter();
-  const { loadProject } = useEditorStore();
+  const { loadProject, resetProject } = useEditorStore();
   const [showSettings, setShowSettings] = useState(false);
   const [strategies, setStrategies] = useState<import('@/types/strategy').LibraryStrategy[]>([]);
   const [loading, setLoading] = useState(true);
+  const [mapMetadata, setMapMetadata] = useState<Record<string, string>>({});
+  const [searchLibrary, setSearchLibrary] = useState('');
+
+  useEffect(() => {
+    fetch('/assets/maps-metadata.json')
+      .then((res) => res.json())
+      .then((data: any[]) => {
+        const meta: Record<string, string> = {};
+        data.forEach((m) => {
+          meta[m.name.toLowerCase()] = m.splash;
+        });
+        setMapMetadata(meta);
+      })
+      .catch((err) => console.error('Failed to load map metadata:', err));
+  }, []);
 
   const fetchLibrary = async () => {
     if (typeof window !== 'undefined' && window.electron?.listLibrary) {
@@ -66,12 +82,10 @@ export default function HomePage() {
     router.push('/editor');
   };
 
-  const handleDelete = async (e: React.MouseEvent, filename: string) => {
+  const handleDelete = async (e: React.MouseEvent, filename: string, strategyName: string) => {
     e.stopPropagation();
     if (typeof window !== 'undefined' && window.electron?.deleteFromLibrary) {
-      const confirmed = confirm(
-        `Are you sure you want to delete "${filename.replace('.ovb', '')}"?`
-      );
+      const confirmed = confirm(`Are you sure you want to delete "${strategyName}"?`);
       if (confirmed) {
         await window.electron.deleteFromLibrary(filename);
         fetchLibrary();
@@ -80,13 +94,13 @@ export default function HomePage() {
   };
 
   return (
-    <main className="flex min-h-screen bg-[#0F1923] text-white p-8 md:p-16 overflow-hidden relative font-sans">
+    <main className="flex min-h-screen bg-[#0F1923] text-white p-6 md:p-12 lg:p-16 overflow-hidden relative font-sans">
       {/* Background Decor */}
       <div className="absolute top-0 right-0 w-1/3 h-full bg-[#FF4655] opacity-[0.03] skew-x-[-15deg] translate-x-1/2 pointer-events-none" />
 
-      <div className="z-10 flex flex-col md:flex-row gap-16 w-full max-w-7xl mx-auto items-start">
+      <div className="z-10 flex flex-col md:flex-row gap-10 md:gap-16 lg:gap-24 w-full max-w-7xl mx-auto items-start">
         {/* Left Side: Navigation & Identity */}
-        <div className="flex flex-col gap-12 w-full md:w-1/3">
+        <div className="flex flex-col gap-6 md:gap-10 w-full md:w-[280px] lg:w-[340px] shrink-0">
           <header>
             <div className="flex items-center gap-3 mb-2">
               <div className="w-10 h-1 bg-[#FF4655]" />
@@ -94,7 +108,7 @@ export default function HomePage() {
                 Tactical Strategy Planner
               </span>
             </div>
-            <h1 className="text-6xl font-black italic uppercase tracking-tighter leading-[0.8]">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black italic uppercase tracking-tighter leading-[0.8] mb-1">
               OPENVALO<span className="text-[#FF4655]">BOOK</span>
             </h1>
           </header>
@@ -102,85 +116,117 @@ export default function HomePage() {
           <nav className="flex flex-col gap-3">
             <Link
               href="/editor"
-              className="group relative flex items-center justify-between p-5 bg-transparent border border-white/10 hover:border-[#FF4655] transition-all duration-300 overflow-hidden"
+              onClick={() => resetProject()}
+              className="group relative flex items-center justify-between p-3 sm:p-4 bg-transparent border border-white/10 hover:border-[#FF4655] transition-all duration-300 overflow-hidden"
               title="Start a new strategy from scratch"
             >
               <div className="absolute inset-0 bg-[#FF4655] translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-300" />
-              <div className="flex items-center gap-4 relative z-10">
-                <Plus className="text-white group-hover:text-black transition-colors" size={24} />
-                <span className="text-2xl font-black uppercase italic text-white group-hover:text-black transition-colors">
+              <div className="flex items-center gap-3 relative z-10">
+                <Plus className="text-white group-hover:text-black transition-colors" size={20} />
+                <span className="text-base sm:text-lg lg:text-xl font-black uppercase italic text-white group-hover:text-black transition-colors whitespace-nowrap">
                   New Strategy
                 </span>
               </div>
-              <ChevronRight className="relative z-10 text-white/30 group-hover:text-black/50" />
+              <ChevronRight
+                className="relative z-10 text-white/30 group-hover:text-black/50"
+                size={16}
+              />
             </Link>
 
             <button
-              className="group relative flex items-center justify-between p-5 bg-transparent border border-white/10 hover:border-blue-400 transition-all duration-300 overflow-hidden text-left"
+              className="group relative flex items-center justify-between p-3 sm:p-4 bg-transparent border border-white/10 hover:border-blue-400 transition-all duration-300 overflow-hidden text-left"
               onClick={handleLoadFile}
               title="Load an .ovb file from your computer"
             >
               <div className="absolute inset-0 bg-blue-400 translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-300" />
-              <div className="flex items-center gap-4 relative z-10">
+              <div className="flex items-center gap-3 relative z-10">
                 <FolderOpen
                   className="text-white group-hover:text-black transition-colors"
-                  size={24}
+                  size={20}
                 />
-                <span className="text-2xl font-black uppercase italic text-white group-hover:text-black transition-colors">
+                <span className="text-base sm:text-lg lg:text-xl font-black uppercase italic text-white group-hover:text-black transition-colors whitespace-nowrap">
                   Import File
                 </span>
               </div>
-              <ChevronRight className="relative z-10 text-white/30 group-hover:text-black/50" />
+              <ChevronRight
+                className="relative z-10 text-white/30 group-hover:text-black/50"
+                size={16}
+              />
             </button>
 
             <button
-              className="group relative flex items-center justify-between p-5 bg-transparent border border-white/10 hover:border-gray-400 transition-all duration-300 overflow-hidden text-left"
+              className="group relative flex items-center justify-between p-3 sm:p-4 bg-transparent border border-white/10 hover:border-gray-400 transition-all duration-300 overflow-hidden text-left"
               onClick={() => setShowSettings(true)}
               title="Adjust application settings"
             >
               <div className="absolute inset-0 bg-gray-400 translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-300" />
-              <div className="flex items-center gap-4 relative z-10">
+              <div className="flex items-center gap-3 relative z-10">
                 <Settings
                   className="text-white group-hover:text-black transition-colors"
-                  size={24}
+                  size={20}
                 />
-                <span className="text-2xl font-black uppercase italic text-white group-hover:text-black transition-colors">
+                <span className="text-base sm:text-lg lg:text-xl font-black uppercase italic text-white group-hover:text-black transition-colors whitespace-nowrap">
                   Settings
                 </span>
               </div>
-              <ChevronRight className="relative z-10 text-white/30 group-hover:text-black/50" />
+              <ChevronRight
+                className="relative z-10 text-white/30 group-hover:text-black/50"
+                size={16}
+              />
             </button>
 
             <button
               onClick={handleExit}
-              className="group relative flex items-center gap-4 p-5 bg-transparent border border-white/10 hover:border-red-900 transition-all duration-300 overflow-hidden mt-6 text-left"
+              className="group relative flex items-center gap-3 p-3 sm:p-4 bg-transparent border border-white/10 hover:border-red-900 transition-all duration-300 overflow-hidden mt-2 text-left"
               title="Close the application"
             >
               <div className="absolute inset-0 bg-red-900 translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-300" />
               <LogOut
                 className="relative z-10 text-white group-hover:text-red-200 transition-colors"
-                size={24}
+                size={20}
               />
-              <span className="relative z-10 text-2xl font-black uppercase italic text-white group-hover:text-red-200 transition-colors">
-                Quit Game
+              <span className="relative z-10 text-base sm:text-lg lg:text-xl font-black uppercase italic text-white group-hover:text-red-200 transition-colors whitespace-nowrap">
+                Quit
               </span>
             </button>
           </nav>
 
           <footer className="mt-8 text-gray-600 text-[9px] uppercase tracking-widest leading-relaxed">
-            <p>© 2024 MauAlvarado43. OpenValoBook isn&apos;t endorsed by Riot Games.</p>
+            <p>OpenValoBook isn&apos;t endorsed by Riot Games.</p>
           </footer>
         </div>
 
         {/* Right Side: Strategy Library */}
-        <div className="flex-1 w-full bg-white/[0.02] border border-white/5 p-8 rounded-2xl flex flex-col h-[calc(100vh-128px)] overflow-hidden">
-          <div className="flex items-center justify-between mb-8">
+        <div className="flex-1 w-full bg-white/[0.02] border border-white/5 p-6 rounded-2xl flex flex-col h-auto md:h-[calc(100vh-128px)] overflow-hidden md:min-w-0">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-8 border-b border-white/5 pb-6">
             <div className="flex items-center gap-4">
-              <Library className="text-[#FF4655]" size={28} />
-              <h2 className="text-3xl font-black italic uppercase tracking-tighter">My Library</h2>
+              <div className="p-2 bg-[#FF4655]/10 rounded-lg">
+                <Library className="text-[#FF4655]" size={24} />
+              </div>
+              <div>
+                <h2 className="text-2xl font-black italic uppercase tracking-tighter leading-none">
+                  My Library
+                </h2>
+                <div className="text-[9px] font-bold text-gray-500 uppercase tracking-[0.2em] mt-1">
+                  {strategies.length} Saved Strategies
+                </div>
+              </div>
             </div>
-            <div className="text-xs font-bold text-gray-500 uppercase tracking-widest">
-              {strategies.length} Saved Strategies
+
+            <div className="relative group w-full lg:w-72">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <Search
+                  className="text-white/20 group-focus-within:text-[#FF4655] transition-colors"
+                  size={14}
+                />
+              </div>
+              <input
+                type="text"
+                placeholder="SEARCH STRATEGY..."
+                value={searchLibrary}
+                onChange={(e) => setSearchLibrary(e.target.value)}
+                className="block w-full bg-white/[0.03] border border-white/10 rounded-sm py-2 pl-10 pr-4 text-white text-[10px] font-black uppercase tracking-widest placeholder:text-white/10 focus:outline-none focus:border-[#FF4655]/50 focus:bg-white/[0.05] transition-all"
+              />
             </div>
           </div>
 
@@ -203,49 +249,81 @@ export default function HomePage() {
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {strategies.map((s) => (
-                  <div
-                    key={s.id}
-                    onClick={() => handleLoadLibrary(s)}
-                    className="group bg-white/5 border border-white/5 hover:border-[#FF4655]/50 p-5 rounded-xl transition-all cursor-pointer relative overflow-hidden"
-                  >
-                    <div className="flex flex-col gap-4 relative z-10">
-                      <div className="flex justify-between items-start">
-                        <div className="flex flex-col">
-                          <span className="text-[10px] font-black text-[#FF4655] uppercase tracking-widest mb-1">
-                            {s.mapName}
-                          </span>
-                          <h3 className="text-xl font-black uppercase italic tracking-tighter truncate w-40">
-                            {s.name}
-                          </h3>
-                        </div>
-                        <div
-                          className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${s.side === 'attack' ? 'bg-red-500/20 text-red-400' : 'bg-blue-500/20 text-blue-400'}`}
-                        >
-                          {s.side}
-                        </div>
-                      </div>
+                {strategies
+                  .filter((s) => {
+                    const name = (s.data?.name || s.name || '').toLowerCase();
+                    const map = (s.mapName || '').toLowerCase();
+                    const query = searchLibrary.toLowerCase();
+                    return name.includes(query) || map.includes(query);
+                  })
+                  .sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
+                  .map((s) => {
+                    const splashPath = mapMetadata[s.mapName?.toLowerCase() || ''] || '';
+                    return (
+                      <div
+                        key={s.id}
+                        onClick={() => handleLoadLibrary(s)}
+                        className="group bg-[#0F1923] border border-white/10 hover:border-[#FF4655]/50 rounded-xl transition-all cursor-pointer relative overflow-hidden h-40 shadow-2xl"
+                      >
+                        {/* Background Map Splash */}
+                        {splashPath && (
+                          <div className="absolute inset-0 z-0">
+                            <img
+                              src={`/assets/${splashPath}`}
+                              alt={s.mapName}
+                              className="w-full h-full object-cover opacity-30 group-hover:scale-110 transition-transform duration-700 brightness-50"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#0F1923] via-[#0F1923]/60 to-transparent" />
+                          </div>
+                        )}
 
-                      <div className="flex items-center justify-between mt-2">
-                        <div className="flex items-center gap-2 text-gray-500 text-[10px] font-bold">
-                          <Calendar size={12} />
-                          {new Date(s.updatedAt).toLocaleDateString()}
+                        <div className="flex flex-col h-full p-5 relative z-10 justify-between">
+                          <div className="flex flex-col">
+                            <div className="flex items-center gap-3 mb-1">
+                              <span className="text-[10px] font-black text-[#FF4655] uppercase tracking-[0.2em] drop-shadow-lg">
+                                {s.mapName}
+                              </span>
+                              <div
+                                className={`px-2 py-0.5 rounded-sm text-[8px] font-black uppercase italic tracking-widest leading-none ${
+                                  s.side === 'attack'
+                                    ? 'bg-[#FF4655] text-white'
+                                    : 'bg-blue-600 text-white'
+                                }`}
+                              >
+                                {s.side}
+                              </div>
+                            </div>
+                            <div className="flex justify-between items-center">
+                              <h3 className="text-2xl font-black uppercase italic tracking-tighter drop-shadow-xl text-white truncate flex-1 min-w-0 pr-4">
+                                {s.data?.name || s.name || 'Untitled Strategy'}
+                              </h3>
+                              <div className="text-[#FF4655] opacity-0 group-hover:opacity-100 transition-all translate-x-2 group-hover:translate-x-0 shrink-0">
+                                <ChevronRight size={24} />
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="flex items-center justify-between mt-auto">
+                            <div className="flex items-center gap-2 text-white/40 text-[10px] font-bold">
+                              <Calendar size={12} className="text-[#FF4655]" />
+                              {new Date(s.updatedAt).toLocaleDateString(undefined, {
+                                year: 'numeric',
+                                month: 'short',
+                                day: 'numeric',
+                              })}
+                            </div>
+                            <button
+                              onClick={(e) => handleDelete(e, s.id, s.name)}
+                              className="p-2 text-white/20 hover:text-red-500 hover:bg-red-500/10 rounded-full transition-all"
+                              title="Delete from library"
+                            >
+                              <Trash2 size={16} />
+                            </button>
+                          </div>
                         </div>
-                        <button
-                          onClick={(e) => handleDelete(e, s.id)}
-                          className="p-2 text-gray-600 hover:text-red-500 transition-colors"
-                          title="Delete from library"
-                        >
-                          <Trash2 size={16} />
-                        </button>
                       </div>
-                    </div>
-                    {/* Hover Effect */}
-                    <div className="absolute top-0 right-0 p-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <ChevronRight size={20} className="text-[#FF4655]" />
-                    </div>
-                  </div>
-                ))}
+                    );
+                  })}
               </div>
             )}
           </div>
@@ -286,7 +364,7 @@ export default function HomePage() {
       )}
 
       {/* Decorative large text overlay */}
-      <div className="absolute -bottom-20 -right-20 text-[20rem] font-black text-white opacity-[0.02] italic select-none pointer-events-none uppercase leading-[0.8]">
+      <div className="absolute -bottom-10 -right-10 text-[10rem] md:text-[15rem] lg:text-[20rem] font-black text-white opacity-[0.02] italic select-none pointer-events-none uppercase leading-[0.8] overflow-hidden">
         Tactical
       </div>
     </main>

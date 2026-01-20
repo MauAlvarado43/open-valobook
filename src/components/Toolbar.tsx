@@ -22,7 +22,65 @@ import {
   Library,
   ChevronDown,
   FileText,
+  MoreHorizontal,
 } from 'lucide-react';
+
+interface DropdownToolsProps {
+  items: Array<{ id: string; label: string; Icon: any }>;
+  current: string;
+  onSelect: (id: EditorState['tool']) => void;
+  open: boolean;
+  setOpen: (open: boolean) => void;
+  clearSelection: () => void;
+}
+
+function DropdownTools({
+  items,
+  current,
+  onSelect,
+  open,
+  setOpen,
+  clearSelection,
+}: DropdownToolsProps) {
+  return (
+    <div className="relative">
+      <button
+        onClick={() => setOpen(!open)}
+        className={`h-9 w-10 flex items-center justify-center rounded transition-all active:scale-75 shrink-0 ${
+          items.some((t) => t.id === current)
+            ? 'bg-blue-600 text-white shadow-lg'
+            : 'text-white/20 hover:text-white/60 hover:bg-white/5'
+        } ${open ? 'bg-white/10 text-white' : ''}`}
+        title="More tools"
+      >
+        <MoreHorizontal size={18} />
+      </button>
+
+      {open && (
+        <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 p-1 bg-[#1A2530] border border-white/10 rounded-lg shadow-2xl z-[1002] grid grid-cols-2 gap-1 animate-in fade-in slide-in-from-top-1 min-w-[100px]">
+          {items.map((t) => (
+            <button
+              key={t.id}
+              onClick={() => {
+                clearSelection();
+                onSelect(t.id as EditorState['tool']);
+                setOpen(false);
+              }}
+              className={`h-10 w-11 flex items-center justify-center rounded transition-all ${
+                current === t.id
+                  ? 'bg-blue-600 text-white'
+                  : 'text-white/40 hover:text-white hover:bg-white/5'
+              }`}
+              title={t.label}
+            >
+              <t.Icon size={18} />
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
 
 export function Toolbar() {
   const {
@@ -47,6 +105,7 @@ export function Toolbar() {
 
   const [exportFormat, setExportFormat] = useState<'png' | 'pdf'>('png');
   const [showExportOptions, setShowExportOptions] = useState(false);
+  const [showMoreTools, setShowMoreTools] = useState(false);
 
   const handleAction = async (action: () => Promise<unknown>, successMsg: string) => {
     setStatus({ type: 'loading', msg: 'Processing...' });
@@ -106,16 +165,16 @@ export function Toolbar() {
   const bgModule = 'bg-[#0F1923]/80 border border-white/5 backdrop-blur-md shadow-lg';
 
   return (
-    <div className="p-4 border-b border-white/5 bg-[#0F1922] flex flex-col gap-3 select-none">
+    <div className="p-4 border-b border-white/5 bg-[#0F1922] flex flex-col gap-3 select-none relative z-[1000]">
       {/* Meta Row: Identity & System */}
-      <div className="flex items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
         {/* Left: Project Branding */}
         <div
-          className={`flex items-center rounded-lg overflow-hidden group focus-within:ring-1 focus-within:ring-[#FF4655]/50 ${bgModule} ${hClassTop}`}
+          className={`flex items-center rounded-lg overflow-hidden group focus-within:ring-1 focus-within:ring-[#FF4655]/50 ${bgModule} ${hClassTop} w-full sm:w-auto`}
         >
-          <div className="px-3 flex flex-col justify-center min-w-[200px]">
+          <div className="px-3 flex flex-col justify-center flex-1 sm:min-w-[200px]">
             <span className="text-[6px] font-black text-white/30 uppercase tracking-[0.2em] leading-none mb-0.5">
-              STRATEGY_ID
+              STRATEGY_NAME
             </span>
             <input
               type="text"
@@ -127,19 +186,19 @@ export function Toolbar() {
             />
           </div>
           <button
-            onClick={() => handleAction(() => saveToLibrary(strategyName), 'Save Successful')}
-            className="h-full px-4 bg-[#FF4655] text-white hover:bg-[#FF4655]/90 active:scale-95 transition-all flex items-center justify-center"
+            onClick={() => handleAction(() => saveToLibrary(), 'Save Successful')}
+            className="h-full px-4 bg-[#FF4655] text-white hover:bg-[#FF4655]/90 active:scale-95 transition-all flex items-center justify-center shrink-0"
             title="Save to Library [S]"
           >
             <Library size={14} />
           </button>
         </div>
 
-        {/* Center: Status Hub */}
-        <div className="flex-1 flex justify-center">
+        {/* Center: Status Hub (only visible if status exists and on larger screens or as a floating overlay) */}
+        <div className="hidden md:flex flex-1 justify-center pointer-events-none">
           {status && (
             <div
-              className={`px-4 py-1.5 rounded text-[9px] font-black uppercase italic tracking-widest animate-in fade-in fill-mode-both duration-300 ${
+              className={`px-4 py-1.5 rounded text-[9px] font-black uppercase italic tracking-widest animate-in fade-in fill-mode-both duration-300 pointer-events-auto ${
                 status.type === 'success'
                   ? 'bg-green-500 text-black'
                   : status.type === 'error'
@@ -153,7 +212,7 @@ export function Toolbar() {
         </div>
 
         {/* Right: Actions */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
           <div className={`flex rounded-lg overflow-hidden ${bgModule} ${hClassTop}`}>
             <button
               onClick={() => handleAction(saveStrategy, 'Exported File')}
@@ -176,7 +235,7 @@ export function Toolbar() {
           >
             <button
               onClick={triggerExport}
-              className="h-full pl-4 pr-2 text-white font-black uppercase italic text-[9px] flex items-center gap-2.5 hover:bg-blue-500 transition-colors rounded-l-lg"
+              className="h-full pl-4 pr-3 text-white font-black uppercase italic text-[9px] flex items-center gap-2.5 hover:bg-blue-500 transition-colors rounded-l-lg"
               title={`Export as ${exportFormat.toUpperCase()} [Ctrl+E]`}
             >
               <Download size={14} />
@@ -184,7 +243,7 @@ export function Toolbar() {
             </button>
             <button
               onClick={() => setShowExportOptions(!showExportOptions)}
-              className="h-full pr-3 text-white/60 hover:text-white border-l border-white/10 hover:bg-blue-500 transition-all rounded-r-lg"
+              className="h-full w-9 text-white/60 hover:text-white border-l border-white/10 hover:bg-blue-500 transition-all rounded-r-lg flex items-center justify-center"
               title="Select format"
             >
               <ChevronDown size={14} />
@@ -219,92 +278,159 @@ export function Toolbar() {
       </div>
 
       {/* Main Creation Row: Tools & Tactical */}
-      <div className="flex items-center w-full relative h-12">
+      <div className="grid grid-cols-[minmax(120px,1fr)_auto_minmax(120px,1fr)] items-center w-full gap-4 shrink-0 h-12">
         {/* Left: Tactical Side */}
-        <div className="flex-1 flex justify-start h-full">
-          <div className={`flex p-1 gap-1 rounded-lg ${hClassBottom} ${bgModule}`}>
+        <div className="flex justify-start overflow-hidden">
+          <div className={`flex p-1 gap-1 rounded-lg ${hClassBottom} ${bgModule} shrink-0`}>
             <button
               onClick={() => {
                 clearSelection();
                 setStrategySide('attack');
               }}
-              className={`h-full px-6 rounded text-[10px] font-black uppercase italic flex items-center gap-2.5 transition-all ${
+              className={`px-3 2xl:px-6 rounded text-[10px] font-black uppercase italic flex items-center justify-center gap-2.5 transition-all shrink-0 ${
                 strategySide === 'attack'
                   ? 'bg-[#FF4655] text-white shadow-lg shadow-[#FF4655]/30'
                   : 'text-white/30 hover:text-white/70 hover:bg-white/5'
               }`}
             >
               <Swords size={16} />
-              ATTACK
+              <span className="hidden 2xl:inline">ATTACK</span>
             </button>
             <button
               onClick={() => {
                 clearSelection();
                 setStrategySide('defense');
               }}
-              className={`h-full px-6 rounded text-[10px] font-black uppercase italic flex items-center gap-2.5 transition-all ${
+              className={`px-3 2xl:px-6 rounded text-[10px] font-black uppercase italic flex items-center justify-center gap-2.5 transition-all shrink-0 ${
                 strategySide === 'defense'
                   ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30'
                   : 'text-white/30 hover:text-white/70 hover:bg-white/5'
               }`}
             >
               <Shield size={16} />
-              DEFENSE
+              <span className="hidden 2xl:inline">DEFENSE</span>
             </button>
           </div>
         </div>
 
-        {/* CENTERED: Main Toolbar */}
-        <div className="absolute left-1/2 -translate-x-1/2 h-full">
+        {/* CENTER: Main Toolbar (Granular Responsiveness) */}
+        <div className="flex justify-center min-w-0">
           <div
-            className={`flex items-center px-1.5 gap-0.5 rounded-lg ${hClassBottom} ${bgModule}`}
+            className={`flex items-center px-1.5 gap-0.5 rounded-lg ${hClassBottom} ${bgModule} relative`}
           >
-            {tools.map((t) => (
-              <button
-                key={t.id}
-                onClick={() => {
-                  clearSelection();
-                  setTool(t.id as EditorState['tool']);
-                }}
-                className={`h-9 w-11 flex items-center justify-center rounded transition-all active:scale-75 ${
-                  tool === t.id
-                    ? 'bg-blue-600 text-white shadow-lg'
-                    : 'text-white/20 hover:text-white/60 hover:bg-white/5'
-                }`}
-                title={t.label}
-              >
-                <t.Icon size={18} />
-              </button>
-            ))}
+            {/* Ultra High Res (>1536px): All tools */}
+            <div className="hidden 2xl:flex items-center gap-0.5">
+              {tools.map((t) => (
+                <button
+                  key={t.id}
+                  onClick={() => {
+                    clearSelection();
+                    setTool(t.id as EditorState['tool']);
+                  }}
+                  className={`h-9 w-10 flex items-center justify-center rounded transition-all active:scale-75 ${
+                    tool === t.id
+                      ? 'bg-blue-600 text-white shadow-lg'
+                      : 'text-white/20 hover:text-white/60 hover:bg-white/5'
+                  }`}
+                  title={t.label}
+                >
+                  <t.Icon size={18} />
+                </button>
+              ))}
+            </div>
+
+            {/* Medium Res (LG): 6 tools + Dropdown */}
+            <div className="hidden xl:flex 2xl:hidden items-center gap-0.5">
+              {tools.slice(0, 6).map((t) => (
+                <button
+                  key={t.id}
+                  onClick={() => {
+                    clearSelection();
+                    setTool(t.id as EditorState['tool']);
+                  }}
+                  className={`h-9 w-10 flex items-center justify-center rounded transition-all active:scale-75 ${
+                    tool === t.id
+                      ? 'bg-blue-600 text-white shadow-lg'
+                      : 'text-white/20 hover:text-white/60 hover:bg-white/5'
+                  }`}
+                  title={t.label}
+                >
+                  <t.Icon size={18} />
+                </button>
+              ))}
+              <div className="w-px h-6 bg-white/5 mx-1" />
+              <DropdownTools
+                items={Array.from(tools.slice(6))}
+                current={tool}
+                onSelect={setTool}
+                open={showMoreTools}
+                setOpen={setShowMoreTools}
+                clearSelection={clearSelection}
+              />
+            </div>
+
+            {/* Small Res (<LG): 5 tools + Dropdown */}
+            <div className="flex xl:hidden items-center gap-0.5">
+              {tools.slice(0, 5).map((t) => (
+                <button
+                  key={t.id}
+                  onClick={() => {
+                    clearSelection();
+                    setTool(t.id as EditorState['tool']);
+                  }}
+                  className={`h-9 w-10 flex items-center justify-center rounded transition-all active:scale-75 shrink-0 ${
+                    tool === t.id
+                      ? 'bg-blue-600 text-white shadow-lg'
+                      : 'text-white/20 hover:text-white/60 hover:bg-white/5'
+                  }`}
+                  title={t.label}
+                >
+                  <t.Icon size={18} />
+                </button>
+              ))}
+              <div className="w-px h-6 bg-white/5 mx-1" />
+              <DropdownTools
+                items={Array.from(tools.slice(5))}
+                current={tool}
+                onSelect={setTool}
+                open={showMoreTools}
+                setOpen={setShowMoreTools}
+                clearSelection={clearSelection}
+              />
+            </div>
           </div>
         </div>
 
         {/* Right: Color Control & Dangerous Actions */}
-        <div className="flex-1 flex justify-end h-full gap-2">
-          <div className={`flex items-center px-3 gap-3 rounded-lg ${bgModule}`}>
-            <div className="flex gap-1.5 items-center">
-              {colors.map((c) => (
-                <button
-                  key={c.value}
-                  onClick={() => setCurrentColor(c.value)}
-                  className={`w-6 h-6 rounded-sm transition-all relative ${
-                    currentColor === c.value
-                      ? 'scale-110 ring-2 ring-white z-10 shadow-lg'
-                      : 'opacity-20 hover:opacity-100 hover:rotate-3'
-                  }`}
-                  style={{ backgroundColor: c.value }}
-                  title={c.label}
-                />
-              ))}
-
-              <div className="w-px h-4 bg-white/10 mx-1" />
+        <div className="flex justify-end gap-2 overflow-hidden">
+          <div
+            className={`flex items-center px-2 2xl:px-3 gap-2 2xl:gap-3 rounded-lg ${bgModule} ${hClassBottom} shrink-0`}
+          >
+            <div className="flex gap-1 items-center">
+              {/* Palace only on high res */}
+              <div className="hidden xl:flex gap-1 items-center">
+                {colors.map((c) => (
+                  <button
+                    key={c.value}
+                    onClick={() => setCurrentColor(c.value)}
+                    className={`w-5 2xl:w-6 h-5 2xl:h-6 rounded-sm transition-all relative ${
+                      currentColor === c.value
+                        ? 'ring-2 ring-white z-10 shadow-lg scale-110'
+                        : 'opacity-20 hover:opacity-100 hover:rotate-3'
+                    }`}
+                    style={{ backgroundColor: c.value }}
+                    title={c.label}
+                  />
+                ))}
+                <div className="w-px h-4 bg-white/10 mx-1" />
+              </div>
 
               <div className="relative group">
                 <input
                   type="color"
                   value={currentColor}
                   onChange={(e) => handleCustomColorChange(e.target.value)}
-                  className="absolute inset-0 w-6 h-6 opacity-0 cursor-pointer z-10"
+                  className="absolute inset-0 w-6 h-6 opacity-0 cursor-pointer z-[1001]"
                   title="Choose custom color"
                 />
                 <div
@@ -329,7 +455,7 @@ export function Toolbar() {
                 onConfirm: clearCanvas,
               });
             }}
-            className={`w-12 ${hClassBottom} rounded-lg bg-red-600/10 text-red-600 hover:bg-red-600 hover:text-white border border-red-600/20 transition-all flex items-center justify-center active:scale-90`}
+            className={`w-12 h-12 rounded-lg bg-red-600/10 text-red-600 hover:bg-red-600 hover:text-white border border-red-600/20 transition-all flex items-center justify-center active:scale-90 shrink-0`}
             title="Clear Canvas [Shift+Esc]"
           >
             <Trash2 size={20} />

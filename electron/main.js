@@ -1,7 +1,23 @@
-const { app, BrowserWindow, ipcMain, dialog } = require('electron');
+const { app, BrowserWindow, ipcMain, dialog, protocol, net, Menu } = require('electron');
 const path = require('path');
 const fs = require('fs');
+
 const isDev = process.env.NODE_ENV === 'development';
+
+// Register custom protocol for production
+if (!isDev) {
+  protocol.registerSchemesAsPrivileged([
+    {
+      scheme: 'app',
+      privileges: {
+        standard: true,
+        secure: true,
+        supportFetchAPI: true,
+        allowServiceWorkers: true
+      }
+    }
+  ]);
+}
 
 ipcMain.on('app:quit', () => {
   app.quit();
@@ -31,7 +47,7 @@ ipcMain.handle('library:list', async () => {
         const data = JSON.parse(content);
         return {
           id: file,
-          name: file.replace('.ovb', ''),
+          name: (data.canvasData && data.canvasData.name) || data.name || file.replace('.ovb', ''),
           mapName: data.mapName,
           side: data.side,
           updatedAt: stats.mtime,
@@ -113,23 +129,25 @@ function createWindow() {
     title: 'OpenValoBook - Valorant Strategy Planner',
   });
 
+  // Hide the default menu bar
+  mainWindow.setMenu(null);
+  if (!isDev) {
+    Menu.setApplicationMenu(null);
+  }
+
   if (isDev) {
     // Development mode: load from Next.js dev server
-    // Use 127.0.0.1 to avoid IPv6 localhost resolution issues on Windows
     const devUrl = 'http://127.0.0.1:3001';
-
     const loadWithRetry = () => {
       mainWindow.loadURL(devUrl).catch(() => {
-        console.log('Failed to connect to dev server, retrying in 2s...');
         setTimeout(loadWithRetry, 2000);
       });
     };
-
     loadWithRetry();
     mainWindow.webContents.openDevTools();
   } else {
-    // Production mode: load from built files
-    mainWindow.loadFile(path.join(__dirname, '../out/index.html'));
+    // Production mode: load via custom protocol
+    mainWindow.loadURL('app://./index.html');
   }
 
   mainWindow.on('closed', () => {
@@ -138,6 +156,20 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
+  if (!isDev) {
+    protocol.handle('app', (request) => {
+      const url = request.url.substring(6); // remove 'app://'
+      let filePath = path.join(__dirname, '../out', url);
+
+      // Handle trailing slash and clean paths
+      if (url.endsWith('/') || !url.includes('.')) {
+        filePath = path.join(__dirname, '../out', url, 'index.html');
+      }
+
+      return net.fetch('file://' + filePath);
+    });
+  }
+
   createWindow();
 
   app.on('activate', () => {

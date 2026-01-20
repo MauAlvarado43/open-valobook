@@ -6,7 +6,17 @@ import React from 'react';
 
 // Mock react-konva to avoid canvas rendering issues in JSDOM
 vi.mock('react-konva', () => ({
-  Stage: ({ children, onMouseDown, onMouseMove, onMouseUp }: any) => (
+  Stage: ({
+    children,
+    onMouseDown,
+    onMouseMove,
+    onMouseUp,
+  }: {
+    children: React.ReactNode;
+    onMouseDown: React.MouseEventHandler;
+    onMouseMove: React.MouseEventHandler;
+    onMouseUp: React.MouseEventHandler;
+  }) => (
     <div
       data-testid="konva-stage"
       onMouseDown={onMouseDown}
@@ -16,13 +26,17 @@ vi.mock('react-konva', () => ({
       {children}
     </div>
   ),
-  Layer: ({ children }: any) => <div data-testid="konva-layer">{children}</div>,
+  Layer: ({ children }: { children: React.ReactNode }) => (
+    <div data-testid="konva-layer">{children}</div>
+  ),
   Image: () => <div data-testid="konva-image" />,
   Rect: () => <div data-testid="konva-rect" />,
   Line: () => <div data-testid="konva-line" />,
   Arrow: () => <div data-testid="konva-arrow" />,
   Circle: () => <div data-testid="konva-circle" />,
-  Group: ({ children }: any) => <div data-testid="konva-group">{children}</div>,
+  Group: ({ children }: { children: React.ReactNode }) => (
+    <div data-testid="konva-group">{children}</div>
+  ),
 }));
 
 // Mock use-image

@@ -7,11 +7,11 @@ const mockMapsMetadata = [
   { id: '2', name: 'Bind', splash: 'bind.jpg' },
 ];
 
-global.fetch = vi.fn(() =>
+global.fetch = vi.fn().mockImplementation(() =>
   Promise.resolve({
     json: () => Promise.resolve(mockMapsMetadata),
   })
-) as any;
+) as unknown as typeof fetch;
 
 describe('MapSelector Component', () => {
   it('should fetch and display maps', async () => {

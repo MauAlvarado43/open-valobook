@@ -240,12 +240,25 @@ OpenValoBook/
 - [ ] OneDrive integration (alternative)
 
 ### Milestone 6: Polish and Distribution
-
 - [x] UX improvements (cursor pointer, selection box, properties panel)
-- [ ] Performance optimization
-- [ ] Testing (unit, integration, e2e)
+- [x] Stabilization (Error handling, Electron protocol fixes, Window management)
+- [x] Testing infrastructure (Unit, Integration with Vitest & RTL)
+- [ ] Language localization (i18n)
 - [ ] Complete documentation
 - [ ] Tutorials and guides
+
+### Phase 7: The "Book" Experience (v2.0 Vision) 🚀
+*Beyond individual strategies, we focus on the "Book" concept.*
+- **Strategic Books**: Group multiple strategies into a single "Book" (e.g., "Ascent Execution Guide", "Team Alpha's Bind Protocol").
+- **Sequence System**: Each strategy contains chronological sequences/steps (Step 1: Setup, Step 2: Execution, Step 3: Post-plant).
+- **Book Navigation**: Fluid UI to jump between strategies within the same book.
+
+### Phase 8: Collaboration & Role Focus 🤝
+*Empowering teams to plan together without heavy infrastructure.*
+- **P2P Collaboration**: Real-time or semi-real-time sharing using Peer-to-Peer (WebRTC) to minimize server dependency.
+- **Role-Based Focus**: "What do I have to do?" - Filter a strategy to highlight a specific agent's path and utility.
+- **Strat Personalization**: Allow players to add personal notes or tweaks to a shared team strategy.
+- **Lightweight Sharing**: URL-based or small-payload state sharing.
 
 ## Data Models
 

@@ -27,7 +27,7 @@ export default function EditorPage() {
 
       <div className="flex h-[calc(100vh-53px)]">
         {/* Sidebar */}
-        <aside className="w-80 border-r border-gray-700 bg-gray-800 flex flex-col overflow-hidden">
+        <aside className="w-64 xl:w-80 border-r border-gray-700 bg-gray-800 flex flex-col overflow-hidden transition-all duration-300">
           {/* Tabs */}
           <div className="flex border-b border-gray-700">
             <button

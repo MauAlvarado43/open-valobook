@@ -164,6 +164,8 @@ export interface DrawingElement extends CanvasElement {
  * Strategy canvas data
  */
 export interface CanvasData {
+  id: string;
+  name: string;
   version: string;
   mapName: MapName;
   side: StrategySide;

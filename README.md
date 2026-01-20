@@ -75,6 +75,13 @@ This project uses **GitHub Actions** for automated releases.
 2. Push to `main`.
 3. A new Release with binaries for Windows, macOS, and Linux will be created automatically.
 
+## 🔮 Future Vision (Roadmap)
+- **The "Book" Experience**: Group strategies into coherent books with chronological steps/phases.
+- **P2P Collaboration**: Multi-user sharing without heavy server dependencies using WebRTC.
+- **Role-Based Focus**: Filter strategies to highlight individual player responsibilities.
+
+For full details, see the [Development Roadmap](docs/ROADMAP.md).
+
 ## ⚠️ Disclaimer
 
 OpenValoBook isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.

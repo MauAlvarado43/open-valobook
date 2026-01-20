@@ -50,6 +50,7 @@ export interface EditorState {
   selectedAbilityIsGlobal: boolean;
   currentColor: string;
   strategyName: string;
+  strategyId: string;
 
   // History
   history: CanvasData[];
@@ -112,8 +113,9 @@ export interface EditorState {
   saveStrategy: () => Promise<void>;
   loadStrategy: () => Promise<void>;
   exportAsImage: () => void;
-  saveToLibrary: (name: string) => Promise<void>;
+  saveToLibrary: () => Promise<void>;
   loadProject: (data: CanvasData) => void;
+  resetProject: () => void;
 }
 
 declare global {
@@ -140,6 +142,8 @@ declare global {
 }
 
 const initialCanvasData: CanvasData = {
+  id: crypto.randomUUID(),
+  name: 'My Strategy',
   version: '1.0',
   mapName: 'ascent',
   side: 'attack',
@@ -170,7 +174,8 @@ export const useEditorStore = create<EditorState>((set) => ({
   selectedAbilityColor: null,
   selectedAbilityIsGlobal: false,
   currentColor: '#FF4655',
-  strategyName: 'My Strategy',
+  strategyName: initialCanvasData.name,
+  strategyId: initialCanvasData.id,
   status: null,
   confirmModal: null,
   history: [initialCanvasData],
@@ -181,6 +186,12 @@ export const useEditorStore = create<EditorState>((set) => ({
     set((state) => ({
       selectedMap: map,
       canvasData: { ...state.canvasData, mapName: map },
+    })),
+
+  setStrategyName: (name) =>
+    set((state) => ({
+      strategyName: name,
+      canvasData: { ...state.canvasData, name },
     })),
 
   setStrategySide: (side) =>
@@ -222,8 +233,6 @@ export const useEditorStore = create<EditorState>((set) => ({
   ) => set({ selectedAbilitySubType: subType }),
 
   setCurrentColor: (color) => set({ currentColor: color }),
-
-  setStrategyName: (name) => set({ strategyName: name }),
 
   setStatus: (status, duration = 3000) => {
     set({ status });
@@ -370,12 +379,18 @@ export const useEditorStore = create<EditorState>((set) => ({
     window.dispatchEvent(new CustomEvent('canvas:export'));
   },
 
-  saveToLibrary: async (name: string) => {
-    const { canvasData } = useEditorStore.getState();
-    const data = JSON.stringify({ ...canvasData, name }, null, 2);
+  saveToLibrary: async () => {
+    const { canvasData, strategyName } = useEditorStore.getState();
+    const finalData = {
+      ...canvasData,
+      name: strategyName,
+    };
+    const dataString = JSON.stringify(finalData, null, 2);
+
     if (window.electron?.saveToLibrary) {
       try {
-        await window.electron.saveToLibrary(name, data);
+        // Use strategyId as filename to keep identity fixed
+        await window.electron.saveToLibrary(canvasData.id, dataString);
       } catch (error) {
         console.error('Failed to save to library:', error);
       }
@@ -387,9 +402,28 @@ export const useEditorStore = create<EditorState>((set) => ({
       canvasData: data,
       selectedMap: data.mapName,
       strategySide: data.side,
+      strategyName: data.name || 'Untitled Strategy',
+      strategyId: data.id,
       history: [data],
       historyIndex: 0,
       selectedElementId: null,
       selectedElementIds: [],
     })),
+
+  resetProject: () =>
+    set(() => {
+      const newId = crypto.randomUUID();
+      const newData = { ...initialCanvasData, id: newId };
+      return {
+        canvasData: newData,
+        strategyName: newData.name,
+        strategyId: newData.id,
+        selectedMap: null,
+        strategySide: 'attack',
+        history: [newData],
+        historyIndex: 0,
+        selectedElementId: null,
+        selectedElementIds: [],
+      };
+    }),
 }));
