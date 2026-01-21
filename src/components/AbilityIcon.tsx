@@ -17,7 +17,7 @@ interface AbilityIconProps {
   element: AbilityPlacement;
   isSelected: boolean;
   isDraggable: boolean;
-  onSelect: () => void;
+  onSelect: (e: Konva.KonvaEventObject<MouseEvent>) => void;
   onDragEnd: (e: Konva.KonvaEventObject<DragEvent>) => void;
   rotationOffset?: number;
 }
@@ -143,17 +143,34 @@ export const AbilityIcon = memo(function AbilityIcon({
       scaleY={element.scaleY || 1}
       draggable={isDraggable && isSelectTool}
       dragButtons={[0]}
-      onClick={onSelect}
-      onTap={onSelect}
+      onMouseDown={(e) => {
+        if (e.evt.button === 1) {
+          const stage = e.target.getStage();
+          if (stage) {
+            const container = stage.container();
+            container.style.cursor = 'grabbing';
+            if (container.parentElement) {
+              container.parentElement.style.cursor = 'grabbing';
+            }
+            stage.startDrag();
+          }
+          return;
+        }
+        onSelect(e);
+      }}
+      onTap={(e) => onSelect(e as any)}
       onDragEnd={onDragEnd}
       onDragStart={(e) => {
-        if (e.evt.button !== 0) {
+        if (e.evt.shiftKey || e.evt.button === 2) {
+          e.target.stopDrag();
+        }
+        if (e.evt.button === 1) {
           e.target.stopDrag();
         }
       }}
       onContextMenu={(e) => {
         e.evt.preventDefault();
-        onSelect();
+        onSelect(e);
       }}
       id={element.id}
       onMouseEnter={(e) => {

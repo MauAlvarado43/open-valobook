@@ -12,6 +12,7 @@ export interface IElectronAPI {
   deleteFromLibrary: (name: string) => Promise<boolean>;
   getConfig: () => Promise<Record<string, any>>;
   saveConfig: (data: Record<string, any>) => Promise<boolean>;
+  selectDirectory: () => Promise<string | null>;
 }
 
 declare global {

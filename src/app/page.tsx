@@ -24,7 +24,16 @@ import { LanguageSwitcher } from '@/components/settings/LanguageSwitcher';
 
 export default function HomePage() {
   const router = useRouter();
-  const { loadProject, resetProject, setConfirmModal, language } = useEditorStore();
+  const {
+    loadProject,
+    resetProject,
+    setConfirmModal,
+    language,
+    autoSave,
+    setAutoSave,
+    storagePath,
+    setStoragePath,
+  } = useEditorStore();
   const [showSettings, setShowSettings] = useState(false);
   const [strategies, setStrategies] = useState<import('@/types/strategy').LibraryStrategy[]>([]);
   const [loading, setLoading] = useState(true);
@@ -60,6 +69,19 @@ export default function HomePage() {
   useEffect(() => {
     fetchLibrary();
   }, []);
+
+  const handleSelectStorage = async () => {
+    if (typeof window !== 'undefined' && window.electron?.selectDirectory) {
+      const path = await window.electron.selectDirectory();
+      if (path) {
+        setStoragePath(path);
+      }
+    }
+  };
+
+  const handleResetStorage = () => {
+    setStoragePath(null);
+  };
 
   const { t } = useTranslation();
 
@@ -360,13 +382,59 @@ export default function HomePage() {
             <div className="space-y-6">
               <LanguageSwitcher />
 
+              {/* Auto-save Toggle */}
               <div className="pt-4 border-t border-white/10">
-                <div className="flex items-center justify-between p-4 bg-white/5 rounded-lg border border-white/5 opacity-50">
-                  <span className="font-bold uppercase text-xs">
-                    {t('common', 'developerMode')}
-                  </span>
-                  <div className="w-10 h-5 bg-gray-600 rounded-full relative">
-                    <div className="absolute top-1 left-1 w-3 h-3 bg-white rounded-full" />
+                <div className="flex items-center justify-between gap-4">
+                  <div>
+                    <h3 className="font-bold uppercase text-xs mb-1">{t('common', 'autoSave')}</h3>
+                    <p className="text-[10px] text-gray-500">{t('common', 'autoSaveDesc')}</p>
+                  </div>
+                  <button
+                    type="button"
+                    title={t('common', 'autoSave')}
+                    onClick={() => setAutoSave(!autoSave)}
+                    className={`shrink-0 w-12 h-6 rounded-full relative transition-colors ${
+                      autoSave ? 'bg-[#FF4655]' : 'bg-gray-700'
+                    }`}
+                  >
+                    <div
+                      className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all ${
+                        autoSave ? 'left-7' : 'left-1'
+                      }`}
+                    />
+                  </button>
+                </div>
+              </div>
+
+              {/* Storage Location */}
+              <div className="pt-4 border-t border-white/10">
+                <h3 className="font-bold uppercase text-xs mb-3">
+                  {t('common', 'storageLocation')}
+                </h3>
+                <div className="bg-white/5 border border-white/5 rounded-lg p-4">
+                  <div className="flex flex-col gap-1 mb-4">
+                    <span className="text-[9px] font-bold text-gray-500 uppercase tracking-widest">
+                      {t('common', 'currentPath')}
+                    </span>
+                    <span className="text-[11px] font-mono text-gray-300 break-all bg-black/40 p-2 rounded border border-white/5">
+                      {storagePath || t('common', 'pathNotSet')}
+                    </span>
+                  </div>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={handleSelectStorage}
+                      className="flex-1 py-2 bg-white/10 hover:bg-white/20 text-[10px] font-black uppercase italic tracking-widest transition-colors"
+                    >
+                      {t('common', 'changePath')}
+                    </button>
+                    {storagePath && (
+                      <button
+                        onClick={handleResetStorage}
+                        className="px-4 py-2 bg-red-900/20 hover:bg-red-900/40 text-red-500 text-[10px] font-black uppercase italic tracking-widest transition-colors"
+                      >
+                        {t('common', 'resetPath')}
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
@@ -374,6 +442,7 @@ export default function HomePage() {
             <button
               onClick={() => setShowSettings(false)}
               className="w-full mt-8 py-4 bg-[#FF4655] text-black font-black uppercase italic tracking-widest hover:bg-[#FF4655]/90 transition-colors"
+              title={t('common', 'applyChanges')}
             >
               {t('common', 'applyChanges')}
             </button>

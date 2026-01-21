@@ -61,6 +61,8 @@ export function StrategyCanvas({}: StrategyCanvasProps) {
     strategySide,
     updateElement,
     selectElement,
+    toggleElementSelection,
+    setTool,
   } = useEditorStore();
 
   useKeyboardShortcuts();
@@ -127,6 +129,32 @@ export function StrategyCanvas({}: StrategyCanvasProps) {
     setScale(limitedScale);
   };
 
+  const handleSelection = (id: string, e: Konva.KonvaEventObject<MouseEvent>) => {
+    // Middle button does nothing here - passes to Stage for panning
+    if (e.evt.button === 1) return;
+
+    // Right-click: just select the element (for properties panel)
+    if (e.evt.button === 2) {
+      selectElement(id);
+      return;
+    }
+
+    if (e.evt.ctrlKey) {
+      setTool('select');
+      selectElement(id);
+    } else if (e.evt.shiftKey) {
+      e.cancelBubble = true;
+      e.evt.stopPropagation();
+      e.evt.preventDefault();
+      toggleElementSelection(id);
+    } else {
+      // Logic for standard click (no modifiers)
+      if (!selectedElementIds.includes(id)) {
+        selectElement(id);
+      }
+    }
+  };
+
   const getCursorStyle = () => {
     if (isPanning) return 'cursor-grabbing';
     if (tool === 'select') return 'cursor-default';
@@ -166,20 +194,41 @@ export function StrategyCanvas({}: StrategyCanvasProps) {
         draggable={true}
         dragButtons={[1]}
         onMouseDown={(e) => {
-          if (e.evt.button === 1) setIsPanning(true);
+          if (e.evt.button === 1) {
+            setIsPanning(true);
+            const container = stageRef.current?.container();
+            if (container) {
+              container.style.cursor = 'grabbing';
+              if (container.parentElement) {
+                container.parentElement.style.cursor = 'grabbing';
+              }
+            }
+          }
+          if (e.evt.shiftKey) {
+            e.target.getStage()?.stopDrag();
+          }
           handleMouseDown(e);
         }}
         onMouseMove={handleMouseMove}
         onMouseUp={(e) => {
-          if (e.evt.button === 1) setIsPanning(false);
+          if (e.evt.button === 1) {
+            setIsPanning(false);
+            const container = stageRef.current?.container();
+            if (container) {
+              container.style.cursor = 'default';
+              if (container.parentElement) {
+                container.parentElement.style.cursor = 'default';
+              }
+            }
+          }
           handleMouseUp();
         }}
         onWheel={handleWheel}
-        onDragStart={(e) => {
-          if (e.target === stageRef.current) setIsPanning(true);
+        onDragStart={() => {
+          setIsPanning(true);
         }}
-        onDragEnd={(e) => {
-          if (e.target === stageRef.current) setIsPanning(false);
+        onDragEnd={() => {
+          setIsPanning(false);
         }}
         onContextMenu={(e) => {
           e.evt.preventDefault();
@@ -202,7 +251,7 @@ export function StrategyCanvas({}: StrategyCanvasProps) {
                     element={element as AgentPlacement}
                     isSelected={isSelected}
                     isDraggable={isDraggable}
-                    onSelect={() => selectElement(element.id)}
+                    onSelect={(e) => handleSelection(element.id, e)}
                     onDragEnd={handleElementDragEnd(element.id)}
                     rotationOffset={sideRotation}
                   />
@@ -216,7 +265,7 @@ export function StrategyCanvas({}: StrategyCanvasProps) {
                     element={element as AbilityPlacement}
                     isSelected={isSelected}
                     isDraggable={isDraggable}
-                    onSelect={() => selectElement(element.id)}
+                    onSelect={(e) => handleSelection(element.id, e)}
                     onDragEnd={handleElementDragEnd(element.id)}
                     rotationOffset={sideRotation}
                   />
@@ -230,10 +279,12 @@ export function StrategyCanvas({}: StrategyCanvasProps) {
                   isSelected={isSelected}
                   isDraggable={isDraggable}
                   showHover={tool === 'select'}
-                  onSelect={() => selectElement(element.id)}
+                  onSelect={(e) => handleSelection(element.id, e)}
                   onDragEnd={handleElementDragEnd(element.id)}
                   onTextEdit={(newText) => updateElement(element.id, { text: newText })}
                   rotationOffset={sideRotation}
+                  // We need to pass click handler too to handle "Exclusive Select on Click" if needed?
+                  // Currently relying on mousedown seems safer for now.
                 />
               );
             })}

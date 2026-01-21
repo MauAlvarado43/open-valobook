@@ -23,12 +23,25 @@ ipcMain.on('app:quit', () => {
   app.quit();
 });
 
-const STRATEGIES_PATH = path.join(app.getPath('userData'), 'strategies');
+let strategiesPath = path.join(app.getPath('userData'), 'strategies');
 const CONFIG_PATH = path.join(app.getPath('userData'), 'settings.json');
 
-// Ensure strategies directory exists
-if (!fs.existsSync(STRATEGIES_PATH)) {
-  fs.mkdirSync(STRATEGIES_PATH, { recursive: true });
+// Helper to get current strategies path from config
+function getStrategiesPath() {
+  if (fs.existsSync(CONFIG_PATH)) {
+    try {
+      const config = JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf-8'));
+      if (config['openvalobook-store']?.storagePath) {
+        return config['openvalobook-store'].storagePath;
+      }
+    } catch (e) { }
+  }
+  return strategiesPath;
+}
+
+// Ensure default directory exists
+if (!fs.existsSync(strategiesPath)) {
+  fs.mkdirSync(strategiesPath, { recursive: true });
 }
 
 // Config handlers
@@ -56,18 +69,25 @@ ipcMain.handle('config:save', async (event, data) => {
 });
 
 ipcMain.handle('library:save', async (event, filename, data) => {
-  const filePath = path.join(STRATEGIES_PATH, filename.endsWith('.ovb') ? filename : `${filename}.ovb`);
+  const currentPath = getStrategiesPath();
+  if (!fs.existsSync(currentPath)) {
+    fs.mkdirSync(currentPath, { recursive: true });
+  }
+  const filePath = path.join(currentPath, filename.endsWith('.ovb') ? filename : `${filename}.ovb`);
   fs.writeFileSync(filePath, data);
   return filePath;
 });
 
 ipcMain.handle('library:list', async () => {
-  const files = fs.readdirSync(STRATEGIES_PATH);
+  const currentPath = getStrategiesPath();
+  if (!fs.existsSync(currentPath)) return [];
+  const files = fs.readdirSync(currentPath);
   return files
     .filter(file => file.endsWith('.ovb'))
     .map(file => {
-      const stats = fs.statSync(path.join(STRATEGIES_PATH, file));
-      const content = fs.readFileSync(path.join(STRATEGIES_PATH, file), 'utf-8');
+      const fullPath = path.join(currentPath, file);
+      const stats = fs.statSync(fullPath);
+      const content = fs.readFileSync(fullPath, 'utf-8');
       try {
         const data = JSON.parse(content);
         return {
@@ -86,7 +106,7 @@ ipcMain.handle('library:list', async () => {
 });
 
 ipcMain.handle('library:delete', async (event, filename) => {
-  const filePath = path.join(STRATEGIES_PATH, filename);
+  const filePath = path.join(getStrategiesPath(), filename);
   if (fs.existsSync(filePath)) {
     fs.unlinkSync(filePath);
     return true;
@@ -131,6 +151,14 @@ ipcMain.handle('file:open-dialog', async () => {
     return { path: filePaths[0], content };
   }
   return null;
+});
+
+ipcMain.handle('file:select-directory', async () => {
+  const { filePaths } = await dialog.showOpenDialog({
+    title: 'Select Storage Folder',
+    properties: ['openDirectory', 'createDirectory']
+  });
+  return filePaths && filePaths.length > 0 ? filePaths[0] : null;
 });
 
 if (isDev) {

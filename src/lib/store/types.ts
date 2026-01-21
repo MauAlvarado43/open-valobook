@@ -51,6 +51,8 @@ export interface EditorState {
   strategyName: string;
   strategyId: string;
   language: 'en' | 'es';
+  autoSave: boolean;
+  storagePath: string | null;
 
   // History
   history: CanvasData[];
@@ -117,4 +119,6 @@ export interface EditorState {
   loadProject: (data: CanvasData) => void;
   resetProject: () => void;
   setLanguage: (lang: 'en' | 'es') => void;
+  setAutoSave: (enabled: boolean) => void;
+  setStoragePath: (path: string | null) => void;
 }

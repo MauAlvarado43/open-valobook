@@ -91,9 +91,9 @@ export function useCanvasDrawing(
     const isHandle = e.target.name() === 'edit-handle';
     const elementId = !isBackground && !isHandle ? findElementId(e.target, stage) : '';
 
-    if (tool !== 'select') stage.stopDrag();
+    if (tool !== 'select' && e.evt.button === 0) stage.stopDrag();
 
-    // Selection Box Start
+    // Selection Box Start (only on background)
     if (e.evt.shiftKey && isBackground) {
       const pos = stage.getPointerPosition();
       if (pos) {
@@ -104,17 +104,9 @@ export function useCanvasDrawing(
       return;
     }
 
-    // Direct Selections
-    if (!isBackground && elementId) {
-      if (e.evt.ctrlKey) {
-        setTool('select');
-        selectElement(elementId);
-        return;
-      }
-      if (e.evt.shiftKey) {
-        toggleElementSelection(elementId);
-        return;
-      }
+    // Shift+Click on element: let the element handle it, don't do anything here
+    if (e.evt.shiftKey && elementId) {
+      return;
     }
 
     // Select Tool Logic
@@ -359,10 +351,71 @@ export function useCanvasDrawing(
         x2: Math.max(selectionBox.x, selectionBox.x + selectionBox.width),
         y2: Math.max(selectionBox.y, selectionBox.y + selectionBox.height),
       };
+
       canvasData.elements.forEach((el) => {
-        if (el.x >= box.x1 && el.x <= box.x2 && el.y >= box.y1 && el.y <= box.y2)
-          toggleElementSelection(el.id);
+        let elX1 = el.x;
+        let elY1 = el.y;
+        let elX2 = el.x;
+        let elY2 = el.y;
+
+        // Estimate bounding box based on element type
+        if (el.type === 'agent') {
+          elX1 -= 17.5;
+          elY1 -= 17.5;
+          elX2 += 17.5;
+          elY2 += 17.5;
+        } else if (el.type === 'ability') {
+          // const ab = el as AbilityPlacement; // Unused but kept for type context if needed later
+          const size = 16; // Half of 32
+          elX1 -= size;
+          elY1 -= size;
+          elX2 += size;
+          elY2 += size;
+        } else {
+          const de = el as DrawingElement;
+          if (de.type === 'rectangle') {
+            const w = de.width || 0;
+            const h = de.height || 0;
+            elX1 -= w / 2;
+            elY1 -= h / 2;
+            elX2 += w / 2;
+            elY2 += h / 2;
+          } else if (de.type === 'circle') {
+            const r = de.radius || 0;
+            elX1 -= r;
+            elY1 -= r;
+            elX2 += r;
+            elY2 += r;
+          } else if (de.type === 'text') {
+            const w = (de.text || '').length * (de.fontSize || 16) * 0.6;
+            const h = (de.fontSize || 16) * 1.2;
+            elX1 -= w / 2;
+            elY1 -= h / 2;
+            elX2 += w / 2;
+            elY2 += h / 2;
+          } else if (de.points) {
+            // For lines, arrows, freehand: use points extent
+            for (let i = 0; i < de.points.length; i += 2) {
+              const px = el.x + de.points[i];
+              const py = el.y + de.points[i + 1];
+              if (i === 0) {
+                elX1 = elX2 = px;
+                elY1 = elY2 = py;
+              } else {
+                elX1 = Math.min(elX1, px);
+                elY1 = Math.min(elY1, py);
+                elX2 = Math.max(elX2, px);
+                elY2 = Math.max(elY2, py);
+              }
+            }
+          }
+        }
+
+        // Check intersection
+        const intersects = !(elX2 < box.x1 || elX1 > box.x2 || elY2 < box.y1 || elY1 > box.y2);
+        if (intersects) toggleElementSelection(el.id);
       });
+
       setIsSelecting(false);
       setSelectionBox(null);
       return;

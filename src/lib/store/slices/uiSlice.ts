@@ -62,4 +62,6 @@ export const createUISlice: StateCreator<EditorState, [], [], Partial<EditorStat
   setConfirmModal: (modal) => set({ confirmModal: modal }),
 
   setLanguage: (language) => set({ language }),
+  setAutoSave: (enabled) => set({ autoSave: enabled }),
+  setStoragePath: (path) => set({ storagePath: path }),
 });

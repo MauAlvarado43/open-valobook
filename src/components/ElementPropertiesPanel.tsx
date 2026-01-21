@@ -117,9 +117,18 @@ export function ElementPropertiesPanel() {
             color={commonColor}
             onColorChange={(color) => {
               selectedElementIds.forEach((id) => {
-                const el = canvasData.elements.find((e) => e.id === id) as DrawingElement;
-                // Skip icons that are spikes and images
-                if (el && !(el.type === 'icon' && el.iconType === 'spike') && el.type !== 'image') {
+                const el = canvasData.elements.find((e) => e.id === id);
+                // Skip agents, abilities, images, and spike icons
+                if (
+                  el &&
+                  el.type !== 'agent' &&
+                  el.type !== 'ability' &&
+                  el.type !== 'image' &&
+                  !(
+                    (el as DrawingElement).type === 'icon' &&
+                    (el as DrawingElement).iconType === 'spike'
+                  )
+                ) {
                   updateElement(id, { color });
                 }
               });
@@ -127,8 +136,18 @@ export function ElementPropertiesPanel() {
             strokeWidth={commonStrokeWidth}
             onStrokeWidthChange={(strokeWidth) => {
               selectedElementIds.forEach((id) => {
-                const el = canvasData.elements.find((e) => e.id === id) as DrawingElement;
-                if (el && !(el.type === 'icon' && el.iconType === 'spike') && el.type !== 'image') {
+                const el = canvasData.elements.find((e) => e.id === id);
+                // Skip agents, abilities, images, and spike icons
+                if (
+                  el &&
+                  el.type !== 'agent' &&
+                  el.type !== 'ability' &&
+                  el.type !== 'image' &&
+                  !(
+                    (el as DrawingElement).type === 'icon' &&
+                    (el as DrawingElement).iconType === 'spike'
+                  )
+                ) {
                   updateElement(id, { strokeWidth });
                 }
               });

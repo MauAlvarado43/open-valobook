@@ -18,7 +18,7 @@ interface DrawingElementRendererProps {
   isSelected: boolean;
   isDraggable?: boolean;
   showHover?: boolean;
-  onSelect: () => void;
+  onSelect: (e: Konva.KonvaEventObject<MouseEvent>) => void;
   onDragEnd: (e: Konva.KonvaEventObject<DragEvent>) => void;
   onTextEdit?: (newText: string) => void;
   rotationOffset?: number;
@@ -152,18 +152,34 @@ export const DrawingElementRenderer = memo(function DrawingElementRenderer({
       scaleY={element.scaleY || 1}
       draggable={isDraggable}
       dragButtons={[0]}
-      onClick={onSelect}
-      onTap={onSelect}
+      onMouseDown={(e) => {
+        if (e.evt.button === 1) {
+          const stage = e.target.getStage();
+          if (stage) {
+            const container = stage.container();
+            container.style.cursor = 'grabbing';
+            if (container.parentElement) {
+              container.parentElement.style.cursor = 'grabbing';
+            }
+            stage.startDrag();
+          }
+          return;
+        }
+        onSelect(e);
+      }}
+      onTap={(e) => onSelect(e as any)}
       onDragEnd={onDragEnd}
       onDragStart={(e) => {
-        if (e.evt.button !== 0) {
+        if (e.evt.shiftKey || e.evt.button === 2) {
           e.target.stopDrag();
-          // We intentionally do NOT cancel bubble here so the stage can pick up the pan event
+        }
+        if (e.evt.button === 1) {
+          e.target.stopDrag();
         }
       }}
       onContextMenu={(e) => {
         e.evt.preventDefault();
-        onSelect();
+        onSelect(e);
       }}
       onMouseEnter={(e: Konva.KonvaEventObject<MouseEvent>) => {
         setIsHovered(true);
