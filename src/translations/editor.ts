@@ -123,6 +123,11 @@ export const editor = {
     ultimate: 'Ultimate',
     passive: 'Passive',
     basic: 'Basic',
+    // Tablet/Pressure input
+    tabletDetected: 'Tablet',
+    penActive: 'Pen Active',
+    penActiveTooltip: 'Pen active - pressure sensitivity enabled',
+    tabletTooltip: 'Tablet detected',
   },
   es: {
     properties: 'Propiedades',
@@ -248,5 +253,10 @@ export const editor = {
     ultimate: 'Definitiva',
     passive: 'Pasiva',
     basic: 'Básica',
+    // Tablet/Pressure input
+    tabletDetected: 'Tableta',
+    penActive: 'Lápiz Activo',
+    penActiveTooltip: 'Lápiz activo - sensibilidad de presión habilitada',
+    tabletTooltip: 'Tableta detectada',
   },
 };

@@ -10,6 +10,10 @@ import { VisionConeRenderer } from '@/components/canvas/elements/VisionConeRende
 import { IconRenderer } from '@/components/canvas/elements/IconRenderer';
 import { ImageRenderer } from '@/components/canvas/elements/ImageRenderer';
 import { TextRenderer } from '@/components/canvas/elements/TextRenderer';
+import {
+  PressureStrokeRenderer,
+  hasPressureData,
+} from '@/components/canvas/elements/PressureStrokeRenderer';
 import { TransformHandle } from '@/components/canvas/TransformHandle';
 import { useElementDrag } from '@/hooks/canvas/useElementDrag';
 
@@ -55,6 +59,10 @@ export const DrawingElementRenderer = memo(function DrawingElementRenderer({
   const renderShape = () => {
     switch (element.type) {
       case 'freehand':
+        // Use pressure-sensitive rendering if pressure data is available
+        if (hasPressureData(element)) {
+          return <PressureStrokeRenderer element={element} commonProps={commonProps} />;
+        }
         return (
           <Line
             {...commonProps}

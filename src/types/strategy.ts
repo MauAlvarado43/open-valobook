@@ -158,6 +158,8 @@ export interface DrawingElement extends CanvasElement {
   // Icon/Image properties
   imageUrl?: string;
   iconType?: 'spike' | 'flag' | 'danger' | 'warning';
+  // Pressure-sensitive drawing (graphic tablet support)
+  pressurePoints?: number[]; // Per-point pressure values (0-1) for variable stroke width
 }
 
 /**

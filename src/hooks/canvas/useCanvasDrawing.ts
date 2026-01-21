@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import type Konva from 'konva';
 import { useEditorStore } from '@/lib/store/editorStore';
 import type { DrawingElement, AgentPlacement, AbilityPlacement } from '@/types/strategy';
@@ -8,6 +8,7 @@ import {
   getAbilityDimension,
   getMinDimension,
 } from '@/lib/constants/abilityDefinitions';
+import { usePressureInput } from '@/hooks/canvas/usePressureInput';
 
 type CanvasElement = DrawingElement | AgentPlacement | AbilityPlacement;
 
@@ -46,6 +47,12 @@ export function useCanvasDrawing(
     height: number;
   } | null>(null);
   const [isSelecting, setIsSelecting] = useState(false);
+
+  // Pressure input for graphic tablet support
+  const { handlePointerEvent, isTabletDetected, isPenActive, resetPressure } = usePressureInput();
+
+  // Track pressure points during freehand drawing
+  const pressurePointsRef = useRef<number[]>([]);
 
   // --- Helpers ---
 
@@ -250,6 +257,8 @@ export function useCanvasDrawing(
       case 'pen':
       case 'timer-path':
         newShape.points = [0, 0];
+        newShape.pressurePoints = [0.5]; // Initial pressure point
+        pressurePointsRef.current = [0.5];
         break;
       case 'circle':
         newShape.radius = 0;
@@ -278,44 +287,78 @@ export function useCanvasDrawing(
     setCurrentShape(newShape);
   };
 
-  const handleMouseMove = () => {
-    const stage = stageRef.current;
-    if (!stage) return;
-    const pos = stage.getPointerPosition();
-    if (!pos) return;
-    const adjusted = getAdjustedPosition(pos, stage);
+  const handleMouseMove = useCallback(
+    (e?: Konva.KonvaEventObject<MouseEvent>) => {
+      const stage = stageRef.current;
+      if (!stage) return;
+      const pos = stage.getPointerPosition();
+      if (!pos) return;
+      const adjusted = getAdjustedPosition(pos, stage);
 
-    if (isSelecting && selectionBox) {
-      setSelectionBox({
-        ...selectionBox,
-        width: adjusted.x - selectionBox.x,
-        height: adjusted.y - selectionBox.y,
-      });
-      return;
-    }
-
-    if (!isDrawing || !currentShape) return;
-    const dx = adjusted.x - currentShape.x;
-    const dy = adjusted.y - currentShape.y;
-
-    if (currentShape.type === 'ability') {
-      const ability = currentShape as AbilityPlacement;
-      const def = getAbilityDefinition(selectedAbilityName || selectedAbilityIcon || '');
-      const maxDist = (def ? getAbilityDimension(def, 'maxDistance') : 300) || 300;
-      const newPoints = [...(ability.guidedPoints || [0, 0]), dx, dy];
-      if (calculatePathDistance(newPoints) <= maxDist) {
-        setCurrentShape({ ...ability, guidedPoints: newPoints });
+      // Extract pressure from pointer event if available
+      let currentPressure = 0.5;
+      if (e?.evt) {
+        const pressureData = handlePointerEvent(e.evt);
+        currentPressure = pressureData.pressure || 0.5;
       }
-    } else if (currentShape.type !== 'agent') {
-      updateDrawingPreview(currentShape as DrawingElement, dx, dy);
-    }
-  };
 
-  const updateDrawingPreview = (drawingShape: DrawingElement, dx: number, dy: number) => {
+      if (isSelecting && selectionBox) {
+        setSelectionBox({
+          ...selectionBox,
+          width: adjusted.x - selectionBox.x,
+          height: adjusted.y - selectionBox.y,
+        });
+        return;
+      }
+
+      if (!isDrawing || !currentShape) return;
+      const dx = adjusted.x - currentShape.x;
+      const dy = adjusted.y - currentShape.y;
+
+      if (currentShape.type === 'ability') {
+        const ability = currentShape as AbilityPlacement;
+        const def = getAbilityDefinition(selectedAbilityName || selectedAbilityIcon || '');
+        const maxDist = (def ? getAbilityDimension(def, 'maxDistance') : 300) || 300;
+        const newPoints = [...(ability.guidedPoints || [0, 0]), dx, dy];
+        if (calculatePathDistance(newPoints) <= maxDist) {
+          setCurrentShape({ ...ability, guidedPoints: newPoints });
+        }
+      } else if (currentShape.type !== 'agent') {
+        updateDrawingPreview(currentShape as DrawingElement, dx, dy, currentPressure);
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    },
+    [
+      stageRef,
+      handlePointerEvent,
+      isSelecting,
+      selectionBox,
+      isDrawing,
+      currentShape,
+      selectedAbilityName,
+      selectedAbilityIcon,
+      strategySide,
+      scale,
+      autoScale,
+    ]
+  );
+
+  const updateDrawingPreview = (
+    drawingShape: DrawingElement,
+    dx: number,
+    dy: number,
+    pressure: number = 0.5
+  ) => {
     switch (tool) {
       case 'pen':
       case 'timer-path':
-        setCurrentShape({ ...drawingShape, points: [...(drawingShape.points || [0, 0]), dx, dy] });
+        // Add new point with pressure data
+        pressurePointsRef.current = [...pressurePointsRef.current, pressure];
+        setCurrentShape({
+          ...drawingShape,
+          points: [...(drawingShape.points || [0, 0]), dx, dy],
+          pressurePoints: pressurePointsRef.current,
+        });
         break;
       case 'line':
       case 'arrow':
@@ -426,6 +469,10 @@ export function useCanvasDrawing(
     setIsDrawing(false);
     setCurrentShape(null);
 
+    // Reset pressure state and buffer
+    resetPressure();
+    pressurePointsRef.current = [];
+
     if (
       currentShape.type === 'ability' &&
       (currentShape as AbilityPlacement).subType === 'guided-path'
@@ -444,5 +491,8 @@ export function useCanvasDrawing(
     handleMouseDown,
     handleMouseMove,
     handleMouseUp,
+    // Tablet/pressure state
+    isTabletDetected,
+    isPenActive,
   };
 }

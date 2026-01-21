@@ -68,8 +68,15 @@ export function StrategyCanvas({}: StrategyCanvasProps) {
   useKeyboardShortcuts();
   useCanvasExport(stageRef);
 
-  const { currentShape, selectionBox, handleMouseDown, handleMouseMove, handleMouseUp } =
-    useCanvasDrawing(scale, autoScale, stageRef, isPanning);
+  const {
+    currentShape,
+    selectionBox,
+    handleMouseDown,
+    handleMouseMove,
+    handleMouseUp,
+    isTabletDetected,
+    isPenActive,
+  } = useCanvasDrawing(scale, autoScale, stageRef, isPanning);
 
   // Maps that need rotation to be displayed correctly
   const mapRotations: Record<string, number> = {
@@ -209,7 +216,7 @@ export function StrategyCanvas({}: StrategyCanvasProps) {
           }
           handleMouseDown(e);
         }}
-        onMouseMove={handleMouseMove}
+        onMouseMove={(e) => handleMouseMove(e)}
         onMouseUp={(e) => {
           if (e.evt.button === 1) {
             setIsPanning(false);
@@ -361,6 +368,37 @@ export function StrategyCanvas({}: StrategyCanvasProps) {
           <div className="absolute bottom-4 right-4 px-3 py-1 rounded-md bg-gray-800 bg-opacity-90 text-white text-sm">
             {t('editor', 'zoom')}: {Math.round(scale * 100)}%
           </div>
+
+          {/* Tablet/Pen indicator */}
+          {isTabletDetected && (
+            <div
+              className={`absolute bottom-4 left-4 px-3 py-1 rounded-md text-sm flex items-center gap-2 transition-all duration-300 ${
+                isPenActive
+                  ? 'bg-purple-600 text-white shadow-lg shadow-purple-500/30'
+                  : 'bg-gray-800 bg-opacity-90 text-gray-400'
+              }`}
+              title={isPenActive ? t('editor', 'penActiveTooltip') : t('editor', 'tabletTooltip')}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className={isPenActive ? 'animate-pulse' : ''}
+              >
+                <path d="M12 19l7-7 3 3-7 7-3-3z" />
+                <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" />
+                <path d="M2 2l7.586 7.586" />
+                <circle cx="11" cy="11" r="2" />
+              </svg>
+              <span>{isPenActive ? t('editor', 'penActive') : t('editor', 'tabletDetected')}</span>
+            </div>
+          )}
 
           <ElementPropertiesPanel />
         </>
