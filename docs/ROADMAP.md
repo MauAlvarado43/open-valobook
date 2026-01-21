@@ -20,6 +20,7 @@ OpenValoBook is an open-source desktop application for creating and visualizing 
 - ✅ Visualization of all official Valorant maps (12 competitive maps)
 - ✅ Zoom and pan navigation
 - ✅ Attack/Defense side selector with map rotation
+- ✅ Internationalization (i18n) support (English/Spanish)
 - Layer system (base map, utilities, agents, annotations)
 
 **Drawing Tools**
@@ -30,6 +31,7 @@ OpenValoBook is an open-source desktop application for creating and visualizing 
 - ✅ Undo/redo system
 - ✅ Element selection and editing
 - ✅ Properties panel (color, stroke width, text editing)
+- ✅ Graphic tablet support (pressure sensitivity for variable stroke width)
 
 **Agent System**
 - Icons for all agents (28 downloaded)
@@ -54,11 +56,11 @@ OpenValoBook is an open-source desktop application for creating and visualizing 
 ### Phase 3: File Management and Export
 
 **Strategy Management**
-- Save strategies locally (.ovb format)
-- Load saved strategies
+- ✅ Save strategies locally (.ovb format)
+- ✅ Load saved strategies
 - Name and categorize (attack/defense, eco/full buy)
-- Export as PNG/JPG image
-- Export as PDF
+- ✅ Export as PNG/JPG image
+- ✅ Export as PDF
 - Tag system for organization
 
 **Import/Export**
@@ -175,9 +177,9 @@ OpenValoBook/
 - [x] Map rotation system (correct orientations)
 - [x] Attack/Defense side switching with 180° map rotation
 - [x] Zoom functionality (50%-300% with mouse wheel)
-- [x] Pan navigation (drag in select mode)
+- [x] Middle-mouse panning (available in all tools)
 - [x] Undo/Redo system (50-state history)
-- [x] Keyboard shortcuts (Ctrl+Z, Ctrl+Alt+Z, Delete)
+- [x] Advanced Keyboard shortcuts (Ctrl+Z/Y, Delete, Tab, Tool keys V/P/L/A/C/R/T)
 - [x] Element selection (Ctrl+click, Shift+click for multi-select)
 - [x] Selection box (Shift+drag for area selection)
 - [x] Element properties panel (color, stroke width, text, font size)
@@ -188,6 +190,7 @@ OpenValoBook/
 - [x] Development scripts (bin/ folder with .bat and .sh)
 - [x] Place agent icons
 - [x] Place ability icons
+- [x] Graphic tablet support (pressure sensitivity & tablet detection)
 
 ### Milestone 1.5: Advanced Ability System ✅ COMPLETED
 
@@ -204,7 +207,7 @@ OpenValoBook/
 - [x] Refined icon rendering (Spike, Danger, Warning contrast)
 - [x] Performance optimization for custom color pickers
 
-### Milestone 2: Agent & Ability System 🚧 WIP
+### Milestone 2: Agent & Ability System ✅ COMPLETED
 
 - [x] Agent icon placement on canvas
 - [x] Agent selector UI
@@ -214,19 +217,20 @@ OpenValoBook/
 
 ### Milestone 3: File Management
 
-- [ ] Save strategy to local file (.ovb format)
-- [ ] Load strategy from file
-- [ ] Recent files list
-- [ ] Auto-save functionality
-- [ ] File metadata (name, description, tags)
-- [ ] Strategy thumbnail generation
+- [x] Save strategy to local file (.ovb format)
+- [x] Load strategy from file
+- [x] Recent strategies library (Homepage)
+- [x] Auto-save functionality
+- [x] Custom storage path settings
+- [ ] File metadata (description, tags)
+- [ ] Strategy thumbnail generation (Canvas preview)
 
 ### Milestone 4: Export & Import
 
-- [ ] Export as PNG/JPG image
-- [ ] Export as PDF
+- [x] Export as PNG/JPG image
+- [x] Export as PDF
 - [ ] Copy to clipboard
-- [ ] Import from file (drag & drop)
+- [x] Import from file (drag & drop handler)
 - [ ] Batch export
 - [ ] Export settings (resolution, quality)
 
@@ -243,7 +247,7 @@ OpenValoBook/
 - [x] UX improvements (cursor pointer, selection box, properties panel)
 - [x] Stabilization (Error handling, Electron protocol fixes, Window management)
 - [x] Testing infrastructure (Unit, Integration with Vitest & RTL)
-- [ ] Language localization (i18n)
+- [x] Language localization (i18n) support for English and Spanish
 - [ ] Complete documentation
 - [ ] **Comprehensive Interactive Tutorial**: A high-quality, fully interactive walkthrough embedded in the app. It will guide distinct user flows (Drawing, Agent Placement, Site Execution planning) to ensure users can utilize 100% of the tool's power.
 
