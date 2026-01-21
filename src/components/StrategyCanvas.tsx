@@ -231,11 +231,23 @@ export function StrategyCanvas({}: StrategyCanvasProps) {
           handleMouseUp();
         }}
         onWheel={handleWheel}
-        onDragStart={() => {
-          setIsPanning(true);
+        onDragStart={(e) => {
+          // Only set isPanning when the Stage itself is being dragged, not elements
+          if (e.target === stageRef.current) {
+            setIsPanning(true);
+          }
         }}
-        onDragEnd={() => {
-          setIsPanning(false);
+        onDragEnd={(e) => {
+          if (e.target === stageRef.current) {
+            setIsPanning(false);
+            const container = stageRef.current?.container();
+            if (container) {
+              container.style.cursor = 'default';
+              if (container.parentElement) {
+                container.parentElement.style.cursor = 'default';
+              }
+            }
+          }
         }}
         onContextMenu={(e) => {
           e.evt.preventDefault();
