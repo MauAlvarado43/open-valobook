@@ -1,5 +1,43 @@
 name-template: 'v$RESOLVED_VERSION'
 tag-template: 'v$RESOLVED_VERSION'
+version-resolver:
+  major:
+    labels:
+      - 'major'
+      - 'breaking'
+  minor:
+    labels:
+      - 'minor'
+      - 'feature'
+      - 'enhancement'
+  patch:
+    labels:
+      - 'patch'
+      - 'fix'
+      - 'bug'
+  default: patch
+
+autolabeler:
+  - label: 'feature'
+    branch:
+      - '/feature/.+/'
+    title:
+      - '/feature:.+/'
+      - '/feat:.+/'
+  - label: 'fix'
+    branch:
+      - '/fix/.+/'
+    title:
+      - '/fix:.+/'
+  - label: 'chore'
+    branch:
+      - '/chore/.+/'
+    title:
+      - '/chore:.+/'
+  - label: 'refactor'
+    title:
+      - '/refactor:.+/'
+
 categories:
   - title: '🚀 Features'
     labels:
@@ -9,7 +47,7 @@ categories:
     labels:
       - 'fix'
       - 'bug'
-  - title: '🧰 Maintenance'
+  - title: '🧰 Maintenance & Internal'
     labels:
       - 'chore'
       - 'refactor'
